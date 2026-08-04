@@ -268,75 +268,75 @@
   </footer>
 
   <script>
-    // Provider choices: 'haunting_nights', 'ram_inn', or 'pabsmophobia'
+    // Dates formatted in UK DD-MM-YYYY format
     const events = [
       { 
-        date: '2026-08-09', 
+        date: '09-08-2026', 
         title: 'The Horseshoe, Chipping Sodbury', 
-        fullBookingName: 'The Horseshoe, Chipping Sodbury - Sun 09 Aug 2026 (8:00 PM)',
+        fullBookingName: 'The Horseshoe, Chipping Sodbury - 09-08-2026 (20:00)',
         desc: 'Test investigation session & ghost hunting walk-through.', 
         provider: 'pabsmophobia' 
       },
       { 
-        date: '2026-08-15', 
+        date: '15-08-2026', 
         title: 'The Skirrid Inn', 
-        fullBookingName: 'The Skirrid Inn - Sat 15 Aug 2026',
+        fullBookingName: 'The Skirrid Inn - 15-08-2026',
         desc: 'Public ghost hunting event hosted with Haunting Nights.', 
         provider: 'haunting_nights' 
       },
       { 
-        date: '2026-09-05', 
+        date: '05-09-2026', 
         title: 'Willsbridge Mill', 
-        fullBookingName: 'Willsbridge Mill - Sat 05 Sep 2026',
+        fullBookingName: 'Willsbridge Mill - 05-09-2026',
         desc: 'Environmental data & equipment log investigation.', 
         provider: 'haunting_nights' 
       },
       { 
-        date: '2026-09-05', 
+        date: '05-09-2026', 
         title: 'Woodchester Mansion', 
-        fullBookingName: 'Woodchester Mansion - Sat 05 Sep 2026',
+        fullBookingName: 'Woodchester Mansion - 05-09-2026',
         desc: 'Overnight investigation at the uncompleted Gothic mansion.', 
         provider: 'haunting_nights' 
       },
       { 
-        date: '2026-09-12', 
+        date: '12-09-2026', 
         title: 'Warmley Clock Tower', 
-        fullBookingName: 'Warmley Clock Tower - Sat 12 Sep 2026',
+        fullBookingName: 'Warmley Clock Tower - 12-09-2026',
         desc: 'Paranormal investigation & historic site analysis.', 
         provider: 'haunting_nights' 
       },
       { 
-        date: '2026-10-10', 
+        date: '10-10-2026', 
         title: 'The Ancient Ram Inn', 
-        fullBookingName: 'The Ancient Ram Inn - Sat 10 Oct 2026',
+        fullBookingName: 'The Ancient Ram Inn - 10-10-2026',
         desc: 'Historic venue investigation at Wotton-under-Edge.', 
         provider: 'ram_inn' 
       },
       { 
-        date: '2026-10-24', 
+        date: '24-10-2026', 
         title: 'The Old Prison, Northleach', 
-        fullBookingName: 'The Old Prison, Northleach - Sat 24 Oct 2026',
+        fullBookingName: 'The Old Prison, Northleach - 24-10-2026',
         desc: 'Halloween special at the historic House of Correction.', 
         provider: 'haunting_nights' 
       },
       { 
-        date: '2026-10-31', 
+        date: '31-10-2026', 
         title: 'Willsbridge Mill - Halloween Special', 
-        fullBookingName: 'Willsbridge Mill - Halloween Special - Sat 31 Oct 2026',
+        fullBookingName: 'Willsbridge Mill - Halloween Special - 31-10-2026',
         desc: 'Exclusive Pabsmophobia private investigation event.', 
         provider: 'pabsmophobia' 
       },
       { 
-        date: '2026-11-13', 
+        date: '13-11-2026', 
         title: 'Willsbridge Mill', 
-        fullBookingName: 'Willsbridge Mill - Fri 13 Nov 2026',
+        fullBookingName: 'Willsbridge Mill - 13-11-2026',
         desc: 'Friday the 13th investigation session.', 
         provider: 'haunting_nights' 
       },
       { 
-        date: '2026-12-11', 
+        date: '11-12-2026', 
         title: 'The Skirrid Inn', 
-        fullBookingName: 'The Skirrid Inn - Fri 11 Dec 2026',
+        fullBookingName: 'The Skirrid Inn - 11-12-2026',
         desc: 'Winter investigation session.', 
         provider: 'haunting_nights' 
       }
@@ -365,11 +365,13 @@
       for (let day = 1; day <= daysInMonth; day++) {
         const dayCell = document.createElement('div');
         dayCell.className = 'day';
-        const formattedDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        
+        // Matches DD-MM-YYYY format for calendar lookup
+        const formattedUkDate = `${String(day).padStart(2, '0')}-${String(month + 1).padStart(2, '0')}-${year}`;
         
         dayCell.innerText = day;
 
-        const hasEvent = events.some(e => e.date === formattedDate);
+        const hasEvent = events.some(e => e.date === formattedUkDate);
         if (hasEvent) {
           dayCell.classList.add('has-event');
           const dot = document.createElement('div');
@@ -388,7 +390,7 @@
       listContainer.innerHTML = '';
 
       const filteredEvents = events.filter(e => {
-        const [eYear, eMonth] = e.date.split('-');
+        const [eDay, eMonth, eYear] = e.date.split('-');
         return parseInt(eYear) === year && parseInt(eMonth) === (month + 1);
       });
 
@@ -432,7 +434,7 @@
       renderCalendar();
     }
 
-    // Opens Google Form in a new tab with the event name AND date pre-filled
+    // Opens Google Form with pre-filled UK formatted event name & date
     function openBookingForm(eventInfo) {
       const baseUrl = "https://docs.google.com/forms/d/e/1FAIpQLScBWQ4Vw5OzlGSav07EIQsSTlUNy6_OayTkYy1ltcbyyu5OdA/viewform?usp=pp_url&entry.1202371367=";
       const fullUrl = baseUrl + encodeURIComponent(eventInfo);
