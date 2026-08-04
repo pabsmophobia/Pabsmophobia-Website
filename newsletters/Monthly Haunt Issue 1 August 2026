@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Pabsmophobia Monthly Haunt - Issue #1</title>
+  
+  <!-- Import Google Fonts for the Design System -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Eczar:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================
+       Pabsmophobia Dark Theme Design System
+       ========================================== */
+
+    :root {
+      --bg-color: #0a0a0c;
+      --card-bg: #141419;
+      --text-main: #d1d5db;
+      --text-muted: #9ca3af;
+      --accent: #8b5cf6;
+      --accent-hover: #a78bfa;
+      --border: #27272a;
+      --font-title: 'Creepster', cursive;
+      --font-body: 'Eczar', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    /* Header & Navigation */
+    header {
+      background-color: #050507;
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      letter-spacing: 3px;
+      color: #e0e7ff;
+      text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--accent);
+    }
+
+    /* Layout Container */
+    .container {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-title);
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: #f3f4f6;
+      line-height: 1.2;
+    }
+    
+    h2, h3 {
+      color: #f3f4f6;
+      margin-bottom: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    h2:first-child, h3:first-child {
+      margin-top: 0;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Reusable Cards */
+    .card, .event-card, .post-card, .evidence-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .card:hover, .event-card:hover, .post-card:hover, .evidence-card:hover {
+      border-color: var(--accent);
+    }
+
+    /* Badges & Tags */
+    .badge, .meta-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .badge-hn { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .badge-ram { background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.4); }
+    .badge-pabs { background: rgba(139, 92, 246, 0.2); color: var(--accent-hover); border: 1px solid rgba(139, 92, 246, 0.4); }
+
+    .tag-audio { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .tag-video { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .tag-environmental { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); }
+
+    /* Buttons */
+    .btn, .btn-read {
+      display: inline-block;
+      background-color: var(--accent);
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+
+    .btn:hover, .btn-read:hover {
+      background-color: var(--accent-hover);
+    }
+    
+    /* Utility lists and links */
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    a.text-link {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    a.text-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header>
+    <div class="logo">PABSMOPHOBIA</div>
+    <nav>
+      <a href="#" class="active">The Haunt</a>
+      <a href="#">Evidence</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    
+    <h1>The Monthly Haunt</h1>
+    <p class="subtitle">UK Ghost News, Lock-In Dates &amp; Field Notes | Issue #1 (August 2026)</p>
+
+    <!-- Intro Card -->
+    <div class="card">
+      <p>Welcome to the very first edition of <strong>The Pabsmophobia Monthly Haunt</strong>!</p>
+      <p>Brought to you by Pabsmophobia, our mission is simple: to bridge the gap between complete skepticism and blind belief. Every month, we bring you grounded, objective updates on UK ghost hunting, upcoming field lock-ins, local venue spotlights, and regional paranormal culture.</p>
+      <p>Whether you're actively monitoring EMF spikes in the field or just love a grounded look into local history and hauntings, we’re glad to have you with us.</p>
+    </div>
+
+    <!-- Section 1: Haunting Nights -->
+    <div class="event-card">
+      <span class="badge badge-hn">Haunting Nights</span>
+      <h2>1. Lock-Ins &amp; App Download</h2>
+      <p>As a host for Haunting Nights, I’m heading out to guide group lock-ins at some of the most active and historically intense locations across Gloucestershire, South Wales, Bristol, and beyond. If you want a structured investigation experience with technical gear like REM pods, IR night vision cameras, and audio recorders, join us at one of these upcoming confirmed dates.</p>
+      
+      <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 6px; margin: 1rem 0; border: 1px solid var(--border);">
+        <strong>📲 Why Not Download the Haunting Nights App?</strong><br>
+        If you're booking regular ghost hunts, why not download the official Haunting Nights App? It’s the easiest way to browse upcoming UK events, secure your tickets instantly, track your bookings, and get direct notifications on last-minute availability and new venue drops right from your phone.
+      </div>
+
+      <h3>📍 Warmley Clock Tower (Bristol / South Gloucestershire)</h3>
+      <p style="font-size: 0.9rem; color: var(--text-muted);">Investigating the 18th-century pin factory, clock tower corridors, and upper floors.</p>
+      <ul>
+        <li>Saturday 12th September 2026 (21:00 – 03:00)</li>
+      </ul>
+
+      <h3>📍 The Old Prison (Northleach, Cotswolds)</h3>
+      <p style="font-size: 0.9rem; color: var(--text-muted);">Investigating the 1792 House of Correction, old police station, courtrooms, cellars, and cell blocks.</p>
+      <ul>
+        <li>Saturday 24th October 2026 (20:00 – 02:00) — <em>Halloween Special</em></li>
+      </ul>
+
+      <h3>📍 Willsbridge Mill (Bristol / South Gloucestershire)</h3>
+      <ul>
+        <li>Saturday 5th September 2026 (21:00 – 02:00)</li>
+        <li>Saturday 31st October 2026 (21:00 – 02:00) — <em>Halloween Special</em></li>
+        <li>Friday 13th November 2026 (21:00 - 02:00)</li>
+      </ul>
+
+      <h3>📍 The Skirrid Inn (Abergavenny, Wales)</h3>
+      <ul>
+        <li>Saturday 15th August 2026 (21:30 – 03:00)</li>
+        <li>Saturday 24th October 2026 (20:00 - 03:00) with supper / (21:30 - 03:00) without supper</li>
+        <li>Friday 11th December 2026 (21:30 – 03:00)</li>
+      </ul>
+
+      <h3>📍 Woodchester Mansion (Stroud, Gloucestershire)</h3>
+      <ul>
+        <li>Saturday 5th September 2026 (21:00 – 03:00)</li>
+      </ul>
+      
+      <p style="font-size: 0.9rem; margin-top: 1.5rem;">
+        <strong>Booking Note:</strong> All official events can be booked directly via the Haunting Nights App or online at Haunting Nights. Grab your tickets early as spaces fill quickly!
+      </p>
+    </div>
+
+    <!-- Section 2: Ancient Ram Inn -->
+    <div class="event-card">
+      <span class="badge badge-ram">Venue Spotlight</span>
+      <h2>2. The Ancient Ram Inn</h2>
+      <p>Our most famous local venue is <strong>The Ancient Ram Inn</strong> in Wotton-under-Edge.</p>
+      <p>Dating back to 1145 and built on an ancient ley line intersection, it remains one of the UK's premier hotbeds for paranormal research. The venue manages and hosts its own lineup of in-house events, offering intimate vigils and guided historical tours led by their internal team.</p>
+      
+      <h3>📜 Upcoming Events at The Ram</h3>
+      <p>They have a number of events taking place, which you can book directly through the venue at <a href="https://ancientraminn.co.uk/" class="text-link" target="_blank">ancientraminn.co.uk</a>:</p>
+      
+      <strong>Overnight Ghost Hunts (21:00 – 03:00):</strong>
+      <ul>
+        <li>Saturday 1st August 2026</li>
+        <li>Friday 7th August 2026</li>
+        <li>Saturday 8th August 2026</li>
+        <li>Friday 14th August 2026</li>
+        <li>Saturday 15th August 2026</li>
+        <li>Friday 21st August 2026</li>
+        <li>Saturday 22nd August 2026</li>
+      </ul>
+
+      <ul>
+        <li><strong>Public Open Day (11:00 – 16:00):</strong> Saturday 15th August 2026</li>
+        <li><strong>Afternoon Ghost Hunt (13:00 – 18:00):</strong> Sunday 16th August 2026</li>
+        <li><strong>Junior Ghost Hunts (14:00 – 18:00):</strong> Wednesday 5th August &amp; Wednesday 19th August 2026</li>
+      </ul>
+    </div>
+
+    <!-- Section 3: The Horseshoe -->
+    <div class="post-card">
+      <span class="badge badge-pabs">Watch This Space</span>
+      <h2>3. The Horseshoe, Chipping Sodbury</h2>
+      <p>Housed inside a historic 15th-century building on Chipping Sodbury High Street, <strong>The Horseshoe</strong> is steeped in rich local history and tradition.</p>
+      <p>We are currently exploring potential investigation sessions and ghost-hunting events here around October 2026. Keep an eye on our social channels and upcoming newsletter issues for official announcements and ticket details as plans are finalized!</p>
+    </div>
+
+    <!-- Section 4: Media Radar -->
+    <div class="post-card">
+      <h2>🎭 4. UK Media Radar &amp; Team News</h2>
+      <ul>
+        <li><strong>Paranormal Activity Stage Play (Spoiler Alert!):</strong> Following three sold-out West End extensions, the live stage adaptation of <em>Paranormal Activity</em> opens its nationwide UK tour this September. <strong>Spoiler alert:</strong> The Pabsmophobia team will be heading across the border to attend the Cardiff showing on Tuesday 19th January 2027! If you’re grabbing tickets for Cardiff, let us know so we can say hello in the foyer.</li>
+        <li style="margin-top: 10px;"><strong>Channel 5 Acquires Ghostwatch Documentary:</strong> Channel 5 has acquired a feature documentary examining the legacy and cultural fallout of the BBC’s infamous 1992 Halloween event, <em>Ghostwatch</em>. Expect archived footage and fresh interviews exploring how atmospheric media influences public perception when it airs later this autumn.</li>
+      </ul>
+    </div>
+
+    <!-- Outro -->
+    <div class="card">
+      <h2>💬 Over to You</h2>
+      <p>Which of these lock-in dates are you adding to your calendar this season? Have you downloaded the Haunting Nights app yet? Drop a comment on our blog post or get in touch with Pabsmophobia directly—we'd love to hear from you!</p>
+      <p style="margin-top: 1rem; font-weight: bold; color: var(--accent);">— Paul (Pablo) &amp; the Pabsmophobia Team</p>
+      <a href="#" class="btn">Leave a Comment</a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Pabsmophobia | Grounded Paranormal Research</p>
+    <p>Bristol &amp; South Gloucestershire, UK</p>
+  </footer>
+
+</body>
+</html>
