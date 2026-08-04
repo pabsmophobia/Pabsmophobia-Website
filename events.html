@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investigation Schedule | Pabsmophobia</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Eczar:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #0a0a0c;
+      --card-bg: #141419;
+      --text-main: #d1d5db;
+      --text-muted: #9ca3af;
+      --accent: #8b5cf6;
+      --accent-hover: #a78bfa;
+      --border: #27272a;
+      --font-title: 'Creepster', cursive;
+      --font-body: 'Eczar', serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    header {
+      background-color: #050507;
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      letter-spacing: 3px;
+      color: #e0e7ff;
+      text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a.active { color: var(--accent); }
+
+    .container {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-title);
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: #f3f4f6;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Calendar Grid Layout */
+    .calendar-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .calendar-header h2 {
+      font-family: var(--font-title);
+      font-size: 2rem;
+      color: #fff;
+    }
+
+    .cal-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-body);
+    }
+
+    .cal-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .days-header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .day {
+      background: #0e0e12;
+      border: 1px solid var(--border);
+      aspect-ratio: 1.2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .day.empty { background: transparent; border: none; }
+
+    .day.has-event {
+      border-color: var(--accent);
+      background: rgba(139, 92, 246, 0.15);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
+    }
+
+    .day.has-event:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .event-indicator {
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent-hover);
+      border-radius: 50%;
+      margin-top: 4px;
+    }
+
+    /* Event Details Section */
+    .event-list-title {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .event-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .event-date {
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn {
+      background-color: var(--accent);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Pabsmophobia</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="events.html" class="active">Events</a>
+      <a href="blog.html">Blog & Haunt</a>
+      <a href="evidence.html">Evidence</a>
+      <a href="team.html">About</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Investigation Calendar</h1>
+    <p class="subtitle">Select highlighted dates to view event details and location information.</p>
+
+    <div class="calendar-card">
+      <div class="calendar-header">
+        <button class="cal-btn" onclick="changeMonth(-1)">&larr; Prev</button>
+        <h2 id="monthLabel">August 2026</h2>
+        <button class="cal-btn" onclick="changeMonth(1)">Next &rarr;</button>
+      </div>
+
+      <div class="days-header">
+        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+      </div>
+
+      <div class="days-grid" id="calendarDays"></div>
+    </div>
+
+    <h2 class="event-list-title">Confirmed Schedule</h2>
+    <div id="eventList"></div>
+  </main>
+
+  <footer>
+    <p>&copy; Pabsmophobia. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const events = [
+      { date: '2026-08-15', title: 'The Skirrid Inn', desc: 'Public ghost hunting event at Wales historic inn.' },
+      { date: '2026-09-05', title: 'Willsbridge Mill', desc: 'Environmental data & equipment log investigation.' },
+      { date: '2026-09-05', title: 'Woodchester Mansion', desc: 'Overnight investigation at the uncompleted Gothic mansion.' },
+      { date: '2026-09-12', title: 'Warmley Clock Tower', desc: 'Paranormal investigation & historic site analysis.' },
+      { date: '2026-10-24', title: 'The Old Prison, Northleach', desc: 'Halloween special at the historic House of Correction.' },
+      { date: '2026-10-31', title: 'Willsbridge Mill', desc: 'Exclusive Halloween night public investigation.' },
+      { date: '2026-11-13', title: 'Willsbridge Mill', desc: 'Friday the 13th investigation session.' },
+      { date: '2026-12-11', title: 'The Skirrid Inn', desc: 'Winter investigation session.' }
+    ];
+
+    let currentDate = new Date(2026, 7, 1); // August 2026
+
+    function renderCalendar() {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      document.getElementById('monthLabel').innerText = `${monthNames[month]} ${year}`;
+
+      const grid = document.getElementById('calendarDays');
+      grid.innerHTML = '';
+
+      for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'day empty';
+        grid.appendChild(emptyCell);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayCell = document.createElement('div');
+        dayCell.className = 'day';
+        const formattedDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        
+        dayCell.innerText = day;
+
+        const hasEvent = events.some(e => e.date === formattedDate);
+        if (hasEvent) {
+          dayCell.classList.add('has-event');
+          const dot = document.createElement('div');
+          dot.className = 'event-indicator';
+          dayCell.appendChild(dot);
+        }
+
+        grid.appendChild(dayCell);
+      }
+
+      renderEventList(month, year);
+    }
+
+    function renderEventList(month, year) {
+      const listContainer = document.getElementById('eventList');
+      listContainer.innerHTML = '';
+
+      const filteredEvents = events.filter(e => {
+        const [eYear, eMonth] = e.date.split('-');
+        return parseInt(eYear) === year && parseInt(eMonth) === (month + 1);
+      });
+
+      if (filteredEvents.length === 0) {
+        listContainer.innerHTML = '<p style="color: var(--text-muted);">No scheduled public events for this month.</p>';
+        return;
+      }
+
+      filteredEvents.forEach(e => {
+        const card = document.createElement('div');
+        card.className = 'event-card';
+        card.innerHTML = `
+          <div>
+            <div class="event-date">${e.date}</div>
+            <h3 style="color: #fff; font-family: var(--font-title); font-size: 1.6rem;">${e.title}</h3>
+            <p style="color: var(--text-muted);">${e.desc}</p>
+          </div>
+          <a href="#" class="btn">Booking Info</a>
+        `;
+        listContainer.appendChild(card);
+      });
+    }
+
+    function changeMonth(direction) {
+      currentDate.setMonth(currentDate.getMonth() + direction);
+      renderCalendar();
+    }
+
+    renderCalendar();
+  </script>
+
+</body>
+</html>
