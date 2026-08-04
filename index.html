@@ -2,10 +2,214 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pabsmophobia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pabsmophobia | Paranormal Research & Investigations</title>
+  
+  <!-- Spooky & Gothic Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Eczar:wght@400;600&family=Nosifer&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #0a0a0c;
+      --card-bg: #141419;
+      --text-main: #d1d5db;
+      --text-muted: #9ca3af;
+      --accent: #8b5cf6;
+      --accent-hover: #a78bfa;
+      --border: #27272a;
+      
+      /* Eerie Font Stack */
+      --font-title: 'Creepster', cursive;
+      --font-body: 'Eczar', serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.7;
+      letter-spacing: 0.5px;
+    }
+
+    header {
+      background-color: #050507;
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      letter-spacing: 3px;
+      color: #e0e7ff;
+      text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+    }
+
+    nav a {
+      font-family: var(--font-body);
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 1.1rem;
+      transition: color 0.2s, text-shadow 0.2s;
+    }
+
+    nav a:hover, nav a.active { 
+      color: var(--accent); 
+      text-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+    }
+
+    .hero {
+      max-width: 1000px;
+      margin: 4rem auto 2rem;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+
+    .hero h1 { 
+      font-family: var(--font-title);
+      font-size: 3.5rem; 
+      margin-bottom: 1rem; 
+      color: #f3f4f6;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 8px #000;
+    }
+
+    .hero p { 
+      font-size: 1.3rem; 
+      color: var(--text-muted); 
+      max-width: 750px; 
+      margin: 0 auto 2.5rem; 
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 1.1rem;
+      background-color: var(--accent);
+      color: #fff;
+      padding: 0.85rem 1.8rem;
+      border-radius: 4px;
+      text-decoration: none;
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .btn:hover { 
+      background-color: var(--accent-hover);
+      box-shadow: 0 0 22px rgba(167, 139, 250, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .grid-container {
+      max-width: 1000px;
+      margin: 3.5rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.8rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.2);
+    }
+
+    .card h3 { 
+      font-family: var(--font-title);
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem; 
+      color: #f3f4f6; 
+    }
+
+    .card p { 
+      color: var(--text-muted); 
+      font-size: 1.05rem; 
+      margin-bottom: 1.2rem; 
+    }
+
+    .card a {
+      font-family: var(--font-body);
+      font-weight: 600;
+      color: var(--accent); 
+      text-decoration: none;
+    }
+
+    .card a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 4rem;
+    }
+  </style>
 </head>
-<body style="font-family: sans-serif; text-align: center; padding-top: 50px; background-color: #111; color: #fff;">
-  <h1>Pabsmophobia</h1>
-  <p>Site overhaul in progress. Check back soon!</p>
+<body>
+
+  <header>
+    <div class="logo">Pabsmophobia</div>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="events.html">Events</a>
+      <a href="blog.html">Blog & Haunt</a>
+      <a href="evidence.html">Evidence</a>
+      <a href="team.html">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Objective Paranormal Research & Investigations</h1>
+      <p>Combining scientific equipment, historical context, and site analysis to investigate the unexplained.</p>
+      <a href="events.html" class="btn">View Upcoming Events</a>
+    </section>
+
+    <section class="grid-container">
+      <div class="card">
+        <h3>Upcoming Investigations</h3>
+        <p>Book tickets and view full details for our upcoming public and private investigation nights.</p>
+        <a href="events.html">Explore schedule &rarr;</a>
+      </div>
+
+      <div class="card">
+        <h3>The Monthly Haunt</h3>
+        <p>Read our latest digital publication featuring investigation summaries, equipment logs, and site breakdowns.</p>
+        <a href="blog.html">Read articles &rarr;</a>
+      </div>
+
+      <div class="card">
+        <h3>Evidence & Debunking</h3>
+        <p>Review audio logs, environmental EMF data, and rational analysis from past investigations.</p>
+        <a href="evidence.html">Browse evidence &rarr;</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Pabsmophobia. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
