@@ -77,7 +77,7 @@
       margin-bottom: 2rem;
     }
 
-    /* Calendar Grid Layout */
+    /* Calendar Grid */
     .calendar-card {
       background-color: var(--card-bg);
       border: 1px solid var(--border);
@@ -146,13 +146,7 @@
       background: rgba(139, 92, 246, 0.15);
       color: #fff;
       font-weight: bold;
-      cursor: pointer;
       box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
-    }
-
-    .day.has-event:hover {
-      background: var(--accent);
-      color: #fff;
     }
 
     .event-indicator {
@@ -163,7 +157,7 @@
       margin-top: 4px;
     }
 
-    /* Event Details Section */
+    /* Event Cards */
     .event-list-title {
       font-family: var(--font-title);
       font-size: 2.2rem;
@@ -182,7 +176,10 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 1rem;
+      transition: border-color 0.2s;
     }
+
+    .event-card:hover { border-color: var(--accent); }
 
     .event-date {
       color: var(--accent);
@@ -191,13 +188,95 @@
       letter-spacing: 1px;
     }
 
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+      font-weight: bold;
+    }
+
+    .badge-hn { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .badge-ram { background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.4); }
+    .badge-pabs { background: rgba(139, 92, 246, 0.2); color: var(--accent-hover); border: 1px solid rgba(139, 92, 246, 0.4); }
+
     .btn {
       background-color: var(--accent);
       color: #fff;
-      padding: 0.5rem 1rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 4px;
       text-decoration: none;
       font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background-color: var(--accent-hover); }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background-color: var(--card-bg);
+      border: 1px solid var(--accent);
+      padding: 2rem;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+    }
+
+    .modal h3 {
+      font-family: var(--font-title);
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group { margin-bottom: 1.2rem; }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.6rem;
+      background: #0e0e12;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: #fff;
+      font-family: var(--font-body);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn-close {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
     }
 
     footer {
@@ -224,7 +303,7 @@
 
   <main class="container">
     <h1>Investigation Calendar</h1>
-    <p class="subtitle">Select highlighted dates to view event details and location information.</p>
+    <p class="subtitle">Select highlighted dates to view event details and booking options.</p>
 
     <div class="calendar-card">
       <div class="calendar-header">
@@ -244,20 +323,54 @@
     <div id="eventList"></div>
   </main>
 
+  <!-- Booking Modal for Pabsmophobia Exclusive Events -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal">
+      <h3 id="modalEventTitle">Book Event</h3>
+      <p style="color: var(--text-muted); margin-bottom: 1.2rem;">Send a direct inquiry to reserve your place for this Pabsmophobia exclusive investigation.</p>
+      
+      <form id="inquiryForm" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" required placeholder="John Doe">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" required placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label>Number of Guests</label>
+          <input type="number" min="1" value="1" required>
+        </div>
+        <div class="form-group">
+          <label>Message / Notes</label>
+          <textarea rows="3" placeholder="Any specific requirements..."></textarea>
+        </div>
+        
+        <div class="modal-actions">
+          <button type="button" class="btn btn-close" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn">Send Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; Pabsmophobia. All rights reserved.</p>
   </footer>
 
   <script>
+    // Provider values: 'haunting_nights', 'ram_inn', or 'pabsmophobia'
     const events = [
-      { date: '2026-08-15', title: 'The Skirrid Inn', desc: 'Public ghost hunting event at Wales historic inn.' },
-      { date: '2026-09-05', title: 'Willsbridge Mill', desc: 'Environmental data & equipment log investigation.' },
-      { date: '2026-09-05', title: 'Woodchester Mansion', desc: 'Overnight investigation at the uncompleted Gothic mansion.' },
-      { date: '2026-09-12', title: 'Warmley Clock Tower', desc: 'Paranormal investigation & historic site analysis.' },
-      { date: '2026-10-24', title: 'The Old Prison, Northleach', desc: 'Halloween special at the historic House of Correction.' },
-      { date: '2026-10-31', title: 'Willsbridge Mill', desc: 'Exclusive Halloween night public investigation.' },
-      { date: '2026-11-13', title: 'Willsbridge Mill', desc: 'Friday the 13th investigation session.' },
-      { date: '2026-12-11', title: 'The Skirrid Inn', desc: 'Winter investigation session.' }
+      { date: '2026-08-15', title: 'The Skirrid Inn', desc: 'Public ghost hunting event hosted with Haunting Nights.', provider: 'haunting_nights' },
+      { date: '2026-09-05', title: 'Willsbridge Mill', desc: 'Environmental data & equipment log investigation.', provider: 'haunting_nights' },
+      { date: '2026-09-05', title: 'Woodchester Mansion', desc: 'Overnight investigation at the uncompleted Gothic mansion.', provider: 'haunting_nights' },
+      { date: '2026-09-12', title: 'Warmley Clock Tower', desc: 'Paranormal investigation & historic site analysis.', provider: 'haunting_nights' },
+      { date: '2026-10-10', title: 'The Ancient Ram Inn', desc: 'Historic venue investigation at Wotton-under-Edge.', provider: 'ram_inn' },
+      { date: '2026-10-24', title: 'The Old Prison, Northleach', desc: 'Halloween special at the historic House of Correction.', provider: 'haunting_nights' },
+      { date: '2026-10-31', title: 'Willsbridge Mill - Halloween Special', desc: 'Exclusive Pabsmophobia private investigation event.', provider: 'pabsmophobia' },
+      { date: '2026-11-13', title: 'Willsbridge Mill', desc: 'Friday the 13th investigation session.', provider: 'haunting_nights' },
+      { date: '2026-12-11', title: 'The Skirrid Inn', desc: 'Winter investigation session.', provider: 'haunting_nights' }
     ];
 
     let currentDate = new Date(2026, 7, 1); // August 2026
@@ -311,20 +424,35 @@
       });
 
       if (filteredEvents.length === 0) {
-        listContainer.innerHTML = '<p style="color: var(--text-muted);">No scheduled public events for this month.</p>';
+        listContainer.innerHTML = '<p style="color: var(--text-muted);">No scheduled events for this month.</p>';
         return;
       }
 
       filteredEvents.forEach(e => {
         const card = document.createElement('div');
         card.className = 'event-card';
+
+        let badgeHtml = '';
+        let buttonHtml = '';
+
+        if (e.provider === 'haunting_nights') {
+          badgeHtml = '<span class="badge badge-hn">Haunting Nights</span>';
+          buttonHtml = `<a href="https://hauntingnights.co.uk/" target="_blank" rel="noopener" class="btn">Book via Haunting Nights &rarr;</a>`;
+        } else if (e.provider === 'ram_inn') {
+          badgeHtml = '<span class="badge badge-ram">Ancient Ram Inn</span>';
+          buttonHtml = `<a href="https://www.ancientraminn.co.uk/" target="_blank" rel="noopener" class="btn">Book via Ram Inn &rarr;</a>`;
+        } else {
+          badgeHtml = '<span class="badge badge-pabs">Pabsmophobia Exclusive</span>';
+          buttonHtml = `<button onclick="openModal('${e.title}')" class="btn">Inquire / Book &rarr;</button>`;
+        }
+
         card.innerHTML = `
           <div>
-            <div class="event-date">${e.date}</div>
-            <h3 style="color: #fff; font-family: var(--font-title); font-size: 1.6rem;">${e.title}</h3>
+            <div class="event-date">${e.date} ${badgeHtml}</div>
+            <h3 style="color: #fff; font-family: var(--font-title); font-size: 1.6rem; margin-top: 0.2rem;">${e.title}</h3>
             <p style="color: var(--text-muted);">${e.desc}</p>
           </div>
-          <a href="#" class="btn">Booking Info</a>
+          ${buttonHtml}
         `;
         listContainer.appendChild(card);
       });
@@ -333,6 +461,21 @@
     function changeMonth(direction) {
       currentDate.setMonth(currentDate.getMonth() + direction);
       renderCalendar();
+    }
+
+    function openModal(title) {
+      document.getElementById('modalEventTitle').innerText = `Book: ${title}`;
+      document.getElementById('bookingModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('bookingModal').style.display = 'none';
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      alert('Thank you! Your booking request has been submitted.');
+      closeModal();
     }
 
     renderCalendar();
