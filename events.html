@@ -5,226 +5,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Investigation Schedule | Pabsmophobia</title>
   
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Eczar:wght@400;600&display=swap" rel="stylesheet">
 
+  <!-- Extracted Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
   <style>
-    :root {
-      --bg-color: #0a0a0c;
-      --card-bg: #141419;
-      --text-main: #d1d5db;
-      --text-muted: #9ca3af;
-      --accent: #8b5cf6;
-      --accent-hover: #a78bfa;
-      --border: #27272a;
-      --font-title: 'Creepster', cursive;
-      --font-body: 'Eczar', serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--font-body);
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.7;
-    }
-
-    header {
-      background-color: #050507;
-      border-bottom: 1px solid var(--border);
-      padding: 1.2rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      font-family: var(--font-title);
-      font-size: 2.2rem;
-      letter-spacing: 3px;
-      color: #e0e7ff;
-      text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
-    }
-
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-left: 1.5rem;
-      font-size: 1.1rem;
-      transition: color 0.2s;
-    }
-
-    nav a:hover, nav a.active { color: var(--accent); }
-
-    .container {
-      max-width: 900px;
-      margin: 3rem auto;
-      padding: 0 1.5rem;
-    }
-
-    h1 {
-      font-family: var(--font-title);
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      color: #f3f4f6;
-    }
-
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-
-    /* Calendar Grid */
-    .calendar-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
+    /* Filter Controls Styling */
+    .filter-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      background-color: var(--card-bg, #121218);
+      border: 1px solid var(--border, #2a2a38);
       border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 2.5rem;
+      padding: 1.25rem;
+      margin-top: 1.5rem;
     }
 
-    .calendar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .calendar-header h2 {
-      font-family: var(--font-title);
-      font-size: 2rem;
-      color: #fff;
-    }
-
-    .cal-btn {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-      cursor: pointer;
-      font-family: var(--font-body);
-    }
-
-    .cal-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-    .days-header {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      text-align: center;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .days-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
-    }
-
-    .day {
-      background: #0e0e12;
-      border: 1px solid var(--border);
-      aspect-ratio: 1.2;
+    .filter-group {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border-radius: 4px;
-      font-size: 0.95rem;
-      color: var(--text-muted);
+      gap: 0.4rem;
     }
 
-    .day.empty { background: transparent; border: none; }
+    .filter-group label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #9ca3af;
+      font-weight: 600;
+    }
 
-    .day.has-event {
-      border-color: var(--accent);
-      background: rgba(139, 92, 246, 0.15);
+    .filter-group select {
+      background-color: #0d0d12;
       color: #fff;
-      font-weight: bold;
-      box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
-    }
-
-    .event-indicator {
-      width: 6px;
-      height: 6px;
-      background-color: var(--accent-hover);
-      border-radius: 50%;
-      margin-top: 4px;
-    }
-
-    /* Event Cards */
-    .event-list-title {
-      font-family: var(--font-title);
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-      color: #fff;
-    }
-
-    .event-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border, #2a2a38);
+      padding: 0.6rem 0.8rem;
       border-radius: 6px;
-      padding: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .filter-group select:focus {
+      border-color: var(--accent, #8b5cf6);
+    }
+
+    .filter-actions {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      transition: border-color 0.2s;
+      align-items: flex-end;
     }
 
-    .event-card:hover { border-color: var(--accent); }
-
-    .event-date {
-      color: var(--accent);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      margin-left: 0.5rem;
-      font-weight: bold;
-    }
-
-    .badge-hn { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
-    .badge-ram { background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.4); }
-    .badge-pabs { background: rgba(139, 92, 246, 0.2); color: var(--accent-hover); border: 1px solid rgba(139, 92, 246, 0.4); }
-
-    .btn {
-      background-color: var(--accent);
-      color: #fff;
-      padding: 0.6rem 1.2rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 600;
+    .btn-reset {
+      background: transparent;
+      border: 1px solid var(--border, #2a2a38);
+      color: #9ca3af;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
       cursor: pointer;
-      border: none;
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      transition: background 0.2s;
+      width: 100%;
+      font-weight: 600;
+      transition: all 0.2s ease;
     }
 
-    .btn:hover { background-color: var(--accent-hover); }
+    .btn-reset:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
 
-    footer {
+    /* Table & Event Card Specific Styles */
+    .events-table-wrapper {
+      overflow-x: auto;
+      background-color: var(--card-bg, #121218);
+      border: 1px solid var(--border, #2a2a38);
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border, #2a2a38);
+    }
+
+    th {
+      background-color: #0d0d12;
+      color: #fff;
+      font-family: var(--font-body, sans-serif);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+
+    tr:hover {
+      background-color: rgba(139, 92, 246, 0.05);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .event-title {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .booking-cell {
+      white-space: nowrap;
+    }
+
+    .col-date { white-space: nowrap; font-weight: 600; color: var(--accent, #8b5cf6); }
+    .col-price { color: #f3f4f6; }
+
+    /* Badge Styles */
+    .badge-pabs {
+      background: rgba(139, 92, 246, 0.25);
+      color: #c084fc;
+      border: 1px solid rgba(139, 92, 246, 0.6);
+      box-shadow: 0 0 6px rgba(139, 92, 246, 0.3);
+    }
+
+    .no-results {
       text-align: center;
-      padding: 3rem 1.5rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      margin-top: 4rem;
+      padding: 2rem;
+      color: #9ca3af;
     }
   </style>
 </head>
@@ -241,26 +156,66 @@
     </nav>
   </header>
 
-  <main class="container">
-    <h1>Investigation Calendar</h1>
-    <p class="subtitle">Select highlighted dates to view event details and booking options.</p>
+  <main class="container" style="max-width: 1100px;">
+    <h1>Investigation Schedule</h1>
+    <p class="subtitle">Upcoming ghost hunts, overnight investigations, and public events.</p>
 
-    <div class="calendar-card">
-      <div class="calendar-header">
-        <button class="cal-btn" onclick="changeMonth(-1)">&larr; Prev</button>
-        <h2 id="monthLabel">August 2026</h2>
-        <button class="cal-btn" onclick="changeMonth(1)">Next &rarr;</button>
+    <!-- Interactive Filters -->
+    <div class="filter-container">
+      <div class="filter-group">
+        <label for="filterProvider">Provider</label>
+        <select id="filterProvider">
+          <option value="ALL">All Providers</option>
+        </select>
       </div>
 
-      <div class="days-header">
-        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+      <div class="filter-group">
+        <label for="filterType">Event Type</label>
+        <select id="filterType">
+          <option value="ALL">All Types</option>
+        </select>
       </div>
 
-      <div class="days-grid" id="calendarDays"></div>
+      <div class="filter-group">
+        <label for="filterLocation">Location</label>
+        <select id="filterLocation">
+          <option value="ALL">All Locations</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filterVenue">Venue</label>
+        <select id="filterVenue">
+          <option value="ALL">All Venues</option>
+        </select>
+      </div>
+
+      <div class="filter-actions">
+        <button class="btn-reset" onclick="resetFilters()">Reset Filters</button>
+      </div>
     </div>
 
-    <h2 class="event-list-title">Confirmed Schedule</h2>
-    <div id="eventList"></div>
+    <!-- Table Wrapper -->
+    <div class="events-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Event Name</th>
+            <th>Provider</th>
+            <th>Venue</th>
+            <th>Location</th>
+            <th>Type</th>
+            <th>Time</th>
+            <th>Price / Availability</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="eventsTableBody">
+          <!-- Dynamically Rendered -->
+        </tbody>
+      </table>
+    </div>
   </main>
 
   <footer>
@@ -268,180 +223,149 @@
   </footer>
 
   <script>
-    // Dates formatted in UK DD-MM-YYYY format
-    const events = [
-      { 
-        date: '09-08-2026', 
-        title: 'The Horseshoe, Chipping Sodbury', 
-        fullBookingName: 'The Horseshoe, Chipping Sodbury - 09-08-2026 (20:00)',
-        desc: 'Test investigation session & ghost hunting walk-through.', 
-        provider: 'pabsmophobia' 
-      },
-      { 
-        date: '15-08-2026', 
-        title: 'The Skirrid Inn', 
-        fullBookingName: 'The Skirrid Inn - 15-08-2026',
-        desc: 'Public ghost hunting event hosted with Haunting Nights.', 
-        provider: 'haunting_nights' 
-      },
-      { 
-        date: '05-09-2026', 
-        title: 'Willsbridge Mill', 
-        fullBookingName: 'Willsbridge Mill - 05-09-2026',
-        desc: 'Environmental data & equipment log investigation.', 
-        provider: 'haunting_nights' 
-      },
-      { 
-        date: '05-09-2026', 
-        title: 'Woodchester Mansion', 
-        fullBookingName: 'Woodchester Mansion - 05-09-2026',
-        desc: 'Overnight investigation at the uncompleted Gothic mansion.', 
-        provider: 'haunting_nights' 
-      },
-      { 
-        date: '12-09-2026', 
-        title: 'Warmley Clock Tower', 
-        fullBookingName: 'Warmley Clock Tower - 12-09-2026',
-        desc: 'Paranormal investigation & historic site analysis.', 
-        provider: 'haunting_nights' 
-      },
-      { 
-        date: '10-10-2026', 
-        title: 'The Ancient Ram Inn', 
-        fullBookingName: 'The Ancient Ram Inn - 10-10-2026',
-        desc: 'Historic venue investigation at Wotton-under-Edge.', 
-        provider: 'ram_inn' 
-      },
-      { 
-        date: '24-10-2026', 
-        title: 'The Old Prison, Northleach', 
-        fullBookingName: 'The Old Prison, Northleach - 24-10-2026',
-        desc: 'Halloween special at the historic House of Correction.', 
-        provider: 'haunting_nights' 
-      },
-      { 
-        date: '31-10-2026', 
-        title: 'Willsbridge Mill - Halloween Special', 
-        fullBookingName: 'Willsbridge Mill - Halloween Special - 31-10-2026',
-        desc: 'Exclusive Pabsmophobia private investigation event.', 
-        provider: 'pabsmophobia' 
-      },
-      { 
-        date: '13-11-2026', 
-        title: 'Willsbridge Mill', 
-        fullBookingName: 'Willsbridge Mill - 13-11-2026',
-        desc: 'Friday the 13th investigation session.', 
-        provider: 'haunting_nights' 
-      },
-      { 
-        date: '11-12-2026', 
-        title: 'The Skirrid Inn', 
-        fullBookingName: 'The Skirrid Inn - 11-12-2026',
-        desc: 'Winter investigation session.', 
-        provider: 'haunting_nights' 
-      }
+    const eventData = [
+      { date: '07/08/2026', name: 'The Poltergeist House Ghost Hunt', provider: 'Haunting Nights', venue: '30 East Drive', location: 'Rotherham', type: 'Ghost Hunt', time: '21:00 - 03:00', price: 'Last 6 Places', providerType: 'hn', coHost: false },
+      { date: '07/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
+      { date: '08/08/2026', name: 'Colchester Town Hall Ghost Hunt', provider: 'Haunting Nights', venue: 'Colchester Town Hall', location: 'Colchester', type: 'Ghost Hunt', time: '21:00 - 03:00', price: '8 Places Available', providerType: 'hn', coHost: false },
+      { date: '08/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
+      { date: '14/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Available', providerType: 'ram', coHost: false },
+      { date: '15/08/2026', name: 'Thorne Workhouse Ghost Hunt', provider: 'Haunting Nights', venue: 'Thorne Workhouse', location: 'Doncaster', type: 'Ghost Hunt', time: '21:00 - 03:00', price: '10 Places Available', providerType: 'hn', coHost: false },
+      { date: '15/08/2026', name: 'Matthew Hopkins Witch Finder General', provider: 'Haunting Nights', venue: 'Mistley Towers / Harwich', location: 'Essex', type: 'Ghost Hunt', time: '21:00 - 02:00', price: '£39.00 (Last 2 Places)', providerType: 'hn', coHost: false },
+      { date: '15/08/2026', name: 'The Skirrid Inn Ghost Hunt', provider: 'Haunting Nights', venue: 'The Skirrid Mountain Inn', location: 'Abergavenny, Wales', type: 'Ghost Hunt', time: '21:30 - 03:00', price: '£15 Deposit (8 Places)', providerType: 'hn', coHost: true },
+      { date: '15/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
+      { date: '16/08/2026', name: 'Ancient Ram Inn Afternoon Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Afternoon Ghost Hunt', time: '13:00 - 18:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
+      { date: '21/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
+      { date: '22/08/2026', name: 'Fulford Manor Ghost Hunt', provider: 'Haunting Nights', venue: 'Great Fulford Manor', location: 'Exeter, Devon', type: 'Ghost Hunt', time: '21:00 - 03:00', price: '6 Places Available', providerType: 'hn', coHost: false },
+      { date: '22/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
+      { date: '28/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
+      { date: '29/08/2026', name: 'Ghost Night with Richard Felix', provider: 'Haunting Nights', venue: 'Pendle Hill Area Venue', location: 'Pendle, Lancashire', type: 'Ghost Talk', time: '19:00 - 23:00', price: '£39pp (6 Places)', providerType: 'hn', coHost: false },
+      { date: '29/08/2026', name: 'Bron Y Garth Abandoned Hospital Sleepover', provider: 'Haunting Nights', venue: 'Bron Y Garth Hospital', location: 'Gwynedd, Wales', type: 'Ghost Hunt Sleepover', time: '21:00 - 03:00', price: 'Available', providerType: 'hn', coHost: false },
+      { date: '29/08/2026', name: 'Voodoo Doll Workshop & Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Workshop & Ghost Hunt', time: '13:00 - 17:00', price: 'Available', providerType: 'ram', coHost: false },
+      { date: '05/09/2026', name: 'Antwerp Mansion Ghost Hunt', provider: 'Haunting Nights', venue: 'Antwerp Mansion', location: 'Manchester', type: 'Ghost Hunt', time: '21:00 - 03:00', price: '8 Places (£15 Deposit)', providerType: 'hn', coHost: false },
+      { date: '05/09/2026', name: 'Woodchester Mansion Ghost Hunt', provider: 'Haunting Nights', venue: 'Woodchester Mansion', location: 'Gloucestershire', type: 'Ghost Hunt', time: '21:00 - 03:00', price: '10 Places Available', providerType: 'hn', coHost: true },
+      { date: '05/09/2026', name: 'Willsbridge Mill Ghost Hunt', provider: 'Haunting Nights', venue: 'Willsbridge Mill', location: 'Bristol, Gloucestershire', type: 'Ghost Hunt', time: '21:00 - 02:00', price: '£39.00 (10 Places)', providerType: 'hn', coHost: true },
+      { date: '11/09/2026', name: 'Hell Fire Caves Ghost Hunt', provider: 'Haunting Nights', venue: 'Hellfire Caves', location: 'West Wycombe', type: 'Ghost Hunt', time: '20:00 - 02:00', price: 'Limited Places Available', providerType: 'hn', coHost: false },
+      { date: '12/09/2026', name: 'Ripon Workhouse Ghost Hunt', provider: 'Haunting Nights', venue: 'Ripon Workhouse', location: 'North Yorkshire', type: 'Ghost Hunt', time: '20:00 - 02:00', price: 'Limited Places Available', providerType: 'hn', coHost: false },
+      { date: '01/10/2026', name: 'The Horseshoe - In-spectre nights', provider: 'Pabsmophobia', venue: 'The Horseshoe', location: 'Chipping Sodbury', type: 'Ghost Hunt', time: '20:00 - 23:00', price: 'Full details coming soon. Sundays through October.', providerType: 'pabs', coHost: false },
+      { date: '24/10/2026', name: 'The Old Prison Halloween Ghost Hunt', provider: 'Haunting Nights', venue: 'The Old Prison', location: 'Northleach, Gloucestershire', type: 'Ghost Hunt', time: '20:00 - 02:00', price: '£49.00 (Last 6 Places)', providerType: 'hn', coHost: true }
     ];
 
-    let currentDate = new Date(2026, 7, 1); // August 2026
+    const elProvider = document.getElementById('filterProvider');
+    const elType = document.getElementById('filterType');
+    const elLocation = document.getElementById('filterLocation');
+    const elVenue = document.getElementById('filterVenue');
+    const tbody = document.getElementById('eventsTableBody');
 
-    function renderCalendar() {
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth();
-      const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-      
-      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      document.getElementById('monthLabel').innerText = `${monthNames[month]} ${year}`;
+    function populateFilterDropdowns() {
+      const providers = new Set();
+      const types = new Set();
+      const locations = new Set();
+      const venues = new Set();
 
-      const grid = document.getElementById('calendarDays');
-      grid.innerHTML = '';
-
-      for (let i = 0; i < firstDay; i++) {
-        const emptyCell = document.createElement('div');
-        emptyCell.className = 'day empty';
-        grid.appendChild(emptyCell);
-      }
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const dayCell = document.createElement('div');
-        dayCell.className = 'day';
-        
-        // Matches DD-MM-YYYY format for calendar lookup
-        const formattedUkDate = `${String(day).padStart(2, '0')}-${String(month + 1).padStart(2, '0')}-${year}`;
-        
-        dayCell.innerText = day;
-
-        const hasEvent = events.some(e => e.date === formattedUkDate);
-        if (hasEvent) {
-          dayCell.classList.add('has-event');
-          const dot = document.createElement('div');
-          dot.className = 'event-indicator';
-          dayCell.appendChild(dot);
-        }
-
-        grid.appendChild(dayCell);
-      }
-
-      renderEventList(month, year);
-    }
-
-    function renderEventList(month, year) {
-      const listContainer = document.getElementById('eventList');
-      listContainer.innerHTML = '';
-
-      const filteredEvents = events.filter(e => {
-        const [eDay, eMonth, eYear] = e.date.split('-');
-        return parseInt(eYear) === year && parseInt(eMonth) === (month + 1);
+      eventData.forEach(item => {
+        if (item.provider) providers.add(item.provider);
+        if (item.type) types.add(item.type);
+        if (item.location) locations.add(item.location);
+        if (item.venue) venues.add(item.venue);
       });
 
-      if (filteredEvents.length === 0) {
-        listContainer.innerHTML = '<p style="color: var(--text-muted);">No scheduled events for this month.</p>';
+      appendOptions(elProvider, Array.from(providers).sort());
+      appendOptions(elType, Array.from(types).sort());
+      appendOptions(elLocation, Array.from(locations).sort());
+      appendOptions(elVenue, Array.from(venues).sort());
+    }
+
+    function appendOptions(selectEl, items) {
+      items.forEach(val => {
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.textContent = val;
+        selectEl.appendChild(opt);
+      });
+    }
+
+    function renderTable() {
+      const selectedProvider = elProvider.value;
+      const selectedType = elType.value;
+      const selectedLocation = elLocation.value;
+      const selectedVenue = elVenue.value;
+
+      tbody.innerHTML = '';
+
+      const filtered = eventData.filter(item => {
+        const matchProvider = (selectedProvider === 'ALL' || item.provider === selectedProvider);
+        const matchType = (selectedType === 'ALL' || item.type === selectedType);
+        const matchLocation = (selectedLocation === 'ALL' || item.location === selectedLocation);
+        const matchVenue = (selectedVenue === 'ALL' || item.venue === selectedVenue);
+
+        return matchProvider && matchType && matchLocation && matchVenue;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="no-results">No events match your selected filters.</td></tr>`;
         return;
       }
 
-      filteredEvents.forEach(e => {
-        const card = document.createElement('div');
-        card.className = 'event-card';
-
-        let badgeHtml = '';
-        let buttonHtml = '';
-
-        if (e.provider === 'haunting_nights') {
-          badgeHtml = '<span class="badge badge-hn">Haunting Nights</span>';
-          buttonHtml = `<a href="https://hauntingnights.co.uk/" target="_blank" rel="noopener" class="btn">Book via Haunting Nights &rarr;</a>`;
-        } else if (e.provider === 'ram_inn') {
-          badgeHtml = '<span class="badge badge-ram">Ancient Ram Inn</span>';
-          buttonHtml = `<a href="https://www.ancientraminn.co.uk/" target="_blank" rel="noopener" class="btn">Book via Ram Inn &rarr;</a>`;
+      filtered.forEach(item => {
+        const tr = document.createElement('tr');
+        
+        let badgesHTML = '';
+        if (item.providerType === 'pabs') {
+          badgesHTML = `<span class="badge badge-pabs">Pabsmophobia</span>`;
+        } else if (item.providerType === 'hn') {
+          badgesHTML = `<span class="badge badge-hn">Haunting Nights</span>`;
         } else {
-          badgeHtml = '<span class="badge badge-pabs">Pabsmophobia Exclusive</span>';
-          buttonHtml = `<button onclick="openBookingForm('${e.fullBookingName}')" class="btn">Inquire / Book &rarr;</button>`;
+          badgesHTML = `<span class="badge badge-ram">The Ancient Ram Inn</span>`;
         }
 
-        card.innerHTML = `
-          <div>
-            <div class="event-date">${e.date} ${badgeHtml}</div>
-            <h3 style="color: #fff; font-family: var(--font-title); font-size: 1.6rem; margin-top: 0.2rem;">${e.title}</h3>
-            <p style="color: var(--text-muted);">${e.desc}</p>
-          </div>
-          ${buttonHtml}
+        if (item.coHost) {
+          badgesHTML += ` <span class="badge badge-pabs">Co-Host</span>`;
+        }
+
+        tr.innerHTML = `
+          <td class="col-date">${item.date}</td>
+          <td class="event-title">${item.name}</td>
+          <td>${badgesHTML}</td>
+          <td>${item.venue}</td>
+          <td>${item.location}</td>
+          <td>${item.type}</td>
+          <td style="white-space: nowrap;">${item.time}</td>
+          <td class="col-price">${item.price}</td>
+          <td class="booking-cell">
+            <button class="btn" onclick="openBookingForm('${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button>
+          </td>
         `;
-        listContainer.appendChild(card);
+        tbody.appendChild(tr);
       });
     }
 
-    function changeMonth(direction) {
-      currentDate.setMonth(currentDate.getMonth() + direction);
-      renderCalendar();
+    function resetFilters() {
+      elProvider.value = 'ALL';
+      elType.value = 'ALL';
+      elLocation.value = 'ALL';
+      elVenue.value = 'ALL';
+      renderTable();
     }
 
-    // Opens Google Form with pre-filled UK formatted event name & date
-    function openBookingForm(eventInfo) {
-      const baseUrl = "https://docs.google.com/forms/d/e/1FAIpQLScBWQ4Vw5OzlGSav07EIQsSTlUNy6_OayTkYy1ltcbyyu5OdA/viewform?usp=pp_url&entry.1202371367=";
-      const fullUrl = baseUrl + encodeURIComponent(eventInfo);
-      window.open(fullUrl, '_blank');
+    function openBookingForm(eventName, eventDate) {
+      const googleFormBaseURL = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform";
+      const entryID = "entry.123456789"; 
+      const fullQuery = `${googleFormBaseURL}?usp=pp_url&${entryID}=${encodeURIComponent(eventName + ' (' + eventDate + ')')}`;
+      window.open(fullQuery, '_blank');
     }
 
-    renderCalendar();
+    // Attach listeners
+    [elProvider, elType, elLocation, elVenue].forEach(select => {
+      select.addEventListener('change', renderTable);
+    });
+
+    // Init
+    populateFilterDropdowns();
+    renderTable();
+  </script>
+
+</body>
+</html>
   </script>
 
 </body>
