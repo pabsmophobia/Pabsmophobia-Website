@@ -50,6 +50,16 @@
       letter-spacing: 3px;
       color: #e0e7ff;
       text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+      display: flex;
+      align-items: center;    /* Vertically aligns text with the logo image */
+      gap: 0.75rem;           /* Adds horizontal space between logo image and text */
+    }
+
+    .logo-img {
+      height: 45px;           /* Controls logo image size */
+      width: auto;
+      border-radius: 4px;
+      object-fit: contain;
     }
 
     nav a {
@@ -142,7 +152,10 @@
 <body>
 
   <header>
-    <div class="logo">Pabsmophobia</div>
+    <div class="logo">
+      <img src="Pabsmo.jpg" alt="Pabsmophobia Logo" class="logo-img">
+      <span>Pabsmophobia</span>
+    </div>
     <nav>
       <a href="index.html">Home</a>
       <a href="events.html">Events</a>
