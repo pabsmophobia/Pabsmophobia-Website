@@ -1,42 +1,242 @@
 [
   {
-    "Event Name": "",
-    "Location ": "",
-    "Date": "",
-    "Time": "",
-    "Duration": "",
-    "Provider": ""
+    "Date": "2026-07-07T23:00:00.000Z",
+    "Event Name": "The Poltergeist House Ghost Hunt",
+    "Provider": "Haunting Nights",
+    "Event Venue": "30 East Drive",
+    "Location": "Rotherham",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Last 6 Places"
   },
   {
-    "Event Name": "",
-    "Location ": "",
-    "Date": "",
-    "Time": "",
-    "Duration": "",
-    "Provider": ""
+    "Date": "2026-07-07T23:00:00.000Z",
+    "Event Name": "Ancient Ram Inn Overnight Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Limited Places Available"
   },
   {
-    "Event Name": "",
-    "Location ": "",
-    "Date": "",
-    "Time": "",
-    "Duration": "",
-    "Provider": ""
+    "Date": "2026-08-07T23:00:00.000Z",
+    "Event Name": "Colchester Town Hall Ghost Hunt",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Colchester Town Hall",
+    "Location": "Colchester",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "8 Places Available"
   },
   {
-    "Event Name": "",
-    "Location ": "",
-    "Date": "",
-    "Time": "",
-    "Duration": "",
-    "Provider": ""
+    "Date": "2026-08-07T23:00:00.000Z",
+    "Event Name": "Ancient Ram Inn Overnight Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Limited Places Available"
   },
   {
-    "Event Name": "Lock in with Spirits",
-    "Location ": "Horseshoe  Chipping Sodbury",
-    "Date": "Coming October",
-    "Time": "1899-12-30T08:00:00.000Z",
-    "Duration": "3 hours",
-    "Provider": "Pabsmophobia"
+    "Date": "14/08/2026",
+    "Event Name": "Ancient Ram Inn Overnight Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Available"
+  },
+  {
+    "Date": "15/08/2026",
+    "Event Name": "Thorne Workhouse Ghost Hunt",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Thorne Workhouse",
+    "Location": "Doncaster",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "10 Places Available"
+  },
+  {
+    "Date": "15/08/2026",
+    "Event Name": "Matthew Hopkins Witch Finder General",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Mistley Towers / Harwich",
+    "Location": "Essex",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 02:00",
+    "Price / Availability": "£39.00 (Last 2 Places)"
+  },
+  {
+    "Date": "15/08/2026",
+    "Event Name": "The Skirrid Inn Ghost Hunt",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Skirrid Mountain Inn",
+    "Location": "Abergavenny, Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:30 - 03:00",
+    "Price / Availability": "£15 Deposit (8 Places)"
+  },
+  {
+    "Date": "15/08/2026",
+    "Event Name": "Ancient Ram Inn Overnight Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Limited Places Available"
+  },
+  {
+    "Date": "16/08/2026",
+    "Event Name": "Ancient Ram Inn Afternoon Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Afternoon Ghost Hunt",
+    "Time": "13:00 - 18:00",
+    "Price / Availability": "Limited Places Available"
+  },
+  {
+    "Date": "21/08/2026",
+    "Event Name": "Ancient Ram Inn Overnight Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Limited Places Available"
+  },
+  {
+    "Date": "22/08/2026",
+    "Event Name": "Fulford Manor Ghost Hunt",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Great Fulford Manor",
+    "Location": "Exeter, Devon",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "6 Places Available"
+  },
+  {
+    "Date": "22/08/2026",
+    "Event Name": "Ancient Ram Inn Overnight Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Limited Places Available"
+  },
+  {
+    "Date": "28/08/2026",
+    "Event Name": "Ancient Ram Inn Overnight Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Limited Places Available"
+  },
+  {
+    "Date": "29/08/2026",
+    "Event Name": "Ghost Night with Richard Felix",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Pendle Hill Area Venue",
+    "Location": "Pendle, Lancashire",
+    "Event Type": "Ghost Talk",
+    "Time": "19:00 - 23:00",
+    "Price / Availability": "£39pp (6 Places)"
+  },
+  {
+    "Date": "29/08/2026",
+    "Event Name": "Bron Y Garth Abandoned Hospital Sleepover",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Bron Y Garth Hospital",
+    "Location": "Gwynedd, Wales",
+    "Event Type": "Ghost Hunt Sleepover",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Available"
+  },
+  {
+    "Date": "29/08/2026",
+    "Event Name": "Voodoo Doll Workshop & Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Workshop & Ghost Hunt",
+    "Time": "13:00 - 17:00",
+    "Price / Availability": "Available"
+  },
+  {
+    "Date": "2026-05-08T23:00:00.000Z",
+    "Event Name": "Antwerp Mansion Ghost Hunt",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Antwerp Mansion",
+    "Location": "Manchester",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "8 Places (£15 Deposit)"
+  },
+  {
+    "Date": "2026-05-08T23:00:00.000Z",
+    "Event Name": "Woodchester Mansion Ghost Hunt",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Woodchester Mansion",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "10 Places Available"
+  },
+  {
+    "Date": "2026-05-08T23:00:00.000Z",
+    "Event Name": "Willsbridge Mill Ghost Hunt",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Willsbridge Mill",
+    "Location": "Bristol, Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 02:00",
+    "Price / Availability": "£39.00 (10 Places)"
+  },
+  {
+    "Date": "2026-11-09T00:00:00.000Z",
+    "Event Name": "Hell Fire Caves Ghost Hunt",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Hellfire Caves",
+    "Location": "West Wycombe",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Limited Places Available"
+  },
+  {
+    "Date": "2026-12-09T00:00:00.000Z",
+    "Event Name": "Ripon Workhouse Ghost Hunt",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Ripon Workhouse",
+    "Location": "North Yorkshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Limited Places Available"
+  },
+  {
+    "Date": "24/10/2026",
+    "Event Name": "The Old Prison Halloween Ghost Hunt",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Old Prison",
+    "Location": "Northleach, Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "£49.00 (Last 6 Places)"
+  },
+  {
+    "Date": "2026-01-10T00:00:00.000Z",
+    "Event Name": "The Horseshoe - In-spectre nights",
+    "Provider": "Pabsmophobia",
+    "Event Venue": "The Horseshoe ",
+    "Location": "Chipping Sodbury",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 23:00",
+    "Price / Availability": "Full details coming soon. Sundays through October."
   }
 ]
