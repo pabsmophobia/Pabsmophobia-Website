@@ -34,21 +34,36 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     .logo {
       font-family: 'Creepster', cursive;
       font-size: 2.2rem;
+      letter-spacing: 3px;
       color: #e0e7ff;
+      text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+      display: flex;
+      align-items: center;    /* Vertically aligns text with the logo image */
+      gap: 0.75rem;           /* Horizontal space between image and text */
+    }
+
+    .logo-img {
+      height: 45px;           /* Sets uniform logo size */
+      width: auto;
+      border-radius: 4px;
+      object-fit: contain;
     }
 
     nav a {
       color: #9ca3af;
       text-decoration: none;
       margin-left: 1.5rem;
+      font-size: 1.1rem;
+      transition: color 0.2s;
     }
 
-    nav a.active { color: #8b5cf6; }
+    nav a:hover, nav a.active { color: #8b5cf6; }
 
     /* Container */
     .container {
@@ -217,7 +232,10 @@
 <body>
 
   <header>
-    <div class="logo">Pabsmophobia</div>
+    <div class="logo">
+      <img src="Pabsmo.jpg" alt="Pabsmophobia Logo" class="logo-img">
+      <span>Pabsmophobia</span>
+    </div>
     <nav>
       <a href="index.html">Home</a>
       <a href="events.html" class="active">Events</a>
