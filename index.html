@@ -54,6 +54,16 @@
       letter-spacing: 3px;
       color: #e0e7ff;
       text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+      display: flex;
+      align-items: center;    /* Vertically aligns text with the logo image */
+      gap: 0.75rem;           /* Sets horizontal space between image and text */
+    }
+
+    .logo-img {
+      height: 45px;           /* Controls logo image height */
+      width: auto;
+      border-radius: 4px;
+      object-fit: contain;
     }
 
     nav a {
@@ -178,7 +188,7 @@
     <span>Pabsmophobia</span>
   </div>
   <nav>
-    <a href="index.html"class="active">Home</a>
+    <a href="index.html" class="active">Home</a>
     <a href="events.html">Events</a>
     <a href="blog.html">Blog & Haunt</a>
     <a href="evidence.html">Evidence</a>
