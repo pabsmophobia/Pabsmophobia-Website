@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    /* Dark Mode Fallback if styles.css fails to load */
+    /* Dark Mode Fallback */
     body {
       background-color: #0a0a0c !important;
       color: #d1d5db;
@@ -202,6 +202,11 @@
       border: none;
       cursor: pointer;
       font-weight: 600;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #7c3aed;
     }
   </style>
 </head>
@@ -388,7 +393,7 @@
           <td>${item.type}</td>
           <td style="white-space: nowrap;">${item.time}</td>
           <td class="col-price">${item.price}</td>
-          <td><button class="btn" onclick="openBookingForm('${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button></td>
+          <td><button class="btn" onclick="handleInquiry('${item.providerType}', '${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button></td>
         `;
         tbody.appendChild(tr);
       });
@@ -402,10 +407,17 @@
       renderTable();
     }
 
-    function openBookingForm(eventName, eventDate) {
-      const googleFormBaseURL = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform";
-      const entryID = "entry.123456789"; 
-      window.open(`${googleFormBaseURL}?usp=pp_url&${entryID}=${encodeURIComponent(eventName + ' (' + eventDate + ')')}`, '_blank');
+    function handleInquiry(providerType, eventName, eventDate) {
+      if (providerType === 'ram') {
+        window.open('https://ancientraminn.co.uk/', '_blank');
+      } else if (providerType === 'hn') {
+        window.open('https://hauntingnights.co.uk/', '_blank');
+      } else {
+        // Pabsmophobia Google Form fallback
+        const googleFormBaseURL = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform";
+        const entryID = "entry.123456789"; 
+        window.open(`${googleFormBaseURL}?usp=pp_url&${entryID}=${encodeURIComponent(eventName + ' (' + eventDate + ')')}`, '_blank');
+      }
     }
 
     [elProvider, elType, elLocation, elVenue].forEach(select => select.addEventListener('change', renderTable));
