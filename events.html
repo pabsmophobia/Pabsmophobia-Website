@@ -14,16 +14,83 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
+    /* Dark Mode Fallback if styles.css fails to load */
+    body {
+      background-color: #0a0a0c !important;
+      color: #d1d5db;
+      font-family: 'Eczar', serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #050507;
+      border-bottom: 1px solid #27272a;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Creepster', cursive;
+      font-size: 2.2rem;
+      color: #e0e7ff;
+    }
+
+    nav a {
+      color: #9ca3af;
+      text-decoration: none;
+      margin-left: 1.5rem;
+    }
+
+    nav a.active { color: #8b5cf6; }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Creepster', cursive;
+      font-size: 3rem;
+      color: #f3f4f6;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #9ca3af;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Disclaimer Box */
+    .disclaimer-box {
+      background-color: rgba(139, 92, 246, 0.1);
+      border-left: 4px solid #8b5cf6;
+      padding: 0.85rem 1.2rem;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      color: #d1d5db;
+      font-size: 0.95rem;
+    }
+
+    .disclaimer-box strong {
+      color: #a78bfa;
+    }
+
     /* Filter Controls Styling */
     .filter-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
-      background-color: var(--card-bg, #121218);
-      border: 1px solid var(--border, #2a2a38);
+      background-color: #141419;
+      border: 1px solid #27272a;
       border-radius: 8px;
       padding: 1.25rem;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
     }
 
     .filter-group {
@@ -43,16 +110,11 @@
     .filter-group select {
       background-color: #0d0d12;
       color: #fff;
-      border: 1px solid var(--border, #2a2a38);
+      border: 1px solid #27272a;
       padding: 0.6rem 0.8rem;
       border-radius: 6px;
       font-size: 0.9rem;
       outline: none;
-      transition: border-color 0.2s ease;
-    }
-
-    .filter-group select:focus {
-      border-color: var(--accent, #8b5cf6);
     }
 
     .filter-actions {
@@ -62,14 +124,13 @@
 
     .btn-reset {
       background: transparent;
-      border: 1px solid var(--border, #2a2a38);
+      border: 1px solid #27272a;
       color: #9ca3af;
       padding: 0.6rem 1rem;
       border-radius: 6px;
       cursor: pointer;
       width: 100%;
       font-weight: 600;
-      transition: all 0.2s ease;
     }
 
     .btn-reset:hover {
@@ -77,11 +138,11 @@
       color: #fff;
     }
 
-    /* Table & Event Card Specific Styles */
+    /* Table Styles */
     .events-table-wrapper {
       overflow-x: auto;
-      background-color: var(--card-bg, #121218);
-      border: 1px solid var(--border, #2a2a38);
+      background-color: #141419;
+      border: 1px solid #27272a;
       border-radius: 8px;
       margin-top: 1rem;
     }
@@ -95,40 +156,37 @@
 
     th, td {
       padding: 0.9rem 1rem;
-      border-bottom: 1px solid var(--border, #2a2a38);
+      border-bottom: 1px solid #27272a;
     }
 
     th {
       background-color: #0d0d12;
       color: #fff;
-      font-family: var(--font-body, sans-serif);
       font-weight: 600;
       text-transform: uppercase;
       font-size: 0.8rem;
       letter-spacing: 1px;
     }
 
-    tr:hover {
-      background-color: rgba(139, 92, 246, 0.05);
-    }
+    tr:hover { background-color: rgba(139, 92, 246, 0.05); }
 
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    .event-title {
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .booking-cell {
-      white-space: nowrap;
-    }
-
-    .col-date { white-space: nowrap; font-weight: 600; color: var(--accent, #8b5cf6); }
+    .event-title { color: #fff; font-weight: 600; }
+    .col-date { white-space: nowrap; font-weight: 600; color: #8b5cf6; }
     .col-price { color: #f3f4f6; }
 
-    /* Badge Styles */
+    /* Badges */
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .badge-hn { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .badge-ram { background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.4); }
     .badge-pabs {
       background: rgba(139, 92, 246, 0.25);
       color: #c084fc;
@@ -136,10 +194,14 @@
       box-shadow: 0 0 6px rgba(139, 92, 246, 0.3);
     }
 
-    .no-results {
-      text-align: center;
-      padding: 2rem;
-      color: #9ca3af;
+    .btn {
+      background-color: #8b5cf6;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -156,11 +218,16 @@
     </nav>
   </header>
 
-  <main class="container" style="max-width: 1100px;">
+  <main class="container">
     <h1>Investigation Schedule</h1>
     <p class="subtitle">Upcoming ghost hunts, overnight investigations, and public events.</p>
 
-    <!-- Interactive Filters -->
+    <!-- Partner Event Disclaimer Note -->
+    <div class="disclaimer-box">
+      <strong>Please Note:</strong> While we love promoting all events hosted by our partners, there is no guarantee the Pabsmophobia core team will be physically present at every partner listing unless specified as a hosted/co-hosted event.
+    </div>
+
+    <!-- Filters -->
     <div class="filter-container">
       <div class="filter-group">
         <label for="filterProvider">Provider</label>
@@ -195,7 +262,7 @@
       </div>
     </div>
 
-    <!-- Table Wrapper -->
+    <!-- Table -->
     <div class="events-table-wrapper">
       <table>
         <thead>
@@ -211,15 +278,13 @@
             <th>Action</th>
           </tr>
         </thead>
-        <tbody id="eventsTableBody">
-          <!-- Dynamically Rendered -->
-        </tbody>
+        <tbody id="eventsTableBody"></tbody>
       </table>
     </div>
   </main>
 
   <footer>
-    <p>&copy; Pabsmophobia. All rights reserved.</p>
+    <p style="text-align: center; color: #9ca3af; margin-top: 3rem;">&copy; Pabsmophobia. All rights reserved.</p>
   </footer>
 
   <script>
@@ -257,18 +322,13 @@
     const tbody = document.getElementById('eventsTableBody');
 
     function populateFilterDropdowns() {
-      const providers = new Set();
-      const types = new Set();
-      const locations = new Set();
-      const venues = new Set();
-
+      const providers = new Set(), types = new Set(), locations = new Set(), venues = new Set();
       eventData.forEach(item => {
         if (item.provider) providers.add(item.provider);
         if (item.type) types.add(item.type);
         if (item.location) locations.add(item.location);
         if (item.venue) venues.add(item.venue);
       });
-
       appendOptions(elProvider, Array.from(providers).sort());
       appendOptions(elType, Array.from(types).sort());
       appendOptions(elLocation, Array.from(locations).sort());
@@ -293,22 +353,19 @@
       tbody.innerHTML = '';
 
       const filtered = eventData.filter(item => {
-        const matchProvider = (selectedProvider === 'ALL' || item.provider === selectedProvider);
-        const matchType = (selectedType === 'ALL' || item.type === selectedType);
-        const matchLocation = (selectedLocation === 'ALL' || item.location === selectedLocation);
-        const matchVenue = (selectedVenue === 'ALL' || item.venue === selectedVenue);
-
-        return matchProvider && matchType && matchLocation && matchVenue;
+        return (selectedProvider === 'ALL' || item.provider === selectedProvider) &&
+               (selectedType === 'ALL' || item.type === selectedType) &&
+               (selectedLocation === 'ALL' || item.location === selectedLocation) &&
+               (selectedVenue === 'ALL' || item.venue === selectedVenue);
       });
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9" class="no-results">No events match your selected filters.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 2rem; color:#9ca3af;">No events match your selected filters.</td></tr>`;
         return;
       }
 
       filtered.forEach(item => {
         const tr = document.createElement('tr');
-        
         let badgesHTML = '';
         if (item.providerType === 'pabs') {
           badgesHTML = `<span class="badge badge-pabs">Pabsmophobia</span>`;
@@ -331,9 +388,7 @@
           <td>${item.type}</td>
           <td style="white-space: nowrap;">${item.time}</td>
           <td class="col-price">${item.price}</td>
-          <td class="booking-cell">
-            <button class="btn" onclick="openBookingForm('${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button>
-          </td>
+          <td><button class="btn" onclick="openBookingForm('${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button></td>
         `;
         tbody.appendChild(tr);
       });
@@ -350,22 +405,12 @@
     function openBookingForm(eventName, eventDate) {
       const googleFormBaseURL = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform";
       const entryID = "entry.123456789"; 
-      const fullQuery = `${googleFormBaseURL}?usp=pp_url&${entryID}=${encodeURIComponent(eventName + ' (' + eventDate + ')')}`;
-      window.open(fullQuery, '_blank');
+      window.open(`${googleFormBaseURL}?usp=pp_url&${entryID}=${encodeURIComponent(eventName + ' (' + eventDate + ')')}`, '_blank');
     }
 
-    // Attach listeners
-    [elProvider, elType, elLocation, elVenue].forEach(select => {
-      select.addEventListener('change', renderTable);
-    });
-
-    // Init
+    [elProvider, elType, elLocation, elVenue].forEach(select => select.addEventListener('change', renderTable));
     populateFilterDropdowns();
     renderTable();
-  </script>
-
-</body>
-</html>
   </script>
 
 </body>
