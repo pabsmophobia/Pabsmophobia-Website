@@ -164,20 +164,16 @@
 
     // Fallback if no parameter is provided
     if (!fileParam) {
-      fileParam = 'newsletter/Monthly Haunt Issue1.md';
+      fileParam = 'newsletter/monthly-haunt-issue1.md';
     }
 
     // Decode URL parameter (handles %20 spaces)
     fileParam = decodeURIComponent(fileParam);
 
-    // Only add 'newsletter/' if it's NOT already at the start of the parameter
+    // Use the exact path provided in the URL parameter without forcing duplicate prefixes
     let fetchPath = fileParam;
-    if (!fetchPath.startsWith('newsletter/')) {
-      fetchPath = 'newsletter/' + fetchPath;
-    }
 
     try {
-      // Use relative path directly
       const response = await fetch(fetchPath);
       if (!response.ok) {
         throw new Error(`HTTP error ${response.status}`);
