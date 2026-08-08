@@ -1,0 +1,30 @@
+name: Generate RSS Feed
+
+on:
+  push:
+    paths:
+      - 'newsletter/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install gray-matter
+
+      - name: Build RSS Feed
+        run: node generate-rss.js
+
+      - name: Commit and Push feed.xml
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add feed.xml
+          git commit -m "Auto-generate feed.xml from newsletter update" || exit 0
+          git push
