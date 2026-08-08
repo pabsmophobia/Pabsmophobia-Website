@@ -157,47 +157,48 @@
   </footer>
 
   <script>
-    async function loadArticle() {
-      const contentContainer = document.getElementById('markdown-content');
-      const urlParams = new URLSearchParams(window.location.search);
-      let fileParam = urlParams.get('file');
+  async function loadArticle() {
+    const contentContainer = document.getElementById('markdown-content');
+    const urlParams = new URLSearchParams(window.location.search);
+    let fileParam = urlParams.get('file');
 
-      // Fallback if no parameter is provided
-      if (!fileParam) {
-        fileParam = 'Monthly Haunt Issue1.md';
-      }
-
-      // Decode URL parameter to handle space characters like %20 properly
-      fileParam = decodeURIComponent(fileParam);
-
-      // Ensure the path includes the newsletter directory prefix
-      let fetchPath = fileParam;
-      if (!fetchPath.startsWith('newsletter/')) {
-        fetchPath = 'newsletter/' + fetchPath;
-      }
-
-      try {
-        const response = await fetch(`./${fetchPath}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error ${response.status}`);
-        }
-
-        const rawText = await response.text();
-
-        // Strip frontmatter metadata if present (--- title: ... ---)
-        const cleanText = rawText.replace(/^---[\s\S]*?---\n?/, '');
-
-        // Parse and inject Markdown content
-        contentContainer.innerHTML = marked.parse(cleanText);
-
-      } catch (error) {
-        console.error('Error fetching markdown article:', error);
-        contentContainer.innerHTML = '<p>Error loading article. Please verify the file path.</p>';
-      }
+    // Fallback if no parameter is provided
+    if (!fileParam) {
+      fileParam = 'newsletter/Monthly Haunt Issue1.md';
     }
 
-    document.addEventListener('DOMContentLoaded', loadArticle);
-  </script>
+    // Decode URL parameter (handles %20 spaces)
+    fileParam = decodeURIComponent(fileParam);
+
+    // Only add 'newsletter/' if it's NOT already at the start of the parameter
+    let fetchPath = fileParam;
+    if (!fetchPath.startsWith('newsletter/')) {
+      fetchPath = 'newsletter/' + fetchPath;
+    }
+
+    try {
+      // Use relative path directly
+      const response = await fetch(fetchPath);
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+
+      const rawText = await response.text();
+
+      // Strip frontmatter metadata if present (--- title: ... ---)
+      const cleanText = rawText.replace(/^---[\s\S]*?---\n?/, '');
+
+      // Parse and inject Markdown content
+      contentContainer.innerHTML = marked.parse(cleanText);
+
+    } catch (error) {
+      console.error('Error fetching markdown article:', error);
+      contentContainer.innerHTML = '<p>Error loading article. Please verify the file path.</p>';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadArticle);
+</script>
 
 </body>
 </html>
