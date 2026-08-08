@@ -310,7 +310,13 @@
   </footer>
 
   <script>
-    const eventData = [
+    // Helper to convert "DD/MM/YYYY" strings to JavaScript Date objects
+    function parseDate(dateStr) {
+      const [day, month, year] = dateStr.split('/');
+      return new Date(year, month - 1, day);
+    }
+
+    const rawEventData = [
       { date: '07/08/2026', name: 'The Poltergeist House Ghost Hunt', provider: 'Haunting Nights', venue: 'The Poltergeist House', location: 'Rotherham', type: 'Ghost Hunt', time: '21:00 - 03:00', price: 'Last 6 Places', providerType: 'hn', coHost: false },
       { date: '07/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
       { date: '08/08/2026', name: 'Colchester Town Hall Ghost Hunt', provider: 'Haunting Nights', venue: 'Colchester Town Hall', location: 'Colchester', type: 'Ghost Hunt', time: '21:00 - 03:00', price: '8 Places Available', providerType: 'hn', coHost: false },
@@ -336,6 +342,14 @@
       { date: '01/10/2026', name: 'The Horseshoe - In-spectre nights', provider: 'Pabsmophobia', venue: 'The Horseshoe', location: 'Chipping Sodbury', type: 'Ghost Hunt', time: '20:00 - 23:00', price: 'Full details coming soon. Sundays through October.', providerType: 'pabs', coHost: false },
       { date: '24/10/2026', name: 'The Old Prison Halloween Ghost Hunt', provider: 'Haunting Nights', venue: 'The Old Prison', location: 'Northleach, Gloucestershire', type: 'Ghost Hunt', time: '20:00 - 02:00', price: '£49.00 (Last 6 Places)', providerType: 'hn', coHost: false }
     ];
+
+    // Automatically hide expired dates and sort chronologically
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const eventData = rawEventData
+      .filter(item => parseDate(item.date) >= today)
+      .sort((a, b) => parseDate(a.date) - parseDate(b.date));
 
     const elProvider = document.getElementById('filterProvider');
     const elType = document.getElementById('filterType');
@@ -382,7 +396,7 @@
       });
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 2rem; color:#9ca3af;">No events match your selected filters.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 2rem; color:#9ca3af;">No upcoming events match your selected filters.</td></tr>`;
         return;
       }
 
