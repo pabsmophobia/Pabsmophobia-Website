@@ -167,10 +167,9 @@
       fileParam = 'newsletter/monthly-haunt-issue1.md';
     }
 
-    // Decode URL parameter (handles %20 spaces)
-    fileParam = decodeURIComponent(fileParam);
+    // Decode URL parameter, trim whitespace, and strip any stray line numbers (:191 etc)
+    fileParam = decodeURIComponent(fileParam).trim().replace(/:\d+$/, '');
 
-    // Use the exact path provided in the URL parameter without forcing duplicate prefixes
     let fetchPath = fileParam;
 
     try {
