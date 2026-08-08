@@ -157,48 +157,43 @@
   </footer>
 
   <script>
-  async function loadArticle() {
-    const contentContainer = document.getElementById('markdown-content');
-    const urlParams = new URLSearchParams(window.location.search);
-    let fileParam = urlParams.get('file');
+    async function loadArticle() {
+      const contentContainer = document.getElementById('markdown-content');
+      const urlParams = new URLSearchParams(window.location.search);
+      let fileParam = urlParams.get('file');
 
-    // Fallback if no parameter is provided
-    if (!fileParam) {
-      fileParam = 'newsletter/monthly-haunt-issue1.md';
-    }
-
-    // Clean up parameter
-    fileParam = decodeURIComponent(fileParam).trim().replace(/:\d+$/, '');
-
-    // Ensure the path works correctly on GitHub Pages subpaths by using a relative path resolution from root
-    let fetchPath = fileParam;
-    if (window.location.hostname.includes('github.io')) {
-      // Strips leading slash if present to safely append to repository base path
-      const cleanParam = fileParam.startsWith('/') ? fileParam.substring(1) : fileParam;
-      fetchPath = '/Pabsmophobia-Website/' + cleanParam;
-    }
-
-    try {
-      const response = await fetch(fetchPath);
-      if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}`);
+      // Fallback if no parameter is provided
+      if (!fileParam) {
+        fileParam = 'newsletter/monthly-haunt-issue1.md';
       }
 
-      const rawText = await response.text();
+      // Clean up parameter (decode, trim, and strip any accidental line numbers)
+      fileParam = decodeURIComponent(fileParam).trim().replace(/:\d+$/, '');
 
-      // Strip frontmatter metadata if present (--- title: ... ---)
-      const cleanText = rawText.replace(/^---[\s\S]*?---\n?/, '');
+      // Ensure the path is strictly relative (remove any accidental leading slash)
+      let fetchPath = fileParam.startsWith('/') ? fileParam.substring(1) : fileParam;
 
-      // Parse and inject Markdown content
-      contentContainer.innerHTML = marked.parse(cleanText);
+      try {
+        const response = await fetch(fetchPath);
+        if (!response.ok) {
+          throw new Error(`HTTP error ${response.status}`);
+        }
 
-    } catch (error) {
-      console.error('Error fetching markdown article from path:', fetchPath, error);
-      contentContainer.innerHTML = '<p>Error loading article. Please verify the file path.</p>';
+        const rawText = await response.text();
+
+        // Strip frontmatter metadata if present (--- title: ... ---)
+        const cleanText = rawText.replace(/^---[\s\S]*?---\n?/, '');
+
+        // Parse and inject Markdown content
+        contentContainer.innerHTML = marked.parse(cleanText);
+
+      } catch (error) {
+        console.error('Error fetching markdown article from path:', fetchPath, error);
+        contentContainer.innerHTML = '<p>Error loading article. Please verify the file path.</p>';
+      }
     }
-  }
 
-  document.addEventListener('DOMContentLoaded', loadArticle);
-</script>
+    document.addEventListener('DOMContentLoaded', loadArticle);
+  </script>
 </body>
 </html>
