@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>The Pabsmophobia Monthly Haunt</title>
+    <link>https://pabsmophobia.github.io/Pabsmophobia-Website/blog.html</link>
+    <description>Field notes, publication archives, and balanced investigation analysis.</description>
+    <language>en-gb</language>
+    
+    <item>
+      <title><![CDATA[The Pabsmophobia Monthly Haunt: Issue #1 ]]></title>
+      <link>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=Monthly%20Haunt%20Issue1.md</link>
+      <description><![CDATA[UK Ghost News, Lock-In Dates & Field Notes — August 2026 Launch Edition.]]></description>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
+      <guid>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=Monthly%20Haunt%20Issue1.md</guid>
+    </item>
+  </channel>
+</rss>
