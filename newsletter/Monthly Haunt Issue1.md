@@ -1,5 +1,5 @@
 ---
-title: "The Pabsmophobia Monthly Haunt: Issue #1 "
+title: "The Pabsmophobia Monthly Haunt: Issue #1"
 date: 2026-08-01
 description: "UK Ghost News, Lock-In Dates & Field Notes — August 2026 Launch Edition."
 issueNumber: 1
