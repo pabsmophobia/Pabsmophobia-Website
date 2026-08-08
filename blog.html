@@ -255,13 +255,10 @@
     <h1>Blogs & Newsletters</h1>
     <p class="subtitle">Field notes, publication archives, and balanced investigation analysis.</p>
 
-    <article class="article-card">
-      <div class="meta">August 2026 • Launch Edition</div>
-      <h2>The Pabsmophobia Monthly Haunt - Issue 1</h2>
-      <p>Welcome to the debut issue of our monthly publication! In this edition, we review our objective investigation principles, break down equipment logs, and share our upcoming event schedule across regional locations.</p>
-      
-      <a href="post.html?file=Monthly%20Haunt%20Issue1.md" class="read-more">Read Full Issue &rarr;</a>
-    </article>
+    <!-- Dynamic Container for Auto-Fetched RSS Posts -->
+    <div id="newsletter-feed-container">
+      <p style="color: var(--text-muted);">Loading latest editions...</p>
+    </div>
 
     <!-- Begin Brevo Form Section -->
     <section class="newsletter-section">
@@ -410,6 +407,61 @@
   <footer>
     <p>&copy; Pabsmophobia. All rights reserved.</p>
   </footer>
+
+  <!-- RSS Auto-Fetch Script -->
+  <script>
+    async function loadNewsletterFeed() {
+      const feedUrl = 'https://pabsmophobia.github.io/Pabsmophobia-Website/feed.xml';
+      const container = document.getElementById('newsletter-feed-container');
+
+      try {
+        const response = await fetch(feedUrl);
+        if (!response.ok) throw new Error('Feed response was not ok');
+        
+        const xmlText = await response.text();
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+        const items = xmlDoc.querySelectorAll("item");
+
+        if (items.length === 0) {
+          container.innerHTML = "<p style='color: var(--text-muted);'>No published editions available.</p>";
+          return;
+        }
+
+        let htmlContent = '';
+
+        items.forEach(item => {
+          const title = item.querySelector("title")?.textContent || "Untitled";
+          const link = item.querySelector("link")?.textContent || "#";
+          const pubDate = item.querySelector("pubDate")?.textContent || "";
+          const description = item.querySelector("description")?.textContent || "";
+
+          // Format Date
+          const formattedDate = pubDate ? new Date(pubDate).toLocaleDateString('en-GB', {
+            month: 'long',
+            year: 'numeric'
+          }) : '';
+
+          htmlContent += `
+            <article class="article-card">
+              <div class="meta">${formattedDate}</div>
+              <h2>${title}</h2>
+              <p>${description}</p>
+              <a href="${link}" class="read-more">Read Full Issue &rarr;</a>
+            </article>
+          `;
+        });
+
+        container.innerHTML = htmlContent;
+
+      } catch (error) {
+        console.error("Error loading RSS feed:", error);
+        container.innerHTML = "<p style='color: var(--text-muted);'>Unable to load articles right now. Please try refreshing.</p>";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadNewsletterFeed);
+  </script>
 
   <!-- Brevo Script Initialization -->
   <script>
