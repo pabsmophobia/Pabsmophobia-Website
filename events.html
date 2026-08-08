@@ -204,8 +204,18 @@
       font-weight: bold;
     }
 
-    .badge-hn { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
-    .badge-ram { background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.4); }
+    .badge-hn { 
+      background: rgba(59, 130, 246, 0.2); 
+      color: #60a5fa; 
+      border: 1px solid rgba(59, 130, 246, 0.4); 
+    }
+
+    .badge-ram { 
+      background: rgba(239, 68, 68, 0.2); 
+      color: #f87171; 
+      border: 1px solid rgba(239, 68, 68, 0.4); 
+    }
+
     .badge-pabs {
       background: rgba(139, 92, 246, 0.25);
       color: #c084fc;
@@ -313,7 +323,7 @@
     <p style="text-align: center; color: #9ca3af; margin-top: 3rem;">&copy; Pabsmophobia. All rights reserved.</p>
   </footer>
 
- <script>
+  <script>
     const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQg_l7qnk1kof0lZhIqP0BSNjOfsS5F0MVB92p56wrIzgdSGOKUfxpK-Ec8FMq3uTePGnAs6jF_aIDD/pub?gid=0&single=true&output=csv';
 
     let eventData = [];
@@ -324,7 +334,6 @@
     const elVenue = document.getElementById('filterVenue');
     const tbody = document.getElementById('eventsTableBody');
 
-    // Convert "DD/MM/YYYY" string to JS Date
     function parseDate(dateStr) {
       if (!dateStr) return new Date(0);
       const parts = dateStr.split('/');
@@ -333,7 +342,6 @@
       return new Date(year, month - 1, day);
     }
 
-    // CSV Parser supporting quoted fields with commas
     function parseCSV(text) {
       const lines = [];
       let row = [];
@@ -378,7 +386,6 @@
         const csvText = await response.text();
         const parsedRows = parseCSV(csvText);
 
-        // Remove header row
         const rows = parsedRows.slice(1);
 
         const rawEvents = rows.map(cols => ({
@@ -457,7 +464,6 @@
       filtered.forEach(item => {
         const tr = document.createElement('tr');
         
-        // Match badge CSS class to providerType, fallback to badge-hn
         let badgeClass = 'badge-hn';
         if (item.providerType === 'pabs') {
           badgeClass = 'badge-pabs';
@@ -467,7 +473,6 @@
           badgeClass = 'badge-hn';
         }
 
-        // Dynamically print actual provider name from CSV column
         let badgesHTML = `<span class="badge ${badgeClass}">${item.provider}</span>`;
 
         if (item.coHost) {
@@ -513,9 +518,9 @@
 
     [elProvider, elType, elLocation, elVenue].forEach(select => select.addEventListener('change', renderTable));
 
-    // Initialize fetching live events
     fetchLiveEvents();
   </script>
+
   <!-- Dynamic Navigation Script -->
   <script src="nav.js"></script>
 
