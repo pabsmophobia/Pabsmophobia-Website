@@ -1,5 +1,5 @@
 ---
-title: "Unveiling the Unseen: Your Essential Ghost Hunting Toolkit!"
+title: "Unveiling the Unseen:Your Essential Ghost Hunting Toolkit!"
 date: "2025-11-02"
 description: "Hey fellow paranormal enthusiasts! We've all seen the dramatic ghost hunting shows, full of figures creeping through abandoned buildings in the dead of night, clutching mysterious gadgets. But what are all those tools, and how do they supposedly help us connect with the other side?"
 draft: false
