@@ -421,23 +421,29 @@
         const xmlText = await response.text();
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, "text/xml");
-        const items = xmlDoc.querySelectorAll("item");
+        const items = Array.from(xmlDoc.querySelectorAll("item"));
 
         if (items.length === 0) {
           container.innerHTML = "<p style='color: var(--text-muted);'>No published editions available.</p>";
           return;
         }
 
-        let htmlContent = '';
-
-        items.forEach(item => {
+        // Map XML items to objects and sort by publication date (Newest First)
+        const sortedItems = items.map(item => {
           const title = item.querySelector("title")?.textContent || "Untitled";
           const link = item.querySelector("link")?.textContent || "#";
-          const pubDate = item.querySelector("pubDate")?.textContent || "";
+          const pubDateStr = item.querySelector("pubDate")?.textContent || "";
           const description = item.querySelector("description")?.textContent || "";
+          const pubDate = pubDateStr ? new Date(pubDateStr) : new Date(0);
 
+          return { title, link, pubDate, description };
+        }).sort((a, b) => b.pubDate - a.pubDate); // Descending order
+
+        let htmlContent = '';
+
+        sortedItems.forEach(item => {
           // Format Date
-          const formattedDate = pubDate ? new Date(pubDate).toLocaleDateString('en-GB', {
+          const formattedDate = item.pubDate.getTime() ? item.pubDate.toLocaleDateString('en-GB', {
             month: 'long',
             year: 'numeric'
           }) : '';
@@ -445,9 +451,9 @@
           htmlContent += `
             <article class="article-card">
               <div class="meta">${formattedDate}</div>
-              <h2>${title}</h2>
-              <p>${description}</p>
-              <a href="${link}" class="read-more">Read Full Issue &rarr;</a>
+              <h2>${item.title}</h2>
+              <p>${item.description}</p>
+              <a href="${item.link}" class="read-more">Read Full Issue &rarr;</a>
             </article>
           `;
         });
