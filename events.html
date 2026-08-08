@@ -44,12 +44,12 @@
       color: #e0e7ff;
       text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
       display: flex;
-      align-items: center;    /* Vertically aligns text with the logo image */
+      align-items: center;    /* Vertically aligns text with logo image */
       gap: 0.75rem;           /* Horizontal space between image and text */
     }
 
     .logo-img {
-      height: 130px;           /* Sets uniform logo size */
+      height: 130px;           /* Uniform logo size */
       width: auto;
       border-radius: 4px;
       object-fit: contain;
@@ -236,7 +236,7 @@
       <img src="Pabsmo.jpg" alt="Pabsmophobia Logo" class="logo-img">
       <span>Pabsmophobia</span>
     </div>
-    <!-- nav.js will populate your menu items here dynamically -->
+    <!-- Nav loaded dynamically via nav.js -->
     <nav></nav>
   </header>
 
@@ -300,7 +300,11 @@
             <th>Action</th>
           </tr>
         </thead>
-        <tbody id="eventsTableBody"></tbody>
+        <tbody id="eventsTableBody">
+          <tr>
+            <td colspan="9" style="text-align:center; padding: 2rem; color:#9ca3af;">Loading live schedule...</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </main>
@@ -310,46 +314,9 @@
   </footer>
 
   <script>
-    // Helper to convert "DD/MM/YYYY" strings to JavaScript Date objects
-    function parseDate(dateStr) {
-      const [day, month, year] = dateStr.split('/');
-      return new Date(year, month - 1, day);
-    }
+    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQg_l7qnk1kof0lZhIqP0BSNjOfsS5F0MVB92p56wrIzgdSGOKUfxpK-Ec8FMq3uTePGnAs6jF_aIDD/pub?gid=0&single=true&output=csv';
 
-    const rawEventData = [
-      { date: '07/08/2026', name: 'The Poltergeist House Ghost Hunt', provider: 'Haunting Nights', venue: 'The Poltergeist House', location: 'Rotherham', type: 'Ghost Hunt', time: '21:00 - 03:00', price: 'Last 6 Places', providerType: 'hn', coHost: false },
-      { date: '07/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
-      { date: '08/08/2026', name: 'Colchester Town Hall Ghost Hunt', provider: 'Haunting Nights', venue: 'Colchester Town Hall', location: 'Colchester', type: 'Ghost Hunt', time: '21:00 - 03:00', price: '8 Places Available', providerType: 'hn', coHost: false },
-      { date: '08/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
-      { date: '14/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Available', providerType: 'ram', coHost: false },
-      { date: '15/08/2026', name: 'Thorne Workhouse Ghost Hunt', provider: 'Haunting Nights', venue: 'Thorne Workhouse', location: 'Doncaster', type: 'Ghost Hunt', time: '21:00 - 03:00', price: '10 Places Available', providerType: 'hn', coHost: false },
-      { date: '15/08/2026', name: 'Matthew Hopkins Witch Finder General', provider: 'Haunting Nights', venue: 'The Red Lion Inn, Manningtree', location: 'Essex', type: 'Ghost Hunt', time: '21:00 - 02:00', price: '£39.00 (Last 2 Places)', providerType: 'hn', coHost: false },
-      { date: '15/08/2026', name: 'The Skirrid Inn Ghost Hunt', provider: 'Haunting Nights', venue: 'The Skirrid Mountain Inn', location: 'Abergavenny, Wales', type: 'Ghost Hunt', time: '21:30 - 03:00', price: '£15 Deposit (8 Places)', providerType: 'hn', coHost: false },
-      { date: '15/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
-      { date: '16/08/2026', name: 'Ancient Ram Inn Afternoon Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Afternoon Ghost Hunt', time: '13:00 - 18:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
-      { date: '21/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
-      { date: '22/08/2026', name: 'Fulford Manor Ghost Hunt', provider: 'Haunting Nights', venue: 'Great Fulford Manor', location: 'Exeter, Devon', type: 'Ghost Hunt', time: '21:00 - 03:00', price: '6 Places Available', providerType: 'hn', coHost: false },
-      { date: '22/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
-      { date: '28/08/2026', name: 'Ancient Ram Inn Overnight Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Overnight Ghost Hunt', time: '21:00 - 03:00', price: 'Limited Places Available', providerType: 'ram', coHost: false },
-      { date: '29/08/2026', name: 'Ghost Night with Richard Felix', provider: 'Haunting Nights', venue: 'Pendle Hill Area Venue', location: 'Pendle, Lancashire', type: 'Ghost Talk', time: '19:00 - 23:00', price: '£39pp (6 Places)', providerType: 'hn', coHost: false },
-      { date: '29/08/2026', name: 'Bron Y Garth Abandoned Hospital Sleepover', provider: 'Haunting Nights', venue: 'Bron Y Garth Hospital', location: 'Gwynedd, Wales', type: 'Ghost Hunt Sleepover', time: '21:00 - 03:00', price: 'Available', providerType: 'hn', coHost: false },
-      { date: '29/08/2026', name: 'Voodoo Doll Workshop & Ghost Hunt', provider: 'The Ancient Ram Inn', venue: 'Ancient Ram Inn', location: 'Gloucestershire', type: 'Workshop & Ghost Hunt', time: '13:00 - 17:00', price: 'Available', providerType: 'ram', coHost: false },
-      { date: '05/09/2026', name: 'Antwerp Mansion Ghost Hunt', provider: 'Haunting Nights', venue: 'Antwerp Mansion', location: 'Manchester', type: 'Ghost Hunt', time: '21:00 - 03:00', price: '8 Places (£15 Deposit)', providerType: 'hn', coHost: false },
-      { date: '05/09/2026', name: 'Woodchester Mansion Ghost Hunt', provider: 'Haunting Nights', venue: 'Woodchester Mansion', location: 'Gloucestershire', type: 'Ghost Hunt', time: '21:00 - 03:00', price: '10 Places Available', providerType: 'hn', coHost: false },
-      { date: '05/09/2026', name: 'Willsbridge Mill Ghost Hunt', provider: 'Haunting Nights', venue: 'Willsbridge Mill', location: 'Bristol, Gloucestershire', type: 'Ghost Hunt', time: '21:00 - 02:00', price: '£39.00 (10 Places)', providerType: 'hn', coHost: false },
-      { date: '11/09/2026', name: 'Hell Fire Caves Ghost Hunt', provider: 'Haunting Nights', venue: 'Hellfire Caves', location: 'West Wycombe', type: 'Ghost Hunt', time: '20:00 - 02:00', price: 'Limited Places Available', providerType: 'hn', coHost: false },
-      { date: '12/09/2026', name: 'Ripon Workhouse Ghost Hunt', provider: 'Haunting Nights', venue: 'Ripon Workhouse', location: 'North Yorkshire', type: 'Ghost Hunt', time: '20:00 - 02:00', price: 'Limited Places Available', providerType: 'hn', coHost: false },
-      { date: '01/10/2026', name: 'The Horseshoe - In-spectre nights', provider: 'Pabsmophobia', venue: 'The Horseshoe', location: 'Chipping Sodbury', type: 'Ghost Hunt', time: '20:00 - 23:00', price: 'Full details coming soon. Sundays through October.', providerType: 'pabs', coHost: false },
-      { date: '24/10/2026', name: 'The Old Prison Halloween Ghost Hunt', provider: 'Haunting Nights', venue: 'The Old Prison', location: 'Northleach, Gloucestershire', type: 'Ghost Hunt', time: '20:00 - 02:00', price: '£49.00 (Last 6 Places)', providerType: 'hn', coHost: false }
-    ];
-
-    // Automatically hide expired dates and sort chronologically
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const eventData = rawEventData
-      .filter(item => parseDate(item.date) >= today)
-      .sort((a, b) => parseDate(a.date) - parseDate(b.date));
+    let eventData = [];
 
     const elProvider = document.getElementById('filterProvider');
     const elType = document.getElementById('filterType');
@@ -357,14 +324,101 @@
     const elVenue = document.getElementById('filterVenue');
     const tbody = document.getElementById('eventsTableBody');
 
+    // Convert "DD/MM/YYYY" string to JS Date
+    function parseDate(dateStr) {
+      if (!dateStr) return new Date(0);
+      const parts = dateStr.split('/');
+      if (parts.length !== 3) return new Date(0);
+      const [day, month, year] = parts.map(p => parseInt(p, 10));
+      return new Date(year, month - 1, day);
+    }
+
+    // CSV Parser supporting quoted fields with commas
+    function parseCSV(text) {
+      const lines = [];
+      let row = [];
+      let inQuotes = false;
+      let currentVal = '';
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && nextChar === '"') {
+            currentVal += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === ',' && !inQuotes) {
+          row.push(currentVal.trim());
+          currentVal = '';
+        } else if ((char === '\r' || char === '\n') && !inQuotes) {
+          if (char === '\r' && nextChar === '\n') i++;
+          row.push(currentVal.trim());
+          if (row.some(val => val.length > 0)) lines.push(row);
+          row = [];
+          currentVal = '';
+        } else {
+          currentVal += char;
+        }
+      }
+      if (currentVal.length > 0 || row.length > 0) {
+        row.push(currentVal.trim());
+        lines.push(row);
+      }
+      return lines;
+    }
+
+    async function fetchLiveEvents() {
+      try {
+        const response = await fetch(SHEET_CSV_URL);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const csvText = await response.text();
+        const parsedRows = parseCSV(csvText);
+
+        // Remove header row
+        const rows = parsedRows.slice(1);
+
+        const rawEvents = rows.map(cols => ({
+          date: cols[0] || '',
+          name: cols[1] || '',
+          provider: cols[2] || '',
+          venue: cols[3] || '',
+          location: cols[4] || '',
+          type: cols[5] || '',
+          time: cols[6] || '',
+          price: cols[7] || '',
+          providerType: (cols[8] || '').toLowerCase(),
+          coHost: (cols[9] || '').toLowerCase() === 'true'
+        }));
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        eventData = rawEvents
+          .filter(item => item.date && parseDate(item.date) >= today)
+          .sort((a, b) => parseDate(a.date) - parseDate(b.date));
+
+        populateFilterDropdowns();
+        renderTable();
+      } catch (err) {
+        console.error('Error fetching Google Sheet schedule:', err);
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 2rem; color:#f87171;">Failed to load schedule from Google Sheets. Please check the published link settings.</td></tr>`;
+      }
+    }
+
     function populateFilterDropdowns() {
       const providers = new Set(), types = new Set(), locations = new Set(), venues = new Set();
+      
       eventData.forEach(item => {
         if (item.provider) providers.add(item.provider);
         if (item.type) types.add(item.type);
         if (item.location) locations.add(item.location);
         if (item.venue) venues.add(item.venue);
       });
+
       appendOptions(elProvider, Array.from(providers).sort());
       appendOptions(elType, Array.from(types).sort());
       appendOptions(elLocation, Array.from(locations).sort());
@@ -403,6 +457,7 @@
       filtered.forEach(item => {
         const tr = document.createElement('tr');
         let badgesHTML = '';
+
         if (item.providerType === 'pabs') {
           badgesHTML = `<span class="badge badge-pabs">Pabsmophobia</span>`;
         } else if (item.providerType === 'hn') {
@@ -453,11 +508,12 @@
     }
 
     [elProvider, elType, elLocation, elVenue].forEach(select => select.addEventListener('change', renderTable));
-    populateFilterDropdowns();
-    renderTable();
+
+    // Initialize fetching live events
+    fetchLiveEvents();
   </script>
 
-  <!-- Global Navigation Script -->
+  <!-- Dynamic Navigation Script -->
   <script src="nav.js"></script>
 
 </body>
