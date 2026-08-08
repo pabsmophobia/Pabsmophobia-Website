@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newsletter | Pabsmophobia</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="Pabsmo.jpg">
+  <link rel="apple-touch-icon" href="Pabsmo.jpg">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Eczar:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Marked.js Markdown Parser -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    :root {
+      --bg-color: #0a0a0c;
+      --card-bg: #141419;
+      --text-main: #d1d5db;
+      --text-muted: #9ca3af;
+      --accent: #8b5cf6;
+      --accent-hover: #a78bfa;
+      --border: #27272a;
+      --font-title: 'Creepster', cursive;
+      --font-body: 'Eczar', serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    header {
+      background-color: #050507;
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      letter-spacing: 3px;
+      color: #e0e7ff;
+      text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-img {
+      height: 135px;
+      width: auto;
+      border-radius: 6px;
+      object-fit: contain;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a.active { color: var(--accent); }
+
+    .container {
+      max-width: 850px;
+      margin: 3rem auto;
+      padding: 2rem 1.5rem;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    /* Markdown Styling Hooks */
+    #markdown-content h1, #markdown-content h2, #markdown-content h3 {
+      font-family: var(--font-title);
+      color: #f3f4f6;
+      margin-top: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    #markdown-content h1 { font-size: 2.5rem; color: #fff; }
+    #markdown-content h2 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+    #markdown-content h3 { font-size: 1.5rem; color: var(--accent-hover); }
+
+    #markdown-content p { margin-bottom: 1.2rem; color: var(--text-main); }
+    #markdown-content ul, #markdown-content ol { margin: 1rem 0 1.5rem 2rem; color: var(--text-main); }
+    #markdown-content li { margin-bottom: 0.4rem; }
+    
+    #markdown-content blockquote {
+      border-left: 4px solid var(--accent);
+      background-color: #0d0d12;
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    #markdown-content a { color: var(--accent); text-decoration: none; }
+    #markdown-content a:hover { text-decoration: underline; }
+    #markdown-content hr { border: 0; height: 1px; background: var(--border); margin: 2rem 0; }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="Pabsmo.jpg" alt="Pabsmophobia Logo" class="logo-img">
+      <span>Pabsmophobia</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="events.html">Events</a>
+      <a href="blog.html" class="active">Blogs & Newsletters</a>
+      <a href="evidence.html">Evidence</a>
+      <a href="team.html">About</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <a href="blog.html" class="back-btn">&larr; Back to Blogs & Newsletters</a>
+    <article id="markdown-content">
+      <p style="color: var(--text-muted);">Loading newsletter...</p>
+    </article>
+  </main>
+
+  <footer>
+    <p>&copy; Pabsmophobia. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Grab file name from query parameter (e.g. post.html?file=Monthly%20Haunt%20Issue1.md)
+    const urlParams = new URLSearchParams(window.location.search);
+    const file = urlParams.get('file') || 'Monthly Haunt Issue1.md';
+
+    // Fetch and parse Markdown file
+    fetch('newsletter/' + file)
+      .then(response => {
+        if (!response.ok) throw new Error('File not found');
+        return response.text();
+      })
+      .then(text => {
+        // Strip frontmatter metadata if present (--- title: ... ---)
+        const cleanText = text.replace(/^---[\s\S]*?---\n/, '');
+        document.getElementById('markdown-content').innerHTML = marked.parse(cleanText);
+      })
+      .catch(err => {
+        document.getElementById('markdown-content').innerHTML = '<p>Error loading article.</p>';
+      });
+  </script>
+
+</body>
+</html>
