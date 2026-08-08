@@ -167,10 +167,16 @@
       fileParam = 'newsletter/monthly-haunt-issue1.md';
     }
 
-    // Decode URL parameter, trim whitespace, and strip any stray line numbers (:191 etc)
+    // Clean up parameter
     fileParam = decodeURIComponent(fileParam).trim().replace(/:\d+$/, '');
 
+    // Ensure the path works correctly on GitHub Pages subpaths by using a relative path resolution from root
     let fetchPath = fileParam;
+    if (window.location.hostname.includes('github.io')) {
+      // Strips leading slash if present to safely append to repository base path
+      const cleanParam = fileParam.startsWith('/') ? fileParam.substring(1) : fileParam;
+      fetchPath = '/Pabsmophobia-Website/' + cleanParam;
+    }
 
     try {
       const response = await fetch(fetchPath);
@@ -187,13 +193,12 @@
       contentContainer.innerHTML = marked.parse(cleanText);
 
     } catch (error) {
-      console.error('Error fetching markdown article:', error);
+      console.error('Error fetching markdown article from path:', fetchPath, error);
       contentContainer.innerHTML = '<p>Error loading article. Please verify the file path.</p>';
     }
   }
 
   document.addEventListener('DOMContentLoaded', loadArticle);
 </script>
-
 </body>
 </html>
