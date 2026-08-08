@@ -1,45 +1,51 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>The Pabsmophobia Monthly Haunt</title>
-    <link>https://pabsmophobia.github.io/Pabsmophobia-Website/blog.html</link>
-    <description>Field notes, publication archives, and balanced investigation analysis.</description>
+    <title>Pabsmophobia Newsletter</title>
+    <link>https://pabsmophobia.github.io/Pabsmophobia-Website/</link>
+    <description>Field updates, historical write-ups, and paranormal investigations from the Pabsmophobia team.</description>
     <language>en-gb</language>
+    <atom:link href="https://pabsmophobia.github.io/Pabsmophobia-Website/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title><![CDATA[A Seat at the Table: When Our Loved Ones Visit on Special Days]]></title>
-      <link>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=a-seat-at-the-table.md</link>
+      <link>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=newsletter/a-seat-at-the-table.md</link>
       <description><![CDATA[There's a unique kind of quiet on special occasions—birthdays, anniversaries, holidays—after the wrapping paper is cleared and the candles are blown out. In the midst of the celebration, many of us feel a faint, unmistakable echo, a sense that someone is missing, and yet, somehow, they are also present.]]></description>
       <pubDate>Mon, 03 Nov 2025 00:00:00 GMT</pubDate>
-      <guid>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=a-seat-at-the-table.md</guid>
+      <guid>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=newsletter/a-seat-at-the-table.md</guid>
     </item>
+
     <item>
-      <title><![CDATA[Unveiling the Unseen:Your Essential Ghost Hunting Toolkit!]]></title>
-      <link>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=essential-ghost-hunting-toolkit.md</link>
-      <description><![CDATA[Hey fellow paranormal enthusiasts! We've all seen the dramatic ghost hunting shows, full of figures creeping through abandoned buildings in the dead of night, clutching mysterious gadgets. But what are all those tools, and how do they supposedly help us connect with the other side?]]></description>
-      <pubDate>Sun, 02 Nov 2025 00:00:00 GMT</pubDate>
-      <guid>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=essential-ghost-hunting-toolkit.md</guid>
+      <title><![CDATA[Shadows in the Stone: Investigating Historic Locations]]></title>
+      <link>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=newsletter/shadows-in-the-stone.md</link>
+      <description><![CDATA[An in-depth look at how historic architecture, residual energy, and environmental factors intersect during our late-night vigils and public ghost hunts.]]></description>
+      <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+      <guid>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=newsletter/shadows-in-the-stone.md</guid>
     </item>
+
     <item>
-      <title><![CDATA[The Pabsmophobia Monthly Haunt: Issue #1]]></title>
-      <link>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=monthly-haunt-issue1.md</link>
-      <description><![CDATA[UK Ghost News, Lock-In Dates & Field Notes — August 2026 Launch Edition.]]></description>
-      <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
-      <guid>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=monthly-haunt-issue1.md</guid>
+      <title><![CDATA[Tools of the Trade: EMF, K2, and Spirit Boxes Explained]]></title>
+      <link>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=newsletter/tools-of-the-trade.md</link>
+      <description><![CDATA[A breakdown of how we calibrate and utilize specialized investigative equipment to separate environmental anomalies from unexplained phenomena.]]></description>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+      <guid>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=newsletter/tools-of-the-trade.md</guid>
     </item>
+
     <item>
-      <title><![CDATA[The Photographic Truth About "Ghost Orbs"]]></title>
-      <link>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=photographic-truth-about-ghost-orbs.md</link>
-      <description><![CDATA[An Analysis of Common Anomalies in Paranormal Photography. I recently captured some photos in a dark interior that feature common anomalies often mistaken for paranormal 'orbs.' By analyzing these sequential shots and close-ups, we can see exactly why these features are almost always caused by photographic artifacts —not spirits.]]></description>
-      <pubDate>Fri, 31 Oct 2025 00:00:00 GMT</pubDate>
-      <guid>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=photographic-truth-about-ghost-orbs.md</guid>
+      <title><![CDATA[The Middle Ground: Skepticism Meets Belief in Parapsychology]]></title>
+      <link>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=newsletter/the-middle-ground.md</link>
+      <description><![CDATA[Why adopting a balanced investigative philosophy between complete skepticism and absolute belief is crucial for modern paranormal research.]]></description>
+      <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+      <guid>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=newsletter/the-middle-ground.md</guid>
     </item>
+
     <item>
-      <title><![CDATA[Don't Put Away Your Cauldrons Just Yet: Why the Veil Might Still Be Thin!]]></title>
-      <link>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=why-the-veil-might-still-be-thin.md</link>
-      <description><![CDATA[The pumpkins are wilting, the candy is half-eaten, and the last vestiges of spooky décor are being packed away for another year. Halloween has come and gone, and with it, many assume the mystical 'thinning of the veil' has fully snapped back into place. But what if that's not entirely true?]]></description>
-      <pubDate>Sat, 01 Nov 2025 00:00:00 GMT</pubDate>
-      <guid>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=why-the-veil-might-still-be-thin.md</guid>
+      <title><![CDATA[Looking Ahead: 2026 Investigations and Team Updates]]></title>
+      <link>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=newsletter/looking-ahead-2026.md</link>
+      <description><![CDATA[A look forward at our scheduled venue broadcasts, upcoming public ghost hunts with Haunting Nights, and new digital media content releases.]]></description>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
+      <guid>https://pabsmophobia.github.io/Pabsmophobia-Website/post.html?file=newsletter/looking-ahead-2026.md</guid>
     </item>
+
   </channel>
 </rss>
