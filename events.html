@@ -193,7 +193,7 @@
     .col-date { white-space: nowrap; font-weight: 600; color: #8b5cf6; }
     .col-price { color: #f3f4f6; }
 
-    /* Badges */
+    /* Badges - !important added to override external styles.css */
     .badge {
       display: inline-block;
       font-size: 0.75rem;
@@ -205,22 +205,22 @@
     }
 
     .badge-hn { 
-      background: rgba(59, 130, 246, 0.2); 
-      color: #60a5fa; 
-      border: 1px solid rgba(59, 130, 246, 0.4); 
+      background: rgba(59, 130, 246, 0.2) !important; 
+      color: #60a5fa !important; 
+      border: 1px solid rgba(59, 130, 246, 0.4) !important; 
     }
 
     .badge-ram { 
-      background: rgba(239, 68, 68, 0.2); 
-      color: #f87171; 
-      border: 1px solid rgba(239, 68, 68, 0.4); 
+      background: rgba(239, 68, 68, 0.2) !important; 
+      color: #f87171 !important; 
+      border: 1px solid rgba(239, 68, 68, 0.4) !important; 
     }
 
     .badge-pabs {
-      background: rgba(139, 92, 246, 0.25);
-      color: #c084fc;
-      border: 1px solid rgba(139, 92, 246, 0.6);
-      box-shadow: 0 0 6px rgba(139, 92, 246, 0.3);
+      background: rgba(139, 92, 246, 0.25) !important;
+      color: #c084fc !important;
+      border: 1px solid rgba(139, 92, 246, 0.6) !important;
+      box-shadow: 0 0 6px rgba(139, 92, 246, 0.3) !important;
     }
 
     .btn {
@@ -464,13 +464,19 @@
       filtered.forEach(item => {
         const tr = document.createElement('tr');
         
-        let badgeClass = 'badge-hn';
-        if (item.providerType === 'pabs') {
-          badgeClass = 'badge-pabs';
-        } else if (item.providerType === 'ram') {
-          badgeClass = 'badge-ram';
-        } else if (item.providerType === 'hn') {
-          badgeClass = 'badge-hn';
+        const pType = (item.providerType || '').toLowerCase().trim();
+        const pName = (item.provider || '').toLowerCase().trim();
+
+        // Automatic fallback logic checking provider name directly
+        let badgeClass = 'badge-hn'; // Default Haunting Nights (Blue)
+        let resolvedType = pType || 'hn';
+
+        if (pType === 'pabs' || pName.includes('pabs')) {
+          badgeClass = 'badge-pabs'; // Purple
+          resolvedType = 'pabs';
+        } else if (pType === 'ram' || pName.includes('ram')) {
+          badgeClass = 'badge-ram'; // Red
+          resolvedType = 'ram';
         }
 
         let badgesHTML = `<span class="badge ${badgeClass}">${item.provider}</span>`;
@@ -488,7 +494,7 @@
           <td>${item.type}</td>
           <td style="white-space: nowrap;">${item.time}</td>
           <td class="col-price">${item.price}</td>
-          <td><button class="btn" onclick="handleInquiry('${item.providerType}', '${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button></td>
+          <td><button class="btn" onclick="handleInquiry('${resolvedType}', '${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button></td>
         `;
         tbody.appendChild(tr);
       });
