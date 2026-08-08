@@ -170,6 +170,11 @@
       // Clean up parameter (decode, trim, and strip any accidental line numbers)
       fileParam = decodeURIComponent(fileParam).trim().replace(/:\d+$/, '');
 
+      // Ensure the path automatically prepends 'newsletter/' if it's missing and doesn't start with http/root path
+      if (!fileParam.startsWith('newsletter/') && !fileParam.startsWith('/')) {
+        fileParam = 'newsletter/' + fileParam;
+      }
+
       // Ensure the path is strictly relative (remove any accidental leading slash)
       let fetchPath = fileParam.startsWith('/') ? fileParam.substring(1) : fileParam;
 
