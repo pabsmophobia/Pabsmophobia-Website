@@ -313,7 +313,7 @@
     <p style="text-align: center; color: #9ca3af; margin-top: 3rem;">&copy; Pabsmophobia. All rights reserved.</p>
   </footer>
 
-  <script>
+ <script>
     const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQg_l7qnk1kof0lZhIqP0BSNjOfsS5F0MVB92p56wrIzgdSGOKUfxpK-Ec8FMq3uTePGnAs6jF_aIDD/pub?gid=0&single=true&output=csv';
 
     let eventData = [];
@@ -456,15 +456,19 @@
 
       filtered.forEach(item => {
         const tr = document.createElement('tr');
-        let badgesHTML = '';
-
+        
+        // Match badge CSS class to providerType, fallback to badge-hn
+        let badgeClass = 'badge-hn';
         if (item.providerType === 'pabs') {
-          badgesHTML = `<span class="badge badge-pabs">Pabsmophobia</span>`;
+          badgeClass = 'badge-pabs';
+        } else if (item.providerType === 'ram') {
+          badgeClass = 'badge-ram';
         } else if (item.providerType === 'hn') {
-          badgesHTML = `<span class="badge badge-hn">Haunting Nights</span>`;
-        } else {
-          badgesHTML = `<span class="badge badge-ram">The Ancient Ram Inn</span>`;
+          badgeClass = 'badge-hn';
         }
+
+        // Dynamically print actual provider name from CSV column
+        let badgesHTML = `<span class="badge ${badgeClass}">${item.provider}</span>`;
 
         if (item.coHost) {
           badgesHTML += ` <span class="badge badge-pabs">Co-Host</span>`;
@@ -512,7 +516,6 @@
     // Initialize fetching live events
     fetchLiveEvents();
   </script>
-
   <!-- Dynamic Navigation Script -->
   <script src="nav.js"></script>
 
