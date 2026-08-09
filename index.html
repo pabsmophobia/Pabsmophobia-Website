@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About &amp; Team | Pabsmophobia</title>
+  <title>Pabsmophobia | Paranormal Investigation Hub</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/jpeg" href="Pabsmo.jpg">
@@ -13,7 +13,6 @@
 
   <!-- INSERT EXTERNAL STYLESHEET HERE -->
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -52,6 +51,23 @@
         <a href="evidence.html">Browse evidence →</a>
       </div>
     </section>
+
+    <!-- Latest Investigations Section -->
+    <section style="margin-top: 4rem;">
+      <h2 class="section-title">Latest Field Evidence</h2>
+      <p style="color: var(--text-muted); margin-bottom: 2rem;">Our most recent case findings and analysis from active investigations.</p>
+      
+      <div id="latest-investigations-container" class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-muted);">
+          Loading latest investigations...
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="evidence.html" class="btn">View All Evidence →</a>
+      </div>
+    </section>
+
   </main>
 
   <footer>
@@ -60,6 +76,50 @@
 
   <!-- Global Navigation Script -->
   <script src="nav.js"></script>
+  
+  <!-- Load Latest Investigations -->
+  <script>
+    async function loadLatestInvestigations() {
+      const container = document.getElementById('latest-investigations-container');
+      
+      try {
+        const response = await fetch('evidence-data.json');
+        const evidenceList = await response.json();
+        
+        // Get the 3 most recent investigations
+        const latest = evidenceList.slice(-3).reverse();
+        
+        if (latest.length === 0) {
+          container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">No recent investigations yet.</p>';
+          return;
+        }
+        
+        container.innerHTML = latest.map(item => {
+          const statusClass = item.status === 'debunked' ? 'badge-debunked' : 'badge-paranormal';
+          const statusLabel = item.status === 'debunked' ? 'Debunked' : 'Unexplained';
+          
+          return `
+            <div class="card" style="border: 1px solid var(--border); cursor: pointer; transition: all 0.3s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <span class="badge ${statusClass}" style="font-size: 0.7rem;">${statusLabel}</span>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">${item.date}</span>
+              </div>
+              <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.3rem;">${item.title}</h3>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem;">📍 ${item.location}</p>
+              <p style="color: var(--text-muted); line-height: 1.5; font-size: 0.95rem;">${item.description}</p>
+              <a href="evidence.html" style="color: var(--accent); text-decoration: none; font-weight: 600; margin-top: 1rem; display: inline-block;">View Details →</a>
+            </div>
+          `;
+        }).join('');
+        
+      } catch (err) {
+        console.error('Error loading latest investigations:', err);
+        container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">Unable to load investigations.</p>';
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', loadLatestInvestigations);
+  </script>
 
 
 
