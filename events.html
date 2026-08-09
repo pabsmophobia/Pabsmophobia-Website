@@ -14,11 +14,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Eczar:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Extracted Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+  <!-- External Stylesheet Link -->
+  <link rel="stylesheet" href="style.css">
 
   <style>
-    /* Dark Mode Fallback */
+    /* Dark Mode Fallback & Schedule Page Specific Styles */
     body {
       background-color: #0a0a0c !important;
       color: #d1d5db;
@@ -44,12 +44,12 @@
       color: #e0e7ff;
       text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
       display: flex;
-      align-items: center;    /* Vertically aligns text with logo image */
-      gap: 0.75rem;           /* Horizontal space between image and text */
+      align-items: center;
+      gap: 0.75rem;
     }
 
     .logo-img {
-      height: 130px;           /* Uniform logo size */
+      height: 130px;
       width: auto;
       border-radius: 4px;
       object-fit: contain;
@@ -193,7 +193,7 @@
     .col-date { white-space: nowrap; font-weight: 600; color: #8b5cf6; }
     .col-price { color: #f3f4f6; }
 
-    /* Badges - !important added to override external styles.css */
+    /* Badges */
     .badge {
       display: inline-block;
       font-size: 0.75rem;
@@ -467,15 +467,14 @@
         const pType = (item.providerType || '').toLowerCase().trim();
         const pName = (item.provider || '').toLowerCase().trim();
 
-        // Automatic fallback logic checking provider name directly
-        let badgeClass = 'badge-hn'; // Default Haunting Nights (Blue)
+        let badgeClass = 'badge-hn';
         let resolvedType = pType || 'hn';
 
         if (pType === 'pabs' || pName.includes('pabs')) {
-          badgeClass = 'badge-pabs'; // Purple
+          badgeClass = 'badge-pabs';
           resolvedType = 'pabs';
         } else if (pType === 'ram' || pName.includes('ram')) {
-          badgeClass = 'badge-ram'; // Red
+          badgeClass = 'badge-ram';
           resolvedType = 'ram';
         }
 
