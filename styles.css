@@ -217,7 +217,7 @@ h1 {
   font-size: 0.95rem;
 }
 
-/* --- ADDED TABLE STYLES --- */
+/* Table Styles */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -242,7 +242,6 @@ tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* Optional wrapper for mobile table scrolling */
 .table-responsive {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
