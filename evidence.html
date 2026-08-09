@@ -1,30 +1,18 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evidence &amp; Field Logs | Pabsmophobia</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/jpeg" href="Pabsmo.jpg">
-  <link rel="apple-touch-icon" href="Pabsmo.jpg">
+  <link rel="icon" type="image/jpeg" href="images/library/Pabsmo.jpg">
+  <link rel="apple-touch-icon" href="images/library/Pabsmo.jpg">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Creepster&amp;family=Eczar:wght@400;600&amp;display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -42,33 +30,17 @@
     <h1>Evidence &amp; Field Logs</h1>
     <p class="subtitle">Documented logs, sensor telemetry, and objective field analysis.</p>
 
-    <!-- Entry 1 -->
-    <article class="article-card">
-      <div class="meta">Location: Willsbridge Mill • Date: May 2026</div>
-      <h2>EMF Telemetry Spike Analysis</h2>
-      <p>During an evening session, K2 meters recorded sudden spikes into high field ranges in the main room. High electromagnetic fields were monitored closely across multiple devices.</p>
-      
-      <div class="analysis-box">
-        <p style="margin-bottom: 0.8rem;">
-          <span class="badge badge-debunked">Debunked</span>
-        </p>
-        <strong>Field Assessment:</strong> Cross-referencing timestamp logs with participant movements confirmed the readings correlated directly with active mobile phones in guest pockets. Controlled baseline tests re-verified that mobile device handshakes caused the intermittent surges.
-      </div>
-    </article>
+    <!-- Filter Buttons -->
+    <div class="filters" style="margin: 2rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button class="filter-btn active" data-filter="all">All Files</button>
+      <button class="filter-btn" data-filter="paranormal">Unexplained</button>
+      <button class="filter-btn" data-filter="debunked">Debunked</button>
+    </div>
 
-    <!-- Entry 2 -->
-    <article class="article-card">
-      <div class="meta">Location: Historic Location • Date: July 2026</div>
-      <h2>Digital Audio Recording Log</h2>
-      <p>Unexplained audio anomaly captured during a quiet baseline recording session using digital voice recorders. The audio peak registered on the secondary channel while environmental noise was minimal.</p>
-      
-      <div class="analysis-box">
-        <p style="margin-bottom: 0.8rem;">
-          <span class="badge badge-paranormal">Unexplained / Paranormal</span>
-        </p>
-        <strong>Field Assessment:</strong> Currently isolated for spectral audio analysis to rule out mechanical reverberation or external draft interference.
-      </div>
-    </article>
+    <!-- Dynamic Container for JSON Evidence Cards -->
+    <div id="evidence-grid" class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+      <p>Loading case files...</p>
+    </div>
 
   </main>
 
@@ -76,9 +48,9 @@
     <p>© Pabsmophobia. All rights reserved.</p>
   </footer>
 
-  <!-- Dynamic Navigation Script -->
+  <!-- Dynamic Navigation & Evidence Rendering Scripts -->
   <script src="nav.js"></script>
+  <script src="evidence.js"></script>
 
-
-
-</body></html>
+</body>
+</html>
