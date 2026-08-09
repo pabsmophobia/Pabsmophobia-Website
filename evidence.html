@@ -12,10 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Creepster&amp;family=Eczar:wght@400;600&amp;display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -31,11 +27,53 @@
     <h1>Evidence &amp; Field Logs</h1>
     <p class="subtitle">Documented logs, sensor telemetry, and objective field analysis.</p>
 
-    <!-- RESTORED FILTER BUTTONS -->
+    <!-- Quick Status Filters -->
     <div class="filters">
       <button class="filter-btn active" data-filter="all">All Logs</button>
       <button class="filter-btn" data-filter="paranormal">Unexplained</button>
       <button class="filter-btn" data-filter="debunked">Debunked</button>
+    </div>
+
+    <!-- Advanced Filters -->
+    <div style="background: rgba(20, 20, 25, 0.8); padding: 1.5rem; border-radius: 8px; border: 1px solid #333; margin: 2rem 0;">
+      <h3 style="color: #fff; margin-top: 0; font-size: 1.2rem;">Filter Results</h3>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+        <!-- Search Box -->
+        <div>
+          <label for="evidence-search" style="color: #9ca3af; font-size: 0.9rem; display: block; margin-bottom: 0.5rem;">Search</label>
+          <input 
+            type="text" 
+            id="evidence-search" 
+            placeholder="Search title or description..."
+            style="width: 100%; padding: 0.75rem; border: 1px solid #333; border-radius: 4px; background: #0e0e12; color: #fff; font-family: inherit;"
+          />
+        </div>
+        
+        <!-- Location Filter -->
+        <div>
+          <label for="location-filter" style="color: #9ca3af; font-size: 0.9rem; display: block; margin-bottom: 0.5rem;">Location</label>
+          <select 
+            id="location-filter"
+            style="width: 100%; padding: 0.75rem; border: 1px solid #333; border-radius: 4px; background: #0e0e12; color: #fff; font-family: inherit; cursor: pointer;"
+          >
+            <option value="">All Locations</option>
+          </select>
+        </div>
+        
+        <!-- Status Filter -->
+        <div>
+          <label for="status-filter" style="color: #9ca3af; font-size: 0.9rem; display: block; margin-bottom: 0.5rem;">Status</label>
+          <select 
+            id="status-filter"
+            style="width: 100%; padding: 0.75rem; border: 1px solid #333; border-radius: 4px; background: #0e0e12; color: #fff; font-family: inherit; cursor: pointer;"
+          >
+            <option value="">All Statuses</option>
+            <option value="paranormal">Unexplained</option>
+            <option value="debunked">Debunked</option>
+          </select>
+        </div>
+      </div>
     </div>
 
     <!-- Dynamic Container for JSON Evidence Cards -->
