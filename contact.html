@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Creepster&amp;family=Eczar:wght@400;600&amp;display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -68,36 +69,17 @@
           
           <div>
             <label for="name" style="color: var(--text-muted); display: block; margin-bottom: 0.5rem; font-weight: 600;">Name *</label>
-            <input 
-              type="text" 
-              id="name" 
-              name="name" 
-              required
-              style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 4px; background: #0e0e12; color: #fff; font-family: inherit; font-size: 1rem;"
-              placeholder="Your name"
-            />
+            <input type="text" id="name" name="name" required="" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 4px; background: #0e0e12; color: #fff; font-family: inherit; font-size: 1rem;" placeholder="Your name">
           </div>
 
           <div>
             <label for="email" style="color: var(--text-muted); display: block; margin-bottom: 0.5rem; font-weight: 600;">Email *</label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
-              required
-              style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 4px; background: #0e0e12; color: #fff; font-family: inherit; font-size: 1rem;"
-              placeholder="your@email.com"
-            />
+            <input type="email" id="email" name="email" required="" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 4px; background: #0e0e12; color: #fff; font-family: inherit; font-size: 1rem;" placeholder="your@email.com">
           </div>
 
           <div>
             <label for="subject" style="color: var(--text-muted); display: block; margin-bottom: 0.5rem; font-weight: 600;">Subject *</label>
-            <select 
-              id="subject" 
-              name="subject" 
-              required
-              style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 4px; background: #0e0e12; color: #fff; font-family: inherit; font-size: 1rem; cursor: pointer;"
-            >
+            <select id="subject" name="subject" required="" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 4px; background: #0e0e12; color: #fff; font-family: inherit; font-size: 1rem; cursor: pointer;">
               <option value="">Select a subject</option>
               <option value="case_submission">Case Submission / Investigation Request</option>
               <option value="partnership">Partnership Inquiry</option>
@@ -110,21 +92,10 @@
 
           <div>
             <label for="message" style="color: var(--text-muted); display: block; margin-bottom: 0.5rem; font-weight: 600;">Message *</label>
-            <textarea 
-              id="message" 
-              name="message" 
-              required
-              rows="6"
-              style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 4px; background: #0e0e12; color: #fff; font-family: inherit; font-size: 1rem; resize: vertical;"
-              placeholder="Tell us more about your inquiry..."
-            ></textarea>
+            <textarea id="message" name="message" required="" rows="6" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 4px; background: #0e0e12; color: #fff; font-family: inherit; font-size: 1rem; resize: vertical;" placeholder="Tell us more about your inquiry..."></textarea>
           </div>
 
-          <button 
-            type="submit" 
-            class="btn" 
-            style="width: 100%; padding: 1rem; font-size: 1rem; border: none; cursor: pointer; margin-top: 0.5rem;"
-          >
+          <button type="submit" class="btn" style="width: 100%; padding: 1rem; font-size: 1rem; border: none; cursor: pointer; margin-top: 0.5rem;">
             Send Message
           </button>
 
@@ -175,6 +146,7 @@
       }, 2000);
     });
   </script>
+
 
 
 
