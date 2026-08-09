@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Newsletter | Pabsmophobia</title>
@@ -14,8 +16,8 @@
   <!-- Marked.js Markdown Parser -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-  
-  <link rel="stylesheet" href="style.css">
+  <!-- Updated Stylesheet Link with Cache-Busting -->
+  <link rel="stylesheet" href="styles.css?v=1.2">
 </head>
 <body>
 
@@ -24,18 +26,15 @@
       <img src="Pabsmo.jpg" alt="Pabsmophobia Logo" class="logo-img">
       <span>Pabsmophobia</span>
     </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="events.html">Events</a>
-      <a href="blog.html" class="active">Blogs &amp; Newsletters</a>
-      <a href="evidence.html">Evidence</a>
-      <a href="team.html">About</a>
-    </nav>
+    <!-- nav.js will populate menu items dynamically -->
+    <nav></nav>
   </header>
 
   <main class="container">
-    <a href="blog.html" class="back-btn">← Back to Blogs &amp; Newsletters</a>
-    <article id="markdown-content">
+    <a href="blog.html" class="read-more" style="display: inline-block; margin-bottom: 1.5rem;">← Back to Blogs &amp; Newsletters</a>
+    
+    <!-- Wrapped with article-card for dark background styling -->
+    <article id="markdown-content" class="article-card">
       <p style="color: var(--text-muted);">Loading newsletter...</p>
     </article>
   </main>
@@ -58,7 +57,7 @@
       // Clean up parameter (decode, trim, and strip any accidental line numbers)
       fileParam = decodeURIComponent(fileParam).trim().replace(/:\d+$/, '');
 
-      // Ensure the path automatically prepends 'newsletter/' if it's missing and doesn't start with http/root path
+      // Ensure the path automatically prepends 'newsletter/' if missing and doesn't start with http/root path
       if (!fileParam.startsWith('newsletter/') && !fileParam.startsWith('/')) {
         fileParam = 'newsletter/' + fileParam;
       }
@@ -89,5 +88,8 @@
     document.addEventListener('DOMContentLoaded', loadArticle);
   </script>
 
+  <!-- Dynamic Navigation Script -->
+  <script src="nav.js"></script>
 
-</body></html>
+</body>
+</html>
