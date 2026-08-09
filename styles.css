@@ -358,6 +358,20 @@ tr:nth-child(even) {
   box-shadow: 0 0 6px rgba(139, 92, 246, 0.3) !important;
 }
 
+/* Evidence Status Badges */
+.badge-debunked {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #10b981 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+}
+
+.badge-paranormal {
+  background: rgba(245, 158, 11, 0.2) !important;
+  color: #f59e0b !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.2) !important;
+}
+
 /* Footer Styling */
 footer {
   text-align: center;
