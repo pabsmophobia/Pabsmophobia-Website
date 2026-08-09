@@ -360,9 +360,10 @@ tr:nth-child(even) {
 
 /* Evidence Status Badges (High-Contrast Spectral Theme) */
 .badge-debunked {
-  background-color: rgba(148, 163, 184, 0.12) !important;
-  color: #cbd5e1 !important;
-  border: 1px solid rgba(148, 163, 184, 0.4) !important;
+  background-color: rgba(248, 113, 113, 0.18) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(248, 113, 113, 0.6) !important;
+  box-shadow: 0 0 8px rgba(248, 113, 113, 0.2) !important;
 }
 
 .badge-paranormal {
@@ -403,13 +404,13 @@ tr:nth-child(even) {
 .filter-btn[data-filter="paranormal"] {
   color: #fbbf24;
   border: 1px solid rgba(245, 158, 11, 0.6);
-  background: rgba(245, 158, 11, 0.12);
+  background: #141419;
 }
 
 .filter-btn[data-filter="debunked"] {
-  color: #cbd5e1;
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  background: rgba(148, 163, 184, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.6);
+  background: #141419;
 }
 
 /* Active / Hover States */
@@ -429,9 +430,51 @@ tr:nth-child(even) {
 
 .filter-btn[data-filter="debunked"].active,
 .filter-btn[data-filter="debunked"]:hover {
-  background-color: rgba(148, 163, 184, 0.3);
+  background-color: rgba(248, 113, 113, 0.35);
   color: #ffffff;
-  box-shadow: 0 0 8px rgba(148, 163, 184, 0.3);
+  box-shadow: 0 0 10px rgba(248, 113, 113, 0.4);
+}
+
+/* Video Markers & Video Badge Components */
+.video-marker,
+.marker-tag,
+.video-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+}
+
+/* Paranormal Video Marker (Gold) */
+.marker-paranormal,
+.video-badge.paranormal {
+  background-color: rgba(245, 158, 11, 0.18) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.6) !important;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.25) !important;
+}
+
+/* Debunked Video Marker (Crimson) */
+.marker-debunked,
+.video-badge.debunked {
+  background-color: rgba(248, 113, 113, 0.18) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(248, 113, 113, 0.6) !important;
+  box-shadow: 0 0 8px rgba(248, 113, 113, 0.25) !important;
+}
+
+/* All / General Marker (Purple) */
+.marker-all,
+.video-badge.all {
+  background-color: rgba(139, 92, 246, 0.2) !important;
+  color: #c084fc !important;
+  border: 1px solid rgba(139, 92, 246, 0.6) !important;
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.25) !important;
 }
 
 /* Dynamic Markdown Reader Styling (#markdown-content) */
