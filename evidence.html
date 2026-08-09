@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evidence &amp; Field Logs | Pabsmophobia</title>
@@ -12,11 +14,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Creepster&amp;family=Eczar:wght@400;600&amp;display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -25,13 +22,19 @@
       <img src="images/library/Pabsmo.jpg" alt="Pabsmophobia Logo" class="logo-img">
       <span>Pabsmophobia</span>
     </div>
-    <!-- nav.js will populate your menu items here dynamically -->
     <nav></nav>
   </header>
 
   <main class="container">
     <h1>Evidence &amp; Field Logs</h1>
     <p class="subtitle">Documented logs, sensor telemetry, and objective field analysis.</p>
+
+    <!-- RESTORED FILTER BUTTONS -->
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All Logs</button>
+      <button class="filter-btn" data-filter="paranormal">Unexplained</button>
+      <button class="filter-btn" data-filter="debunked">Debunked</button>
+    </div>
 
     <!-- Dynamic Container for JSON Evidence Cards -->
     <div id="evidence-grid" class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
@@ -48,7 +51,5 @@
   <script src="nav.js"></script>
   <script src="evidence.js"></script>
 
-
-
-
-</body></html>
+</body>
+</html>
