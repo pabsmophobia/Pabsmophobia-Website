@@ -14,7 +14,7 @@ files.forEach(file => {
 
   // 2. Ensure standard external stylesheet link exists
   if ($('head link[href="style.css"]').length === 0) {
-    $('head').append('  <link rel="stylesheet" href="style.css">\n');
+    $('head').append('  <link rel="stylesheet" href="styles.css">\n');
   }
 
   // Write the cleaned HTML back to the file
