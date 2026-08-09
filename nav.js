@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "About Us & Team", link: "team.html" },
     { name: "Events", link: "events.html" },
     { name: "Blogs & Newsletters", link: "blog.html" },
-    { name: "Evidence", link: "evidence.html" }
+    { name: "Evidence", link: "evidence.html" },
+    { name: "Contact", link: "contact.html" } // ADDED CONTACT PAGE
   ];
 
   // Generate HTML links and apply active class automatically
