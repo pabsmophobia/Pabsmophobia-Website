@@ -397,4 +397,57 @@ footer {
     padding: 0.4rem 0.6rem;
     font-size: 1rem;
   }
+} /* <--- Added missing closing bracket here */
+
+/* Brevo Newsletter Form Dark Theme Overrides */
+.newsletter-section {
+  margin-top: 3rem;
+}
+
+.sib-form {
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+#sib-container {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  padding: 2.5rem !important;
+}
+
+/* Input Fields */
+#sib-container input[type="text"],
+#sib-container input[type="email"] {
+  background-color: #0e0e12 !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-main) !important;
+  padding: 0.8rem 1rem !important;
+  border-radius: 4px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#sib-container input::placeholder {
+  color: var(--text-muted) !important;
+}
+
+#sib-container input:focus {
+  border-color: var(--accent) !important;
+  outline: none !important;
+}
+
+/* Submit Button */
+.sib-form-block__button {
+  background-color: var(--accent) !important;
+  color: #ffffff !important;
+  padding: 0.8rem 1.6rem !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s, transform 0.2s !important;
+}
+
+.sib-form-block__button:hover {
+  background-color: var(--accent-hover) !important;
+  transform: translateY(-2px) !important;
 }
