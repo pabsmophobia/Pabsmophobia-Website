@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Investigation Schedule | Pabsmophobia</title>
@@ -11,233 +9,14 @@
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Eczar:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&amp;family=Eczar:wght@400;600&amp;display=swap" rel="stylesheet">
 
   <!-- External Stylesheet Link -->
   <link rel="stylesheet" href="styles.css">
 
-  <style>
-    /* Dark Mode Fallback & Schedule Page Specific Styles */
-    body {
-      background-color: #0a0a0c !important;
-      color: #d1d5db;
-      font-family: 'Eczar', serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #050507;
-      border-bottom: 1px solid #27272a;
-      padding: 1.2rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      font-family: 'Creepster', cursive;
-      font-size: 2.2rem;
-      letter-spacing: 3px;
-      color: #e0e7ff;
-      text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .logo-img {
-      height: 130px;
-      width: auto;
-      border-radius: 4px;
-      object-fit: contain;
-    }
-
-    nav a {
-      color: #9ca3af;
-      text-decoration: none;
-      margin-left: 1.5rem;
-      font-size: 1.1rem;
-      transition: color 0.2s;
-    }
-
-    nav a:hover, nav a.active { color: #8b5cf6; }
-
-    /* Container */
-    .container {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-    }
-
-    h1 {
-      font-family: 'Creepster', cursive;
-      font-size: 3rem;
-      color: #f3f4f6;
-      margin-bottom: 0.5rem;
-    }
-
-    .subtitle {
-      color: #9ca3af;
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    /* Disclaimer Box */
-    .disclaimer-box {
-      background-color: rgba(139, 92, 246, 0.1);
-      border-left: 4px solid #8b5cf6;
-      padding: 0.85rem 1.2rem;
-      border-radius: 4px;
-      margin-bottom: 1.5rem;
-      color: #d1d5db;
-      font-size: 0.95rem;
-    }
-
-    .disclaimer-box strong {
-      color: #a78bfa;
-    }
-
-    /* Filter Controls Styling */
-    .filter-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      background-color: #141419;
-      border: 1px solid #27272a;
-      border-radius: 8px;
-      padding: 1.25rem;
-      margin-top: 1rem;
-    }
-
-    .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .filter-group label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: #9ca3af;
-      font-weight: 600;
-    }
-
-    .filter-group select {
-      background-color: #0d0d12;
-      color: #fff;
-      border: 1px solid #27272a;
-      padding: 0.6rem 0.8rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      outline: none;
-    }
-
-    .filter-actions {
-      display: flex;
-      align-items: flex-end;
-    }
-
-    .btn-reset {
-      background: transparent;
-      border: 1px solid #27272a;
-      color: #9ca3af;
-      padding: 0.6rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      width: 100%;
-      font-weight: 600;
-    }
-
-    .btn-reset:hover {
-      background-color: rgba(255, 255, 255, 0.05);
-      color: #fff;
-    }
-
-    /* Table Styles */
-    .events-table-wrapper {
-      overflow-x: auto;
-      background-color: #141419;
-      border: 1px solid #27272a;
-      border-radius: 8px;
-      margin-top: 1rem;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.95rem;
-    }
-
-    th, td {
-      padding: 0.9rem 1rem;
-      border-bottom: 1px solid #27272a;
-    }
-
-    th {
-      background-color: #0d0d12;
-      color: #fff;
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      letter-spacing: 1px;
-    }
-
-    tr:hover { background-color: rgba(139, 92, 246, 0.05); }
-
-    .event-title { color: #fff; font-weight: 600; }
-    .col-date { white-space: nowrap; font-weight: 600; color: #8b5cf6; }
-    .col-price { color: #f3f4f6; }
-
-    /* Badges */
-    .badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-weight: bold;
-    }
-
-    .badge-hn { 
-      background: rgba(59, 130, 246, 0.2) !important; 
-      color: #60a5fa !important; 
-      border: 1px solid rgba(59, 130, 246, 0.4) !important; 
-    }
-
-    .badge-ram { 
-      background: rgba(239, 68, 68, 0.2) !important; 
-      color: #f87171 !important; 
-      border: 1px solid rgba(239, 68, 68, 0.4) !important; 
-    }
-
-    .badge-pabs {
-      background: rgba(139, 92, 246, 0.25) !important;
-      color: #c084fc !important;
-      border: 1px solid rgba(139, 92, 246, 0.6) !important;
-      box-shadow: 0 0 6px rgba(139, 92, 246, 0.3) !important;
-    }
-
-    .btn {
-      background-color: #8b5cf6;
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.2s ease;
-    }
-
-    .btn:hover {
-      background-color: #7c3aed;
-    }
-  </style>
+  
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -320,7 +99,7 @@
   </main>
 
   <footer>
-    <p style="text-align: center; color: #9ca3af; margin-top: 3rem;">&copy; Pabsmophobia. All rights reserved.</p>
+    <p style="text-align: center; color: #9ca3af; margin-top: 3rem;">© Pabsmophobia. All rights reserved.</p>
   </footer>
 
   <script>
@@ -529,5 +308,6 @@
   <!-- Dynamic Navigation Script -->
   <script src="nav.js"></script>
 
-</body>
-</html>
+
+
+</body></html>
