@@ -397,31 +397,52 @@ footer {
     padding: 0.4rem 0.6rem;
     font-size: 1rem;
   }
-} /* <--- Added missing closing bracket here */
+}
 
-/* Brevo Newsletter Form Dark Theme Overrides */
+/* Brevo Newsletter Form Complete Dark Theme Overrides */
 .newsletter-section {
   margin-top: 3rem;
 }
 
-.sib-form {
-  background-color: transparent !important;
-  padding: 0 !important;
+.newsletter-section,
+.sib-form,
+.sib-form-container,
+#sib-container,
+#sib-container * {
+  background-color: var(--card-bg) !important;
+  background: var(--card-bg) !important;
+  color: var(--text-main) !important;
 }
 
 #sib-container {
-  background-color: var(--card-bg) !important;
   border: 1px solid var(--border) !important;
   border-radius: 6px !important;
   padding: 2.5rem !important;
+  box-sizing: border-box !important;
+}
+
+/* Header Text / Creepster Styling inside Brevo */
+#sib-container h1,
+#sib-container h2,
+#sib-container .sib-form-block__heading {
+  font-family: var(--font-title) !important;
+  color: #ffffff !important;
+  font-size: 2.2rem !important;
+}
+
+#sib-container p,
+#sib-container label,
+#sib-container span {
+  color: var(--text-muted) !important;
 }
 
 /* Input Fields */
 #sib-container input[type="text"],
 #sib-container input[type="email"] {
   background-color: #0e0e12 !important;
+  background: #0e0e12 !important;
   border: 1px solid var(--border) !important;
-  color: var(--text-main) !important;
+  color: #ffffff !important;
   padding: 0.8rem 1rem !important;
   border-radius: 4px !important;
   width: 100% !important;
@@ -430,6 +451,7 @@ footer {
 
 #sib-container input::placeholder {
   color: var(--text-muted) !important;
+  opacity: 0.8 !important;
 }
 
 #sib-container input:focus {
@@ -437,17 +459,33 @@ footer {
   outline: none !important;
 }
 
+/* Checkbox and Legal Disclaimer Text */
+#sib-container input[type="checkbox"] {
+  accent-color: var(--accent) !important;
+}
+
+#sib-container .sib-entry__error-msg,
+#sib-container .sib-sms-tooltip {
+  color: #f87171 !important;
+}
+
 /* Submit Button */
-.sib-form-block__button {
+#sib-container .sib-form-block__button,
+#sib-container button[type="submit"] {
   background-color: var(--accent) !important;
+  background: var(--accent) !important;
   color: #ffffff !important;
   padding: 0.8rem 1.6rem !important;
   border-radius: 6px !important;
+  border: none !important;
+  font-weight: 600 !important;
   cursor: pointer !important;
   transition: background-color 0.2s, transform 0.2s !important;
 }
 
-.sib-form-block__button:hover {
+#sib-container .sib-form-block__button:hover,
+#sib-container button[type="submit"]:hover {
   background-color: var(--accent-hover) !important;
+  background: var(--accent-hover) !important;
   transform: translateY(-2px) !important;
 }
