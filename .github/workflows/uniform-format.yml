@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js Engine
         uses: actions/setup-node@v4
@@ -32,3 +34,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "style: auto-uniform CSS and HTML formatting"
+          skip_fetch: false
+          skip_checkout: false
