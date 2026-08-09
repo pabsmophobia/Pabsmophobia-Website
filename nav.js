@@ -4,9 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Get current HTML filename (default to index.html if root)
   let currentPage = window.location.pathname.split("/").pop();
+  
+  // Handle GitHub Pages where pathname might be empty or just /
   if (!currentPage || currentPage === "") {
     currentPage = "index.html";
   }
+  
+  // Remove query string if present
+  currentPage = currentPage.split("?")[0];
 
   // Navigation Links Definition
   const navItems = [
