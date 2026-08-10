@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "Events", link: "events.html" },
     { name: "Blogs & Newsletters", link: "blog.html" },
     { name: "Evidence", link: "evidence.html" },
-    { name: "Contact", link: "contact.html" }
+    { name: "Contact", link: "contact.html" },
     { name: "Links", link: "links.html" }
   ];
 
