@@ -190,10 +190,9 @@
     <p>© Pabsmophobia. All rights reserved.</p>
   </footer>
 
-  <!-- RSS Auto-Fetch Script -->
+<!-- RSS Auto-Fetch Script -->
   <script>
     async function loadNewsletterFeed() {
-      // Relative URL path to ensure compatibility across local environments and live hosting
       const feedUrl = './feed.xml';
       const container = document.getElementById('newsletter-feed-container');
 
@@ -211,7 +210,6 @@
           return;
         }
 
-        // Map XML items to objects and sort by publication date (Newest First)
         const sortedItems = items.map(item => {
           const title = item.querySelector("title")?.textContent || "Untitled";
           let rawLink = item.querySelector("link")?.textContent || "#";
@@ -219,12 +217,26 @@
           const description = item.querySelector("description")?.textContent || "";
           const pubDate = pubDateStr ? new Date(pubDateStr) : new Date(0);
 
-          // Extract the filename from the RSS link and dynamically map to post.html
-          let filename = rawLink.split('/').pop();
-          if (!filename.includes('.md')) {
+          // Extract ONLY the raw markdown filename from the URL string
+          let filename = rawLink;
+          
+          // 1. If link has query params like 'post.html?file=xyz.md', extract value after 'file='
+          if (filename.includes('file=')) {
+            filename = filename.split('file=')[1];
+          }
+          
+          // 2. Remove any remaining query parameters or hash tags
+          filename = filename.split('?')[0].split('#')[0];
+          
+          // 3. Extract just the file name (drop folders like 'newsletter/')
+          filename = filename.split('/').pop();
+
+          // 4. Ensure it ends in .md
+          if (filename && !filename.endsWith('.md')) {
             filename = `${filename}.md`;
           }
-          const cleanLink = `post.html?file=${filename}`;
+
+          const cleanLink = `post.html?file=${encodeURIComponent(filename)}`;
 
           return { title, link: cleanLink, pubDate, description };
         }).sort((a, b) => b.pubDate - a.pubDate);
