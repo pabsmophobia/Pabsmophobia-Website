@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blogs &amp; Newsletters | Pabsmophobia</title>
@@ -8,44 +10,13 @@
   <link rel="apple-touch-icon" href="images/library/Pabsmo.jpg">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Creepster&amp;family=Eczar:wght@400;600&amp;display=swap" rel="stylesheet">
 
   <!-- Brevo Form Stylesheet -->
   <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 
-  
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
+  <!-- Site Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -96,7 +67,7 @@
           <div></div>
           <div id="sib-container" class="sib-container--large sib-container--vertical" style="direction:ltr">
             <form id="sib-form" method="POST" action="https://12a26db5.sibforms.com/serve/MUIFAOO_PFywTS6s2C0S26dcAPM1P_V4kUBPCS1MvLJ3hq7K67KRVtrJLvEsD2SqIsj2e8oBvX7cwUyodWen2YCucOkWQRRfljIFoTvKy8y9mZ7YgCvBE6wZ7yJMKwrWZ_9l6f3r4WLpKaiFKFsarCkWzvPvjn-cS0gGJP_IuI_yqiZk_RLHEVMfmbtB6x4XWr6T1">
-               
+                
               <div style="padding: 8px 0;">
                 <div class="sib-form-block" style="font-family: var(--font-title); font-size: 2.2rem; text-align: left; color: #f3f4f6;">
                   <p>Monthly Haunt</p>
@@ -260,11 +231,13 @@
             year: 'numeric'
           }) : '';
 
+          const displayDescription = (item.description && item.description !== 'undefined') ? item.description : '';
+
           htmlContent += `
             <article class="article-card">
               <div class="meta">${formattedDate}</div>
               <h2>${item.title}</h2>
-              <p>${item.description}</p>
+              <p>${displayDescription}</p>
               <a href="${item.link}" class="read-more">Read Full Issue &rarr;</a>
             </article>
           `;
@@ -306,8 +279,5 @@
   <!-- Navigation JavaScript -->
   <script src="nav.js"></script>
 
-
-
-
-
-</body></html>
+</body>
+</html>
