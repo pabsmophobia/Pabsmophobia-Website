@@ -1,81 +1,20 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Newsletter | Pabsmophobia</title>
 
-  <!-- Favicon -->
   <link rel="icon" type="image/jpeg" href="images/library/Pabsmo.jpg">
   <link rel="apple-touch-icon" href="images/library/Pabsmo.jpg">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Creepster&amp;family=Eczar:wght@400;600&amp;display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Eczar:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Marked.js Markdown Parser -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-  <!-- Updated Stylesheet Link with Cache-Busting -->
-  <link rel="stylesheet" href="styles.css?v=1.2">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=1.3">
 </head>
 <body>
 
@@ -84,16 +23,14 @@
       <img src="images/library/Pabsmo.jpg" alt="Pabsmophobia Logo" class="logo-img">
       <span>Pabsmophobia</span>
     </div>
-    <!-- nav.js will populate menu items dynamically -->
     <nav></nav>
   </header>
 
   <main class="container">
     <a href="blog.html" class="read-more" style="display: inline-block; margin-bottom: 1.5rem;">← Back to Blogs &amp; Newsletters</a>
     
-    <!-- Wrapped with article-card for dark background styling -->
     <article id="markdown-content" class="article-card">
-      <p style="color: var(--text-muted);">Loading newsletter...</p>
+      <p style="color: var(--text-muted, #888);">Loading article...</p>
     </article>
   </main>
 
@@ -107,48 +44,60 @@
       const urlParams = new URLSearchParams(window.location.search);
       let fileParam = urlParams.get('file');
 
-      // Fallback if no parameter is provided
       if (!fileParam) {
-        fileParam = 'newsletter/monthly-haunt-issue1.md';
+        fileParam = 'monthly-haunt-issue1.md';
       }
 
-      // Clean up parameter (decode, trim, and strip any accidental line numbers)
       fileParam = decodeURIComponent(fileParam).trim().replace(/:\d+$/, '');
+      fileParam = fileParam.replace(/^\/+/, '').replace(/^newsletter\//, '');
 
-      // Ensure the path automatically prepends 'newsletter/' if missing and doesn't start with http/root path
-      if (!fileParam.startsWith('newsletter/') && !fileParam.startsWith('/')) {
-        fileParam = 'newsletter/' + fileParam;
+      const pathsToTry = [
+        `newsletter/${fileParam}`,
+        `newsletter/${fileParam.toLowerCase()}`,
+        `newsletter/${fileParam.replace(/-/g, '_')}`,
+        `newsletter/${fileParam.replace(/_/g, '-')}`
+      ];
+
+      let response = null;
+      let successfulPath = '';
+
+      for (const path of pathsToTry) {
+        try {
+          const res = await fetch(path);
+          if (res.ok) {
+            response = res;
+            successfulPath = path;
+            break;
+          }
+        } catch (e) {
+          // Continue loop
+        }
       }
 
-      // Ensure the path is strictly relative (remove any accidental leading slash)
-      let fetchPath = fileParam.startsWith('/') ? fileParam.substring(1) : fileParam;
+      if (!response) {
+        contentContainer.innerHTML = `
+          <div style="padding: 2rem; text-align: center;">
+            <p style="color: #ff5555; font-size: 1.2rem; font-weight: bold;">Error loading article.</p>
+            <p>Could not locate file: <code>newsletter/${fileParam}</code></p>
+            <p style="font-size: 0.9rem; color: #aaa;">Please verify the exact filename case inside your <strong>newsletter/</strong> folder.</p>
+          </div>
+        `;
+        return;
+      }
 
       try {
-        const response = await fetch(fetchPath);
-        if (!response.ok) {
-          throw new Error(`HTTP error ${response.status}`);
-        }
-
         const rawText = await response.text();
-
-        // Strip frontmatter metadata if present (--- title: ... ---)
         const cleanText = rawText.replace(/^---[\s\S]*?---\n?/, '');
-
-        // Parse and inject Markdown content
         contentContainer.innerHTML = marked.parse(cleanText);
-
       } catch (error) {
-        console.error('Error fetching markdown article from path:', fetchPath, error);
-        contentContainer.innerHTML = '<p>Error loading article. Please verify the file path.</p>';
+        console.error('Error parsing markdown:', error);
+        contentContainer.innerHTML = '<p>Error parsing article content.</p>';
       }
     }
 
     document.addEventListener('DOMContentLoaded', loadArticle);
   </script>
 
-  <!-- Dynamic Navigation Script -->
   <script src="nav.js"></script>
-
-
-
-</body></html>
+</body>
+</html>
