@@ -2,11 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
-// Replace with your custom domain or GitHub Pages URL
 const domain = "https://pabsmophobia.github.io/Pabsmophobia-Website";
 const postsDir = path.join(__dirname, 'newsletter');
 
-// 1. Check if directory exists
 if (!fs.existsSync(postsDir)) {
   console.error(`Error: Directory not found at ${postsDir}`);
   process.exit(1);
@@ -30,14 +28,11 @@ files.forEach(file => {
       const fileContent = fs.readFileSync(filePath, 'utf8');
       const { data } = matter(fileContent);
 
-      // Skip draft posts
       if (data.draft) return;
 
-      // Safe fallbacks for missing frontmatter fields
       const title = data.title || file.replace('.md', '');
       const description = data.description || '';
       
-      // Safe Date Parsing
       let pubDate;
       if (data.date) {
         const parsedDate = new Date(data.date);
@@ -45,7 +40,6 @@ files.forEach(file => {
           ? new Date().toUTCString() 
           : parsedDate.toUTCString();
       } else {
-        // Fallback to current date if missing
         pubDate = new Date().toUTCString();
       }
 
@@ -61,7 +55,6 @@ files.forEach(file => {
     </item>`;
     } catch (parseError) {
       console.error(`Error processing file "${file}":`, parseError.message);
-      // Skip bad file or rethrow if you want to fail the build intentionally
     }
   }
 });
