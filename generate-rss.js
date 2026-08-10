@@ -5,29 +5,64 @@ const matter = require('gray-matter');
 // Replace with your custom domain or GitHub Pages URL
 const domain = "https://pabsmophobia.github.io/Pabsmophobia-Website";
 const postsDir = path.join(__dirname, 'newsletter');
-const files = fs.readdirSync(postsDir);
+
+// 1. Check if directory exists
+if (!fs.existsSync(postsDir)) {
+  console.error(`Error: Directory not found at ${postsDir}`);
+  process.exit(1);
+}
+
+let files;
+try {
+  files = fs.readdirSync(postsDir);
+} catch (err) {
+  console.error("Error reading newsletter directory:", err);
+  process.exit(1);
+}
 
 let itemsXml = '';
 
 files.forEach(file => {
   if (file.endsWith('.md')) {
     const filePath = path.join(postsDir, file);
-    const fileContent = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContent);
+    
+    try {
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+      const { data } = matter(fileContent);
 
-    if (data.draft) return;
+      // Skip draft posts
+      if (data.draft) return;
 
-    const postUrl = `${domain}/post.html?file=${encodeURIComponent(file)}`;
-    const pubDate = new Date(data.date).toUTCString();
+      // Safe fallbacks for missing frontmatter fields
+      const title = data.title || file.replace('.md', '');
+      const description = data.description || '';
+      
+      // Safe Date Parsing
+      let pubDate;
+      if (data.date) {
+        const parsedDate = new Date(data.date);
+        pubDate = isNaN(parsedDate.getTime()) 
+          ? new Date().toUTCString() 
+          : parsedDate.toUTCString();
+      } else {
+        // Fallback to current date if missing
+        pubDate = new Date().toUTCString();
+      }
 
-    itemsXml += `
+      const postUrl = `${domain}/post.html?file=${encodeURIComponent(file)}`;
+
+      itemsXml += `
     <item>
-      <title><![CDATA[${data.title}]]></title>
+      <title><![CDATA[${title}]]></title>
       <link>${postUrl}</link>
-      <description><![CDATA[${data.description}]]></description>
+      <description><![CDATA[${description}]]></description>
       <pubDate>${pubDate}</pubDate>
       <guid>${postUrl}</guid>
     </item>`;
+    } catch (parseError) {
+      console.error(`Error processing file "${file}":`, parseError.message);
+      // Skip bad file or rethrow if you want to fail the build intentionally
+    }
   }
 });
 
@@ -42,5 +77,10 @@ const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
   </channel>
 </rss>`;
 
-fs.writeFileSync(path.join(__dirname, 'feed.xml'), rssFeed);
-console.log('RSS Feed successfully updated!');
+try {
+  fs.writeFileSync(path.join(__dirname, 'feed.xml'), rssFeed);
+  console.log('RSS Feed successfully updated!');
+} catch (writeError) {
+  console.error("Error writing feed.xml:", writeError);
+  process.exit(1);
+}
