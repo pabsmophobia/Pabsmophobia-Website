@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blogs &amp; Newsletters | Pabsmophobia</title>
@@ -15,18 +17,7 @@
   <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 
   <!-- Site Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=1.3">
 </head>
 <body>
 
@@ -35,7 +26,7 @@
       <img src="images/library/Pabsmo.jpg" alt="Pabsmophobia Logo" class="logo-img">
       <span>Pabsmophobia</span>
     </div>
-    <!-- nav.js will populate your menu items here dynamically -->
+    <!-- nav.js will populate menu items here dynamically -->
     <nav></nav>
   </header>
 
@@ -203,7 +194,8 @@
   <!-- RSS Auto-Fetch Script -->
   <script>
     async function loadNewsletterFeed() {
-      const feedUrl = 'https://pabsmophobia.github.io/Pabsmophobia-Website/feed.xml';
+      // Relative URL path to ensure compatibility across local environments and live hosting
+      const feedUrl = './feed.xml';
       const container = document.getElementById('newsletter-feed-container');
 
       try {
@@ -223,18 +215,24 @@
         // Map XML items to objects and sort by publication date (Newest First)
         const sortedItems = items.map(item => {
           const title = item.querySelector("title")?.textContent || "Untitled";
-          const link = item.querySelector("link")?.textContent || "#";
+          let rawLink = item.querySelector("link")?.textContent || "#";
           const pubDateStr = item.querySelector("pubDate")?.textContent || "";
           const description = item.querySelector("description")?.textContent || "";
           const pubDate = pubDateStr ? new Date(pubDateStr) : new Date(0);
 
-          return { title, link, pubDate, description };
-        }).sort((a, b) => b.pubDate - a.pubDate); // Descending order
+          // Extract the filename from the RSS link and dynamically map to post.html
+          let filename = rawLink.split('/').pop();
+          if (!filename.includes('.md')) {
+            filename = `${filename}.md`;
+          }
+          const cleanLink = `post.html?file=${filename}`;
+
+          return { title, link: cleanLink, pubDate, description };
+        }).sort((a, b) => b.pubDate - a.pubDate);
 
         let htmlContent = '';
 
         sortedItems.forEach(item => {
-          // Format Date
           const formattedDate = item.pubDate.getTime() ? item.pubDate.toLocaleDateString('en-GB', {
             month: 'long',
             year: 'numeric'
@@ -243,10 +241,10 @@
           const displayDescription = (item.description && item.description !== 'undefined') ? item.description : '';
 
           htmlContent += `
-            <article class="article-card">
-              <div class="meta">${formattedDate}</div>
-              <h2>${item.title}</h2>
-              <p>${displayDescription}</p>
+            <article class="article-card" style="margin-bottom: 1.5rem;">
+              <div class="meta" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">${formattedDate}</div>
+              <h2 style="margin-bottom: 0.5rem;">${item.title}</h2>
+              <p style="margin-bottom: 1rem;">${displayDescription}</p>
               <a href="${item.link}" class="read-more">Read Full Issue &rarr;</a>
             </article>
           `;
@@ -287,7 +285,5 @@
 
   <!-- Navigation JavaScript -->
   <script src="nav.js"></script>
-
-
-
-</body></html>
+</body>
+</html>
