@@ -9,16 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Needed to permit git push back to the repository
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Ensures git history is available for pushing
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '22' # Using Node 22 LTS
+          node-version: '22'
 
       - name: Install dependencies
         run: npm install gray-matter
