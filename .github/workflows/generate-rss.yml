@@ -13,10 +13,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures git history is available for pushing
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '22' # Upgraded from Node 18 to active LTS
+          node-version: '22' # Using Node 22 LTS
 
       - name: Install dependencies
         run: npm install gray-matter
@@ -25,9 +27,9 @@ jobs:
         run: node generate-rss.js
 
       - name: Commit and Push feed.xml
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add feed.xml
-          git commit -m "Auto-generate feed.xml from newsletter update" || exit 0
-          git push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto-generate feed.xml from newsletter update [skip ci]"
+          file_pattern: 'feed.xml'
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
