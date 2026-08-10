@@ -1,7 +1,7 @@
 ---
 title: "🎙️ Trapped Souls Podcast Appearance: Ghost Hunting in the UK & The Ancient Ram Inn"
 date: 2026-01-15
-description: "Pabs joins Ryan on Trapped Souls to discuss ghost hunting in the UK, investigating the Ancient Ram Inn, and the origins of Pabsmophobia."
+excerpt: "Pabs joins Ryan on Trapped Souls to discuss ghost hunting in the UK, investigating the Ancient Ram Inn, and the origins of Pabsmophobia."
 tags:
   - paranormal
   - podcast
