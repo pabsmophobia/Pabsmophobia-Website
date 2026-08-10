@@ -1,6 +1,6 @@
 ---
 title: "🔮 Wired for the Unseen (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World 🧠"
-date: 2026-08-09
+date: 2026-08-10
 description: "Exploring the neuroscience of intuition, sensory gating, and how the human brain processes mediumship and the 'clairs' on paranormal investigations."
 tags:
   - paranormal
