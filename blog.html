@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blogs &amp; Newsletters | Pabsmophobia</title>
@@ -16,9 +18,6 @@
 
   <!-- Site Stylesheet -->
   <link rel="stylesheet" href="styles.css?v=1.3">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -192,7 +191,7 @@
     <p>© Pabsmophobia. All rights reserved.</p>
   </footer>
 
-<!-- RSS Auto-Fetch Script -->
+  <!-- Dynamic RSS Auto-Fetch Script -->
   <script>
     async function loadNewsletterFeed() {
       const feedUrl = './feed.xml';
@@ -219,26 +218,30 @@
           const description = item.querySelector("description")?.textContent || "";
           const pubDate = pubDateStr ? new Date(pubDateStr) : new Date(0);
 
-          // Extract ONLY the raw markdown filename from the URL string
-          let filename = rawLink;
-          
-          // 1. If link has query params like 'post.html?file=xyz.md', extract value after 'file='
-          if (filename.includes('file=')) {
-            filename = filename.split('file=')[1];
-          }
-          
-          // 2. Remove any remaining query parameters or hash tags
-          filename = filename.split('?')[0].split('#')[0];
-          
-          // 3. Extract just the file name (drop folders like 'newsletter/')
-          filename = filename.split('/').pop();
+          // Automatic Link Sanitizer & Folder Normalizer
+          let cleanPath = rawLink;
 
-          // 4. Ensure it ends in .md
-          if (filename && !filename.endsWith('.md')) {
-            filename = `${filename}.md`;
+          // 1. Extract query param if rawLink contains post.html?file=...
+          if (cleanPath.includes('file=')) {
+            cleanPath = cleanPath.split('file=')[1];
           }
 
-          const cleanLink = `post.html?file=${encodeURIComponent(filename)}`;
+          // 2. Remove any trailing parameters or hash anchors
+          cleanPath = cleanPath.split('?')[0].split('#')[0];
+
+          // 3. Ensure newsletter/ folder path is included correctly
+          if (cleanPath.includes('newsletter/')) {
+            cleanPath = 'newsletter/' + cleanPath.split('newsletter/').pop();
+          } else {
+            cleanPath = 'newsletter/' + cleanPath.split('/').pop();
+          }
+
+          // 4. Guarantee .md extension
+          if (!cleanPath.endsWith('.md')) {
+            cleanPath = `${cleanPath}.md`;
+          }
+
+          const cleanLink = `post.html?file=${encodeURIComponent(cleanPath)}`;
 
           return { title, link: cleanLink, pubDate, description };
         }).sort((a, b) => b.pubDate - a.pubDate);
@@ -299,5 +302,5 @@
   <!-- Navigation JavaScript -->
   <script src="nav.js"></script>
 
-
-</body></html>
+</body>
+</html>
