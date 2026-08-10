@@ -1,7 +1,7 @@
 ---
-title: 'Trapped Souls Podcast Appearance'
-date: '2026-01-15'
-excerpt: 'Pabs joins Ryan on Trapped Souls to discuss ghost hunting in the UK, investigating the Ancient Ram Inn, and the origins of Pabsmophobia.'
+title: Trapped Souls Podcast Appearance
+date: 2026-01-15
+excerpt: Pabs joins Ryan on Trapped Souls to discuss ghost hunting in the UK, investigating the Ancient Ram Inn, and the origins of Pabsmophobia.
 ---
 
 [![Pabsmophobia Podcast Appearance](https://img.youtube.com/vi/lmYg149KvUI/hqdefault.jpg)](https://www.youtube.com/watch?v=lmYg149KvUI)
