@@ -1,0 +1,28 @@
+name: Social Media Auto-Poster
+
+on:
+  workflow_dispatch: # Allows manual triggering from Actions tab
+  schedule:
+    - cron: '0 10 * * *' # Automatically runs daily at 10 AM UTC
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/python-script@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Run Social Poster
+        env:
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+        run: python post_social.py
