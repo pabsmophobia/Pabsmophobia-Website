@@ -9,7 +9,6 @@ jobs:
   format-html:
     runs-on: ubuntu-latest
     
-    # Grants write permissions to commit changes back to the repository
     permissions:
       contents: write
 
@@ -22,7 +21,7 @@ jobs:
       - name: Setup Node.js Engine
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '20'
 
       - name: Install Dependencies
         run: npm install cheerio
@@ -33,6 +32,7 @@ jobs:
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "style: auto-uniform CSS and HTML formatting"
+          # Adding [skip ci] stops GitHub from re-triggering the action on auto-commit
+          commit_message: "style: auto-uniform CSS and HTML formatting [skip ci]"
           skip_fetch: false
           skip_checkout: false
