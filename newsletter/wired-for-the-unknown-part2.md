@@ -1,5 +1,5 @@
 ---
-title: "🧠 Wired for the Unknown (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World 🧠"
+title: "Wired for the Unknown (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World"
 date: 2026-08-11
 description: "Exploring the neuroscience of intuition, sensory gating, and how the human brain processes mediumship and the 'clairs' on paranormal investigations."
 tags:
@@ -11,7 +11,7 @@ tags:
 slug: "wired-for-the-unseen-part-2-unlocking-hidden-mind"
 author: "Paranormal Blog"
 layout: post
----
+----
 
 # Wired for the Unknown (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World 🧠🔮
 
