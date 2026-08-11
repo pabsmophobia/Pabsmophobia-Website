@@ -2,6 +2,8 @@
 title: "Wired for the Unknown (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World"
 date: 2026-08-11
 description: "Exploring the neuroscience of intuition, sensory gating, and how the human brain processes mediumship and the 'clairs' on paranormal investigations."
+image: "images/blogs/Clairs Blog.png"
+image_alt: "Wired for the Unknown Brain Diagram showcasing the Clairs and Pabsmophobia branding"
 tags:
   - paranormal
   - neuroscience
@@ -14,6 +16,8 @@ layout: post
 ---
 
 # Wired for the Unknown (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World
+
+![Wired for the Unknown Diagram](images/blogs/Clairs%20Blog.png)
 
 In **Part 1**, we explored how gender psychology, evolutionary stress responses, and cognitive spectrums shape how we behave on ghost hunts—from high-intensity "recon" searching to deep emotional sensing.
 
