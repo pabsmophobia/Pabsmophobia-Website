@@ -11,7 +11,9 @@ tags:
 slug: "wired-for-the-unseen-part-2-unlocking-hidden-mind"
 author: "Paranormal Blog"
 layout: post
-----
+---
+
+# Wired for the Unknown (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World 🧠🔮
 
 # Wired for the Unknown (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World 🧠🔮
 
