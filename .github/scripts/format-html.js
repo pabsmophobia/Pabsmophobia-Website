@@ -2,22 +2,41 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 
-// Scan the root directory for HTML files
-const files = fs.readdirSync('.').filter(file => file.endsWith('.html'));
+// Function to process HTML files recursively or in a directory
+function processDirectory(dirPath) {
+  const files = fs.readdirSync(dirPath);
 
-files.forEach(file => {
-  let html = fs.readFileSync(file, 'utf8');
-  const $ = cheerio.load(html, { decodeEntities: false });
+  files.forEach((file) => {
+    const fullPath = path.join(dirPath, file);
+    const stat = fs.statSync(fullPath);
 
-  // 1. Remove all page-level internal <style> blocks
-  $('head style').remove();
+    if (stat.isDirectory() && !file.startsWith('.') && file !== 'node_modules') {
+      processDirectory(fullPath);
+    } else if (file.endsWith('.html')) {
+      cleanHtmlFile(fullPath);
+    }
+  });
+}
 
-  // 2. Ensure standard external stylesheet link exists
-  if ($('head link[href="style.css"]').length === 0) {
+function cleanHtmlFile(filePath) {
+  const htmlContent = fs.readFileSync(filePath, 'utf8');
+  const $ = cheerio.load(htmlContent, { decodeEntities: false });
+
+  // 1. Find all styles.css links in head
+  const cssLinks = $('head link[href*="styles.css"]');
+
+  if (cssLinks.length > 0) {
+    // Keep only the first instance and remove all duplicates
+    cssLinks.slice(1).remove();
+  } else {
+    // Append it once if it was missing completely
     $('head').append('  <link rel="stylesheet" href="styles.css">\n');
   }
 
-  // Write the cleaned HTML back to the file
-  fs.writeFileSync(file, $.html());
-  console.log(`Successfully normalized: ${file}`);
-});
+  // 2. Write cleaned HTML back to disk
+  fs.writeFileSync(filePath, $.html());
+  console.log(`Normalized: ${filePath}`);
+}
+
+// Run against your repository root
+processDirectory(path.join(__dirname, '../../'));
