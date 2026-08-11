@@ -3,7 +3,10 @@ name: Social Media Auto-Poster
 on:
   workflow_dispatch: # Allows manual triggering from Actions tab
   schedule:
-    - cron: '0 10 * * *' # Automatically runs daily at 10 AM UTC
+    # 10:00 AM UTC -> 10:00 AM GMT (Winter: late Oct to late March)
+    - cron: '0 10 * * *'
+    # 09:00 AM UTC -> 10:00 AM BST (Summer: late March to late Oct)
+    - cron: '0 9 * * *'
 
 jobs:
   post:
