@@ -43,24 +43,36 @@ def parse_markdown(file_path):
         title = lines[0].replace('#', '').strip() if lines else "New Pabsmophobia Update"
     
     clean_text = re.sub(r'^---[\s\S]*?---\s*', '', text).strip()
-    html = markdown.markdown(clean_text)
+    html = markdown.markdown(clean_text, extensions=['tables'])
     soup = BeautifulSoup(html, 'html.parser')
     
-    # Extract robust list items or paragraphs
-    raw_nodes = soup.find_all(['li', 'p'])
-    sentences = []
+    content_items = []
     
+    # Process tables cleanly so columns read as structured labels
+    tables = soup.find_all('table')
+    for table in tables:
+        rows = table.find_all('tr')
+        for row in rows:
+            cols = row.find_all(['th', 'td'])
+            cols_text = [c.text.strip() for c in cols if c.text.strip()]
+            # Skip pure alignment or empty rows
+            if cols_text and not any(':---' in c for c in cols_text):
+                content_items.append(" • ".join(cols_text))
+
+    # Pull standard paragraphs and list items, stripping out HTML table markup noise
+    raw_nodes = soup.find_all(['li', 'p'])
     for node in raw_nodes:
         txt = node.text.strip()
-        if not txt or len(txt) < 12:
+        if not txt or len(txt) < 10 or ':---' in txt:
             continue
         txt = re.sub(r'\s+', ' ', txt)
-        sentences.append(txt)
+        if txt not in content_items:
+            content_items.append(txt)
         
-    if not sentences:
-        sentences = ["Read the latest field log live on our website at pabsmophobia.com."]
+    if not content_items:
+        content_items = ["Read the latest field log live on our website at pabsmophobia.com."]
         
-    return title, sentences
+    return title, content_items
 
 def create_slide(header_text, body_items, output_path, is_cover=False):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -73,7 +85,7 @@ def create_slide(header_text, body_items, output_path, is_cover=False):
     
     try:
         font_header = ImageFont.truetype(font_path_bold, 36 if is_cover else 32)
-        font_body = ImageFont.truetype(font_path_reg, 26)
+        font_body = ImageFont.truetype(font_path_reg, 24)
         font_brand = ImageFont.truetype(font_path_bold, 26)
     except Exception:
         font_header = ImageFont.load_default()
@@ -86,7 +98,7 @@ def create_slide(header_text, body_items, output_path, is_cover=False):
     # Top Accent Line
     draw.rectangle([90, 110, 990, 116], fill=ACCENT_GREEN)
     
-    # Robust Logo Watermark Loader with Absolute Paths
+    # Prominent Logo Watermark Loader (110x110)
     workspace_root = os.getcwd()
     logo_paths = [
         os.path.join(workspace_root, "images/library/Pabsmo.jpg"),
@@ -100,38 +112,38 @@ def create_slide(header_text, body_items, output_path, is_cover=False):
         if os.path.exists(l_path):
             try:
                 logo = Image.open(l_path).convert("RGBA")
-                logo = logo.resize((75, 75), Image.Resampling.LANCZOS)
-                img.paste(logo, (915, 135))
+                logo = logo.resize((110, 110), Image.Resampling.LANCZOS)
+                img.paste(logo, (880, 125))
                 logo_pasted = True
                 break
             except Exception:
                 pass
                 
     if not logo_pasted:
-        draw.rounded_rectangle([880, 135, 990, 200], radius=6, fill="#0f021a", outline=ACCENT_GREEN, width=2)
-        font_fallback = ImageFont.truetype(font_path_bold, 16) if os.path.exists(font_path_bold) else font_brand
-        draw.text((892, 155), "PABSMO", fill=ACCENT_GREEN, font=font_fallback)
+        draw.rounded_rectangle([850, 125, 990, 215], radius=6, fill="#0f021a", outline=ACCENT_GREEN, width=2)
+        font_fallback = ImageFont.truetype(font_path_bold, 18) if os.path.exists(font_path_bold) else font_brand
+        draw.text((875, 160), "PABSMO", fill=ACCENT_GREEN, font=font_fallback)
 
-    # Header Text Block
+    # Header Text Block (Width restricted so it never clips the larger logo)
     y_offset = 140
-    header_lines = textwrap.wrap(header_text, width=26)
+    header_lines = textwrap.wrap(header_text, width=22)
     for line in header_lines:
         draw.text((90, y_offset), line, fill=TEXT_TITLE if is_cover else ACCENT_GREEN, font=font_header)
-        y_offset += 42
+        y_offset += 40
 
-    y_offset += 20
+    y_offset += 15
     draw.line([90, y_offset, 990, y_offset], fill="#4c1d95", width=2)
-    y_offset += 22
+    y_offset += 20
 
-    # Balanced Body Items (Allows up to 4 items per slide to fill the vertical card nicely)
+    # Body Items / Structured Data Blocks
     for item in body_items[:4]:
-        wrapped_item = textwrap.wrap(item, width=44)
+        wrapped_item = textwrap.wrap(item, width=46)
         if wrapped_item:
-            draw.ellipse([90, y_offset + 5, 100, y_offset + 15], fill=ACCENT_GREEN)
+            draw.ellipse([90, y_offset + 4, 100, y_offset + 14], fill=ACCENT_GREEN)
             for line in wrapped_item:
                 draw.text((120, y_offset), line, fill=TEXT_BODY, font=font_body)
-                y_offset += 34
-            y_offset += 14
+                y_offset += 30
+            y_offset += 12
 
     # Footer Branding & Domain
     draw.line([90, 1760, 990, 1760], fill=CARD_BORDER, width=2)
@@ -146,23 +158,22 @@ if __name__ == "__main__":
     
     if not latest_file:
         title = "Pabsmophobia Field Log"
-        sentences = ["New investigation telemetry and updates live now at pabsmophobia.com."]
+        content = ["New investigation telemetry and updates live now at pabsmophobia.com."]
     else:
-        title, sentences = parse_markdown(latest_file)
+        title, content = parse_markdown(latest_file)
 
-    # Intelligent split: ensure both slides get content so we don't have a blank slide
-    total_sentences = len(sentences)
-    if total_sentences <= 1:
-        slide_1 = sentences
+    total_items = len(content)
+    if total_items <= 1:
+        slide_1 = content
         slide_2 = ["Read the full breakdown and field logs at pabsmophobia.com."]
     else:
-        mid = (total_sentences + 1) // 2
-        slide_1 = sentences[:mid]
-        slide_2 = sentences[mid:]
+        mid = (total_items + 1) // 2
+        slide_1 = content[:mid]
+        slide_2 = content[mid:]
         if not slide_2:
             slide_2 = ["Check out full investigation findings on our site."]
 
     create_slide(title.upper(), slide_1, "images/tiktok/slide_1.png", is_cover=True)
     create_slide("KEY FINDINGS", slide_2, "images/tiktok/slide_2.png", is_cover=False)
     
-    print("TikTok slides generated with balanced two-slide layout and absolute logo resolution!")
+    print("TikTok slides generated with clean table parsing and prominent logo!")
