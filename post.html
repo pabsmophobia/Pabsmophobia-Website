@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Newsletter | Pabsmophobia</title>
@@ -8,45 +10,11 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Creepster&amp;family=Eczar:wght@400;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Eczar:wght@400;600&display=swap" rel="stylesheet">
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <link rel="stylesheet" href="styles.css?v=1.3">
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -74,35 +42,36 @@
     async function loadArticle() {
       const contentContainer = document.getElementById('markdown-content');
       const urlParams = new URLSearchParams(window.location.search);
+      
+      // urlParams.get() already handles URL decoding automatically
       let fileParam = urlParams.get('file');
 
       if (!fileParam) {
         fileParam = 'monthly-haunt-issue1.md';
       }
 
-      fileParam = decodeURIComponent(fileParam).trim().replace(/:\d+$/, '');
-      fileParam = fileParam.replace(/^\/+/, '').replace(/^newsletter\//, '');
+      // Cleanup trailing ports or accidental prefixing
+      fileParam = fileParam.trim().replace(/:\d+$/, '').replace(/^\/+/, '').replace(/^newsletter\//, '');
 
+      // Explicit relative pathing for Cloudflare Pages
       const pathsToTry = [
-        `newsletter/${fileParam}`,
-        `newsletter/${fileParam.toLowerCase()}`,
-        `newsletter/${fileParam.replace(/-/g, '_')}`,
-        `newsletter/${fileParam.replace(/_/g, '-')}`
+        `./newsletter/${fileParam}`,
+        `./newsletter/${fileParam.toLowerCase()}`,
+        `./newsletter/${fileParam.replace(/-/g, '_')}`,
+        `./newsletter/${fileParam.replace(/_/g, '-')}`
       ];
 
       let response = null;
-      let successfulPath = '';
 
       for (const path of pathsToTry) {
         try {
           const res = await fetch(path);
           if (res.ok) {
             response = res;
-            successfulPath = path;
             break;
           }
         } catch (e) {
-          // Continue loop
+          // Continue trying backup path variations
         }
       }
 
@@ -119,8 +88,22 @@
 
       try {
         const rawText = await response.text();
+        
+        // Extract title from YAML frontmatter if available
+        let titleMatch = rawText.match(/^title:\s*["']?(.*?)["']?\s*$/m);
+        let extractedTitle = titleMatch ? titleMatch[1] : null;
+
+        // Strip YAML frontmatter block
         const cleanText = rawText.replace(/^---[\s\S]*?---\n?/, '');
-        contentContainer.innerHTML = marked.parse(cleanText);
+        
+        let htmlOutput = marked.parse(cleanText);
+
+        // Prepend title as <h1> if markdown content doesn't already start with an h1 tag
+        if (extractedTitle && !cleanText.trim().startsWith('# ')) {
+          htmlOutput = `<h1>${extractedTitle}</h1>` + htmlOutput;
+        }
+
+        contentContainer.innerHTML = htmlOutput;
       } catch (error) {
         console.error('Error parsing markdown:', error);
         contentContainer.innerHTML = '<p>Error parsing article content.</p>';
@@ -132,5 +115,5 @@
 
   <script src="nav.js"></script>
 
-
-</body></html>
+</body>
+</html>
