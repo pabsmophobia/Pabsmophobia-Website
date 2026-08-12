@@ -35,10 +35,10 @@ jobs:
       - name: Render TikTok Slides
         run: python .github/scripts/generate_tiktok_slides.py
 
-      - name: 2. Convert Slides to 9:16 Vertical MP4 Video (Forced Overwrite)
+      - name: 2. Convert Slides to 9:16 Vertical MP4 Video (Forced Overwrite - 30s Total)
         run: |
-          # Uses -y flag to forcibly overwrite slideshow.mp4 with newly rendered PNGs
-          ffmpeg -loop 1 -t 5 -i images/tiktok/slide_1.png -loop 1 -t 5 -i images/tiktok/slide_2.png \
+          # Uses -y flag and 15s per slide duration (-t 15) for a 30-second total video
+          ffmpeg -loop 1 -t 15 -i images/tiktok/slide_1.png -loop 1 -t 15 -i images/tiktok/slide_2.png \
             -filter_complex "[0:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black[v0]; \
                              [1:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black[v1]; \
                              [v0][v1]concat=n=2:v=1:a=0[v]" -map "[v]" \
