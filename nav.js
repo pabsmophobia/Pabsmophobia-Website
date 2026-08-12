@@ -2,16 +2,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const navContainer = document.querySelector("header nav");
   if (!navContainer) return;
 
-  // Get current HTML filename (default to index.html if root)
-  let currentPage = window.location.pathname.split("/").pop();
-  
-  // Handle GitHub Pages where pathname might be empty or just /
-  if (!currentPage || currentPage === "") {
+  // Normalize current pathname
+  let rawPath = window.location.pathname.toLowerCase().replace(/\/$/, ""); // Strip trailing slash
+  let currentPage = rawPath.split("/").pop().split("?")[0].split("#")[0];
+
+  // Default to index.html for root URLs
+  if (!currentPage || currentPage === "" || currentPage === "pabsmophobia-website") {
     currentPage = "index.html";
   }
-  
-  // Remove query string if present
-  currentPage = currentPage.split("?")[0];
+
+  // Ensure .html extension for uniform matching if route is extensionless
+  if (!currentPage.endsWith(".html")) {
+    currentPage += ".html";
+  }
 
   // Navigation Links Definition
   const navItems = [
@@ -24,12 +27,13 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "Links", link: "links.html" }
   ];
 
-  // Generate HTML links and apply active class automatically
+  // Generate HTML links and apply active class dynamically
   navContainer.innerHTML = navItems.map(item => {
-    // Check if current page matches link or if viewing post.html under blogs
+    // Active if exact filename match, or if viewing post.html under Blogs
     const isActive = (currentPage === item.link || (item.link === 'blog.html' && currentPage === 'post.html')) 
       ? 'class="active"' 
       : '';
+
     return `<a href="${item.link}" ${isActive}>${item.name}</a>`;
   }).join("");
 });
