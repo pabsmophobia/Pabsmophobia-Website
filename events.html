@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Investigation Schedule | Pabsmophobia</title>
@@ -14,13 +16,19 @@
 
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Table Responsive Styling & Badges */
+    /* Table Responsive Styling & Scroll Wrapper Fix */
     .events-table-wrapper {
+      width: 100%;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       margin-top: 1.5rem;
+      border: 1px solid var(--border, #334155);
+      border-radius: 8px;
+      background: var(--bg-card, #1e293b);
     }
     table {
       width: 100%;
+      min-width: 850px; /* Prevents columns from getting squashed or cut off */
       border-collapse: collapse;
       font-size: 0.95rem;
     }
@@ -28,11 +36,16 @@
       padding: 0.75rem 1rem;
       text-align: left;
       border-bottom: 1px solid var(--border, #334155);
+      white-space: nowrap;
     }
     th {
       background: rgba(0,0,0,0.4);
       color: var(--accent, #a855f7);
       font-family: 'Eczar', serif;
+    }
+    td:last-child, th:last-child {
+      text-align: center;
+      min-width: 100px;
     }
     .badge {
       display: inline-block;
@@ -44,6 +57,7 @@
     .badge-pabs { background: #7c3aed; color: #fff; }
     .badge-hn { background: #0284c7; color: #fff; }
     .badge-ram { background: #d97706; color: #fff; }
+    
     .disclaimer-box {
       background: rgba(168, 85, 247, 0.1);
       border-left: 4px solid var(--accent, #a855f7);
@@ -51,6 +65,29 @@
       border-radius: 4px;
       margin: 1.5rem 0;
       font-size: 0.9rem;
+    }
+
+    .filter-container {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .filter-group label {
+      font-size: 0.8rem;
+      color: var(--text-muted, #9ca3af);
+    }
+    .filter-group select {
+      padding: 0.4rem 0.6rem;
+      background: var(--bg-card, #1e293b);
+      color: #fff;
+      border: 1px solid var(--border, #334155);
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -74,7 +111,7 @@
     </div>
 
     <!-- Filters -->
-    <div class="filter-container" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+    <div class="filter-container">
       <div class="filter-group">
         <label for="filterProvider">Provider</label>
         <select id="filterProvider"><option value="ALL">All Providers</option></select>
@@ -194,12 +231,11 @@
 
         const rows = parsedRows.slice(1);
 
-        // Fallback-enabled Mapping
         const rawEvents = rows.map(cols => ({
           date: cols[0] || 'TBA',
           name: cols[1] || 'Paranormal Investigation',
           provider: cols[2] || 'Partner Event',
-          venue: cols[3] || 'Location Details Pending',
+          venue: cols[3] || 'Location Pending',
           location: cols[4] || 'UK Venue',
           type: cols[5] || 'Ghost Hunt',
           time: cols[6] || 'See Provider',
@@ -230,7 +266,7 @@
         if (item.provider && item.provider !== 'Partner Event') providers.add(item.provider);
         if (item.type) types.add(item.type);
         if (item.location && item.location !== 'UK Venue') locations.add(item.location);
-        if (item.venue && item.venue !== 'Location Details Pending') venues.add(item.venue);
+        if (item.venue && item.venue !== 'Location Pending') venues.add(item.venue);
       });
 
       appendOptions(elProvider, Array.from(providers).sort());
@@ -292,14 +328,14 @@
         }
 
         tr.innerHTML = `
-          <td style="white-space: nowrap;">${item.date}</td>
+          <td>${item.date}</td>
           <td><strong>${item.name}</strong></td>
           <td>${badgesHTML}</td>
           <td>${item.venue}</td>
           <td>${item.location}</td>
           <td>${item.type}</td>
-          <td style="white-space: nowrap;">${item.time}</td>
-          <td style="white-space: nowrap;">${item.price}</td>
+          <td>${item.time}</td>
+          <td>${item.price}</td>
           <td><button class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.85rem;" onclick="handleInquiry('${resolvedType}', '${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button></td>
         `;
         tbody.appendChild(tr);
@@ -336,6 +372,5 @@
   <!-- Dynamic Navigation Script -->
   <script src="nav.js"></script>
 
-
-
-</body></html>
+</body>
+</html>
