@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const header = document.querySelector("header");
   const navContainer = document.querySelector("header nav");
   if (!navContainer) return;
 
@@ -36,4 +37,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return `<a href="${item.link}" ${isActive}>${item.name}</a>`;
   }).join("");
+
+  // Mobile Menu Toggle Logic
+  if (header && !document.querySelector('.mobile-nav-toggle')) {
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'mobile-nav-toggle';
+    toggleBtn.setAttribute('aria-label', 'Toggle Navigation');
+    toggleBtn.innerHTML = '&#9776;'; // Hamburger icon
+    toggleBtn.style.cssText = `
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+    `;
+
+    // Append button inside header
+    header.appendChild(toggleBtn);
+
+    // Toggle menu visibility on click
+    toggleBtn.addEventListener('click', () => {
+      navContainer.classList.toggle('nav-open');
+    });
+  }
 });
