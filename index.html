@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -31,6 +33,20 @@
 
   <!-- External Stylesheet -->
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Inline Widget Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-pabs { background: #7c3aed; color: #fff; }
+    .badge-hn { background: #0284c7; color: #fff; }
+    .badge-ram { background: #d97706; color: #fff; }
+  </style>
 </head>
 <body>
 
@@ -51,7 +67,7 @@
       <a href="events.html" class="btn">View Upcoming Events</a>
     </section>
 
-    <!-- MAIN CATEGORY CARDS (Fix Applied Here) -->
+    <!-- MAIN CATEGORY CARDS -->
     <section class="grid-container">
       <div class="card">
         <h3>Upcoming Investigations</h3>
@@ -69,6 +85,22 @@
         <h3>Evidence &amp; Debunking</h3>
         <p>Review audio logs, environmental EMF data, and rational debunking analysis from past investigations.</p>
         <a href="evidence.html" style="color: var(--accent); text-decoration: none; font-weight: 600; display: inline-block; margin-top: 0.5rem;">Browse evidence →</a>
+      </div>
+    </section>
+
+    <!-- UPCOMING EVENTS HOMEPAGE WIDGET (LIVE GOOGLE SHEETS) -->
+    <section class="upcoming-events-widget" style="margin: 4rem 0 2rem 0; padding: 2rem 1.5rem; background: var(--bg-card, #1e293b); border: 1px solid var(--border, #334155); border-radius: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <h2 style="margin: 0; font-family: 'Eczar', serif; font-size: 1.75rem; color: #fff;">Upcoming Live Investigations</h2>
+          <p style="margin: 0.25rem 0 0 0; color: var(--text-muted, #9ca3af); font-size: 0.95rem;">Join us on our next ghost hunts &amp; partner events.</p>
+        </div>
+        <a href="events.html" class="btn" style="padding: 0.5rem 1.25rem; font-size: 0.9rem; text-decoration: none; display: inline-block;">View Full Schedule &rarr;</a>
+      </div>
+
+      <!-- Widget Cards Grid -->
+      <div id="homepageEventsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+        <div style="text-align: center; padding: 2rem; color: #9ca3af; grid-column: 1 / -1;">Loading live upcoming events...</div>
       </div>
     </section>
 
@@ -97,7 +129,7 @@
   <!-- Global Navigation Script -->
   <script src="nav.js"></script>
   
-  <!-- Load Latest Investigations -->
+  <!-- Load Latest Investigations Script -->
   <script>
     async function loadLatestInvestigations() {
       const container = document.getElementById('latest-investigations-container');
@@ -141,6 +173,154 @@
     document.addEventListener('DOMContentLoaded', loadLatestInvestigations);
   </script>
 
+  <!-- Live Google Sheet Homepage Events Widget Script -->
+  <script>
+    (function() {
+      const WIDGET_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQg_l7qnk1kof0lZhIqP0BSNjOfsS5F0MVB92p56wrIzgdSGOKUfxpK-Ec8FMq3uTePGnAs6jF_aIDD/pub?gid=0&single=true&output=csv';
+      const gridContainer = document.getElementById('homepageEventsGrid');
 
+      function parseWidgetDate(dateStr) {
+        if (!dateStr) return new Date(0);
+        const parts = dateStr.split('/');
+        if (parts.length !== 3) return new Date(0);
+        const [day, month, year] = parts.map(p => parseInt(p, 10));
+        return new Date(year, month - 1, day);
+      }
 
-</body></html>
+      function parseWidgetCSV(text) {
+        const lines = [];
+        let row = [];
+        let inQuotes = false;
+        let currentVal = '';
+
+        for (let i = 0; i < text.length; i++) {
+          const char = text[i];
+          const nextChar = text[i + 1];
+
+          if (char === '"') {
+            if (inQuotes && nextChar === '"') {
+              currentVal += '"';
+              i++;
+            } else {
+              inQuotes = !inQuotes;
+            }
+          } else if (char === ',' && !inQuotes) {
+            row.push(currentVal.trim());
+            currentVal = '';
+          } else if ((char === '\r' || char === '\n') && !inQuotes) {
+            if (char === '\r' && nextChar === '\n') i++;
+            row.push(currentVal.trim());
+            if (row.some(val => val.length > 0)) lines.push(row);
+            row = [];
+            currentVal = '';
+          } else {
+            currentVal += char;
+          }
+        }
+        if (currentVal.length > 0 || row.length > 0) {
+          row.push(currentVal.trim());
+          lines.push(row);
+        }
+        return lines;
+      }
+
+      function handleWidgetInquiry(providerType, eventName, eventDate) {
+        if (providerType === 'ram') {
+          window.open('https://ancientraminn.co.uk/events/', '_blank');
+        } else if (providerType === 'hn') {
+          window.open('https://hauntingnights.co.uk/ghost-hunts/', '_blank');
+        } else {
+          const googleFormBaseURL = "https://docs.google.com/forms/d/e/1FAIpQLScBWQ4Vw5OzlGSav07EIQsSTlUNy6_OayTkYy1ltcbyyu5OdA/viewform";
+          const entryID = "entry.1202371367"; 
+          const eventDetail = `${eventName} (${eventDate})`;
+          window.open(`${googleFormBaseURL}?usp=pp_url&${entryID}=${encodeURIComponent(eventDetail)}`, '_blank');
+        }
+      }
+
+      async function loadWidgetEvents() {
+        try {
+          const response = await fetch(WIDGET_SHEET_URL);
+          if (!response.ok) throw new Error('Fetch failed');
+          const csvText = await response.text();
+          const parsedRows = parseWidgetCSV(csvText);
+
+          const rows = parsedRows.slice(1);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          const events = rows.map(cols => ({
+            date: cols[0] || 'TBA',
+            name: cols[1] || 'Paranormal Investigation',
+            provider: cols[2] || 'Partner Event',
+            venue: cols[3] || 'Location Pending',
+            location: cols[4] || 'UK Venue',
+            type: cols[5] || 'Ghost Hunt',
+            time: cols[6] || 'See Provider',
+            price: cols[7] || 'See Provider',
+            providerType: (cols[8] || '').toLowerCase(),
+            coHost: (cols[9] || '').toLowerCase() === 'true'
+          }))
+          .filter(item => item.date !== 'TBA' && parseWidgetDate(item.date) >= today)
+          .sort((a, b) => parseWidgetDate(a.date) - parseWidgetDate(b.date))
+          .slice(0, 3);
+
+          if (events.length === 0) {
+            gridContainer.innerHTML = `<div style="text-align: center; padding: 2rem; color: #9ca3af; grid-column: 1 / -1;">No upcoming investigations scheduled right now.</div>`;
+            return;
+          }
+
+          gridContainer.innerHTML = '';
+          events.forEach(item => {
+            const pType = (item.providerType || '').toLowerCase().trim();
+            const pName = (item.provider || '').toLowerCase().trim();
+
+            let badgeClass = 'badge-hn';
+            let resolvedType = pType || 'hn';
+
+            if (pType === 'pabs' || pName.includes('pabs')) {
+              badgeClass = 'badge-pabs';
+              resolvedType = 'pabs';
+            } else if (pType === 'ram' || pName.includes('ram')) {
+              badgeClass = 'badge-ram';
+              resolvedType = 'ram';
+            }
+
+            let badgesHTML = `<span class="badge ${badgeClass}">${item.provider}</span>`;
+            if (item.coHost) badgesHTML += ` <span class="badge badge-pabs">Co-Host</span>`;
+
+            const card = document.createElement('div');
+            card.style.cssText = "background: rgba(0,0,0,0.25); border: 1px solid var(--border, #334155); border-radius: 8px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;";
+            
+            card.innerHTML = `
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
+                  <h3 style="margin: 0; font-size: 1.1rem; font-weight: bold; color: #fff;">${item.name}</h3>
+                  <span style="font-size: 0.85rem; color: var(--accent, #a855f7); font-family: 'Eczar', serif; white-space: nowrap;">${item.date}</span>
+                </div>
+                <div style="margin-bottom: 0.75rem;">${badgesHTML}</div>
+                <div style="font-size: 0.85rem; color: #9ca3af; line-height: 1.4;">
+                  <div><strong>Venue:</strong> ${item.venue}</div>
+                  <div><strong>Location:</strong> ${item.location}</div>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.25rem;">
+                <span style="font-weight: 600; color: #34d399; font-size: 0.95rem;">${item.price}</span>
+                <button class="btn" style="padding: 0.35rem 0.85rem; font-size: 0.85rem;" onclick="handleWidgetInquiry('${resolvedType}', '${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button>
+              </div>
+            `;
+            gridContainer.appendChild(card);
+          });
+
+        } catch (err) {
+          console.error('Widget error:', err);
+          gridContainer.innerHTML = `<div style="text-align: center; padding: 1rem; color: #f87171; grid-column: 1 / -1;">Unable to load upcoming events right now.</div>`;
+        }
+      }
+
+      window.handleWidgetInquiry = handleWidgetInquiry;
+      document.addEventListener('DOMContentLoaded', loadWidgetEvents);
+    })();
+  </script>
+
+</body>
+</html>
