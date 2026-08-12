@@ -39,7 +39,7 @@ jobs:
           git pull --rebase origin main
           git push origin main
 
-      - name: Publish Photo Carousel via Postproxy API
+- name: Publish Photo Carousel via Postproxy API
         env:
           TIKTOK_KEY: ${{ secrets.TIKTOK_PUBLISH_KEY }}
           TIKTOK_PROFILE_ID: ${{ secrets.POSTPROXY_TIKTOK_PROFILE_ID }}
@@ -54,19 +54,21 @@ jobs:
           }
           payload = {
               'profiles': [os.environ['TIKTOK_PROFILE_ID']],
+              'media': [
+                  'https://pabsmophobia.com/images/tiktok/slide_1.png',
+                  'https://pabsmophobia.com/images/tiktok/slide_2.png'
+              ],
               'post': {
-                  'body': 'New investigation notes and field log live now. Read full details at pabsmophobia.com #paranormal #investigation #pabsmophobia',
-                  'items': [
-                      {'url': 'https://pabsmophobia.com/images/tiktok/slide_1.png'},
-                      {'url': 'https://pabsmophobia.com/images/tiktok/slide_2.png'}
-                  ]
+                  'body': 'New investigation notes and field log live now. Read full details at pabsmophobia.com #paranormal #investigation #pabsmophobia'
+              },
+              'tiktok': {
+                  'format': 'photo'
               }
           }
 
           res = requests.post(url, json=payload, headers=headers)
           print('Postproxy API Response:', res.text)
 
-          # Force workflow failure if HTTP status is not successful (e.g. 400 Bad Request)
           if not res.ok:
               sys.exit(1)
           "
