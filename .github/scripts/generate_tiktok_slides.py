@@ -1,6 +1,7 @@
 import os
 import re
 import glob
+import textwrap
 import markdown
 from bs4 import BeautifulSoup
 from PIL import Image, ImageDraw, ImageFont
@@ -9,11 +10,9 @@ def parse_markdown(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
         text = f.read()
     
-    # Extract title from frontmatter or text
     title_match = re.search(r'title:\s*"(.*?)"', text)
     title = title_match.group(1) if title_match else "New Pabsmophobia Field Log"
     
-    # Parse Markdown HTML for bullet points
     html = markdown.markdown(text)
     soup = BeautifulSoup(html, 'html.parser')
     bullets = [li.text for li in soup.find_all('li')[:4]]
@@ -26,39 +25,52 @@ def parse_markdown(file_path):
 def create_slide(text, output_path, is_cover=False):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     
-    # Base 1080x1920 vertical canvas
     img = Image.new('RGB', (1080, 1920), color='#0a0a0c')
     draw = ImageDraw.Draw(img)
     
+    # Load installed DejaVu font or fallback
+    font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+    font_size = 65 if is_cover else 45
+    
     try:
-        font = ImageFont.truetype("arial.ttf", 55 if not is_cover else 75)
+        font = ImageFont.truetype(font_path, font_size)
     except:
         font = ImageFont.load_default()
-        
-    draw.text((100, 700), text, fill='#ffffff' if is_cover else '#d1d5db', font=font)
-    draw.text((100, 1700), "PABSMOPHOBIA | pabsmophobia.com", fill='#8b5cf6', font=font)
+
+    # Wrap text so it stays within margins
+    wrapped_lines = []
+    for line in text.split('\n'):
+        if line.strip():
+            wrapped_lines.extend(textwrap.wrap(line, width=28 if is_cover else 35))
+        else:
+            wrapped_lines.append('')
+    
+    formatted_text = '\n'.join(wrapped_lines)
+    
+    # Draw content and branding footer
+    draw.text((80, 600), formatted_text, fill='#ffffff' if is_cover else '#d1d5db', font=font, spacing=15)
+    draw.text((80, 1750), "PABSMOPHOBIA | pabsmophobia.com", fill='#8b5cf6', font=font)
     
     img.save(output_path)
 
 if __name__ == "__main__":
     target_dir = "newsletter"
-    # Using glob to safely match .md files without case syntax issues
     md_files = glob.glob(os.path.join(target_dir, "*.md"))
     
     if not md_files:
         print(f"No .md files found in '{target_dir}'. Generating fallback slides.")
-        title = "Pabsmophobia Investigation Log"
-        bullets = ["New field reports and sensor telemetry uploaded to pabsmophobia.com"]
+        title = "Pabsmophobia Field Report"
+        bullets = ["New sensor telemetry and evidence analysis live on pabsmophobia.com"]
     else:
         latest_file = max(md_files, key=os.path.getmtime)
         print(f"Processing latest file: {latest_file}")
         title, bullets = parse_markdown(latest_file)
 
-    # Render Slide 1 (Cover)
+    # Render Slide 1
     create_slide(f"NEW INVESTIGATION:\n\n{title}", "images/tiktok/slide_1.png", is_cover=True)
     
-    # Render Slide 2 (Takeaways)
-    takeaways_text = "KEY FINDINGS:\n\n" + "\n\n".join([f"• {b}" for b in bullets])
-    create_slide(takeaways_text, "images/tiktok/slide_2.png")
+    # Render Slide 2
+    takeaways = "KEY FINDINGS:\n\n" + "\n\n".join([f"• {b}" for b in bullets])
+    create_slide(takeaways, "images/tiktok/slide_2.png")
     
     print("TikTok slides successfully created!")
