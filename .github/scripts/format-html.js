@@ -2,7 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 
-// Function to process HTML files recursively or in a directory
+// Define the root directory of your project
+const projectRoot = path.resolve(__dirname, '../../');
+
+// Recursively process directory to find all HTML files
 function processDirectory(dirPath) {
   const files = fs.readdirSync(dirPath);
 
@@ -22,21 +25,31 @@ function cleanHtmlFile(filePath) {
   const htmlContent = fs.readFileSync(filePath, 'utf8');
   const $ = cheerio.load(htmlContent, { decodeEntities: false });
 
-  // 1. Find all styles.css links in head
-  const cssLinks = $('head link[href*="styles.css"]');
+  // Calculate correct relative path to styles.css based on file depth
+  const relativeDir = path.relative(path.dirname(filePath), projectRoot);
+  const correctHref = relativeDir ? path.join(relativeDir, 'styles.css').replace(/\\/g, '/') : 'styles.css';
 
-  if (cssLinks.length > 0) {
-    // Keep only the first instance and remove all duplicates
-    cssLinks.slice(1).remove();
+  // Find exact stylesheet links matching styles.css (ignoring third-party like sib-styles.css)
+  const exactCssLinks = $('head link[rel="stylesheet"]').filter((_, el) => {
+    const href = $(el).attr('href');
+    if (!href) return false;
+    return href === 'styles.css' || href.endsWith('/styles.css');
+  });
+
+  if (exactCssLinks.length > 0) {
+    // Update the first match with the correct relative path
+    $(exactCssLinks[0]).attr('href', correctHref);
+    // Remove any accidental duplicate links to styles.css
+    exactCssLinks.slice(1).remove();
   } else {
-    // Append it once if it was missing completely
-    $('head').append('  <link rel="stylesheet" href="styles.css">\n');
+    // Append styles.css if it is missing completely
+    $('head').append(`  <link rel="stylesheet" href="${correctHref}">\n`);
   }
 
-  // 2. Write cleaned HTML back to disk
+  // Save the normalized HTML back to disk
   fs.writeFileSync(filePath, $.html());
   console.log(`Normalized: ${filePath}`);
 }
 
-// Run against your repository root
-processDirectory(path.join(__dirname, '../../'));
+// Execute script starting from project root
+processDirectory(projectRoot);
