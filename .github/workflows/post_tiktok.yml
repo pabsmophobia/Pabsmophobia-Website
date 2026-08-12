@@ -30,10 +30,12 @@ jobs:
       - name: Render TikTok Slides
         run: python .github/scripts/generate_tiktok_slides.py
 
-      - name: Convert Slides to Web-Compatible MP4 Video
+      - name: Convert Slides to 9:16 Vertical MP4 Video
         run: |
           ffmpeg -loop 1 -t 5 -i images/tiktok/slide_1.png -loop 1 -t 5 -i images/tiktok/slide_2.png \
-            -filter_complex "[0:v][1:v]concat=n=2:v=1:a=0[v]" -map "[v]" \
+            -filter_complex "[0:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black[v0]; \
+                             [1:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black[v1]; \
+                             [v0][v1]concat=n=2:v=1:a=0[v]" -map "[v]" \
             -c:v libx264 -preset fast -pix_fmt yuv420p -movflags +faststart \
             images/tiktok/slideshow.mp4 -y
 
@@ -53,24 +55,47 @@ jobs:
           COMMIT_SHA: ${{ github.sha }}
         run: |
           python -c "
-          import requests, os, sys, time, glob
+          import requests, os, sys, time, subprocess, re, glob
 
-          # Extract post content from the latest markdown file in /newsletter
-          md_files = glob.glob('newsletter/*.md')
-          post_text = 'New investigation notes live now. Read full details at pabsmophobia.com #paranormal #investigation #pabsmophobia'
-          
-          if md_files:
-              latest_file = max(md_files, key=os.path.getmtime)
-              with open(latest_file, 'r', encoding='utf-8') as f:
-                  lines = [line.strip() for line in f.readlines() if line.strip()]
-                  if lines:
-                      # Grab first non-empty line as headline text
-                      title = lines[0].replace('#', '').strip()
-                      post_text = f'{title}\n\nRead full report at pabsmophobia.com #paranormal #investigation #pabsmophobia'
+          post_text = 'New update live now. Check out full details at pabsmophobia.com #paranormal #investigation #pabsmophobia'
+          latest_md = None
+
+          # 1. Try finding the most recently committed markdown file in /newsletter via git history
+          try:
+              git_cmd = ['git', 'log', '-n', '1', '--name-only', '--pretty=format:', '--', 'newsletter/*.md']
+              output = subprocess.check_output(git_cmd).decode('utf-8').strip()
+              files = [f.strip() for f in output.split('\n') if f.strip() and os.path.exists(f.strip())]
+              if files:
+                  latest_md = files[0]
+          except Exception as e:
+              print('Git log lookup failed:', e)
+
+          # 2. Fallback: find the most recently modified file on disk using mtime
+          if not latest_md:
+              md_files = glob.glob('newsletter/*.md')
+              if md_files:
+                  latest_md = max(md_files, key=os.path.getmtime)
+
+          # 3. Parse content from the target file
+          if latest_md:
+              print(f'Selected most recent newsletter file: {latest_md}')
+              with open(latest_md, 'r', encoding='utf-8') as f:
+                  content = f.read()
+
+              # Strip YAML frontmatter (anything between top '---' markers)
+              clean_content = re.sub(r'^---[\s\S]*?---\s*', '', content).strip()
+              lines = [line.strip() for line in clean_content.split('\n') if line.strip()]
+
+              if lines:
+                  # Grab the first real header or text line
+                  headline = lines[0].replace('#', '').strip()
+                  post_text = f'{headline}\n\nRead more at pabsmophobia.com #paranormal #investigation #pabsmophobia'
+
+          print('Generated TikTok Post Text:\n', post_text)
 
           video_url = f'https://pabsmophobia.com/images/tiktok/slideshow.mp4?v={os.environ[\"COMMIT_SHA\"]}'
 
-          # Verify video URL returns 200 OK before sending payload to Postproxy
+          # Verify video URL returns HTTP 200 OK before calling Postproxy API
           print(f'Verifying accessibility of {video_url}...')
           for _ in range(12):
               check = requests.get(video_url)
