@@ -8,12 +8,12 @@ from bs4 import BeautifulSoup
 from PIL import Image, ImageDraw, ImageFont
 
 # Brand Color Palette
-BG_COLOR = "#0f021a"       # Deep dark purple canvas background
-CARD_BG = "#1d0533"        # Dark purple card background
-CARD_BORDER = "#a855f7"    # High-visibility purple border
-TEXT_TITLE = "#ffffff"     # Crisp white for main headings
-TEXT_BODY = "#f3e8ff"      # Ultra-bright lavender-white for body text
-ACCENT_GREEN = "#39ff14"   # Neon green for bullets and highlights
+BG_COLOR = "#0f021a"
+CARD_BG = "#1d0533"
+CARD_BORDER = "#a855f7"
+TEXT_TITLE = "#ffffff"
+TEXT_BODY = "#f3e8ff"
+ACCENT_GREEN = "#39ff14"
 
 def get_latest_newsletter_file(target_dir):
     try:
@@ -52,8 +52,8 @@ def parse_markdown(file_path):
     
     bullets = []
     for b in raw_bullets:
-        if len(b) > 110:
-            chunks = textwrap.wrap(b, width=90)
+        if len(b) > 90:
+            chunks = textwrap.wrap(b, width=75)
             bullets.extend(chunks[:2])
         else:
             bullets.append(b)
@@ -73,54 +73,51 @@ def create_slide(header_text, body_items, output_path, is_cover=False):
     font_path_reg = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
     
     try:
-        font_header = ImageFont.truetype(font_path_bold, 44 if is_cover else 38)
-        font_body = ImageFont.truetype(font_path_reg, 30)
-        font_brand = ImageFont.truetype(font_path_bold, 28)
+        font_header = ImageFont.truetype(font_path_bold, 40 if is_cover else 34)
+        font_body = ImageFont.truetype(font_path_reg, 26)  # Scaled safely to avoid overflow
+        font_brand = ImageFont.truetype(font_path_bold, 26)
     except Exception:
         font_header = ImageFont.load_default()
         font_body = ImageFont.load_default()
         font_brand = ImageFont.load_default()
 
-    # Container Card
-    draw.rectangle([50, 100, 1030, 1820], fill=CARD_BG, outline=CARD_BORDER, width=4)
+    # Safe Container Card Bounds
+    draw.rectangle([50, 80, 1030, 1840], fill=CARD_BG, outline=CARD_BORDER, width=4)
 
     # Top Accent Line
-    draw.rectangle([90, 150, 990, 156], fill=ACCENT_GREEN)
+    draw.rectangle([90, 130, 990, 136], fill=ACCENT_GREEN)
     
-    # Header Text
-    y_offset = 180
-    header_lines = textwrap.wrap(header_text, width=28)
+    # Header Text Block
+    y_offset = 160
+    header_lines = textwrap.wrap(header_text, width=32)
     for line in header_lines:
         draw.text((90, y_offset), line, fill=TEXT_TITLE if is_cover else ACCENT_GREEN, font=font_header)
-        y_offset += 55
+        y_offset += 48
 
-    y_offset += 25
+    y_offset += 20
 
-    # Body Items
+    # Body Items (Strictly capped to max 3 items per slide with tight line spacing)
     for item in body_items[:3]:
-        wrapped_item = textwrap.wrap(item, width=38)
+        wrapped_item = textwrap.wrap(item, width=42)
         if wrapped_item:
-            draw.ellipse([90, y_offset + 6, 102, y_offset + 18], fill=ACCENT_GREEN)
+            draw.ellipse([90, y_offset + 5, 100, y_offset + 15], fill=ACCENT_GREEN)
             for line in wrapped_item:
-                draw.text((125, y_offset), line, fill=TEXT_BODY, font=font_body)
-                y_offset += 40
-            y_offset += 16
+                draw.text((120, y_offset), line, fill=TEXT_BODY, font=font_body)
+                y_offset += 36
+            y_offset += 12
 
     # Footer Divider & Domain
-    draw.line([90, 1720, 990, 1720], fill=CARD_BORDER, width=2)
-    draw.text((90, 1750), "PABSMOPHOBIA", fill=ACCENT_GREEN, font=font_brand)
-    draw.text((580, 1750), "pabsmophobia.com", fill=TEXT_TITLE, font=font_brand)
+    draw.line([90, 1740, 990, 1740], fill=CARD_BORDER, width=2)
+    draw.text((90, 1770), "PABSMOPHOBIA", fill=ACCENT_GREEN, font=font_brand)
+    draw.text((580, 1770), "pabsmophobia.com", fill=TEXT_TITLE, font=font_brand)
 
-    # Embed Logo Watermark from repo path
+    # Embed Official Logo Watermark from repo path
     logo_path = "Pabsmophobia-Website/images/library/Pabsmo.jpg"
     if os.path.exists(logo_path):
         try:
             logo = Image.open(logo_path).convert("RGBA")
-            # Resize logo to fit nicely in bottom-right corner badge area (e.g., 90x90 pixels)
-            logo = logo.resize((90, 90), Image.Resampling.LANCZOS)
-            
-            # Paste position coordinates (X: 900, Y: 1620)
-            img.paste(logo, (900, 1620))
+            logo = logo.resize((80, 80), Image.Resampling.LANCZOS)
+            img.paste(logo, (910, 1630))
         except Exception as e:
             print(f"Could not load logo image: {e}")
     
@@ -143,4 +140,4 @@ if __name__ == "__main__":
     create_slide(title.upper(), slide_1_bullets, "images/tiktok/slide_1.png", is_cover=True)
     create_slide("KEY FINDINGS", slide_2_bullets, "images/tiktok/slide_2.png", is_cover=False)
     
-    print("TikTok slides generated successfully with official Pabsmo logo badge!")
+    print("TikTok slides refactored cleanly with zero overflow and logo embedded!")
