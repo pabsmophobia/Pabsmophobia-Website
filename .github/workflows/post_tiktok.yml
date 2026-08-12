@@ -56,9 +56,9 @@ jobs:
               'profiles': [os.environ['TIKTOK_PROFILE_ID']],
               'post': {
                   'body': 'New investigation notes and field log live now. Read full details at pabsmophobia.com #paranormal #investigation #pabsmophobia',
-                  'media_urls': [
-                      'https://pabsmophobia.com/images/tiktok/slide_1.png',
-                      'https://pabsmophobia.com/images/tiktok/slide_2.png'
+                  'items': [
+                      {'url': 'https://pabsmophobia.com/images/tiktok/slide_1.png'},
+                      {'url': 'https://pabsmophobia.com/images/tiktok/slide_2.png'}
                   ]
               }
           }
