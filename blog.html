@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blogs &amp; Newsletters | Pabsmophobia</title>
@@ -17,7 +19,7 @@
   <!-- Site Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Typography & Card Styles -->
+  <!-- Typography Override for Cards -->
   <style>
     .card h3 {
       font-family: 'Eczar', Georgia, serif !important;
@@ -38,7 +40,7 @@
 
   <main style="max-width: 1100px; margin: 0 auto; padding: 2rem 1rem;">
 
-    <!-- TOP BANNER: NEWSLETTER CAPTURE ("THE MONTHLY HAUNT") -->
+    <!-- TOP BANNER: NEWSLETTER CAPTURE -->
     <section class="newsletter-banner" style="margin-bottom: 2.5rem; padding: 1.5rem 1.25rem; background: rgba(30, 41, 59, 0.6); border: 1px solid var(--border, #334155); border-radius: 10px; text-align: center;">
       <h1 style="font-family: 'Creepster', cursive; font-size: 2.2rem; color: #fff; margin: 0 0 0.25rem 0; letter-spacing: 1px;">The Monthly Haunt &amp; Articles</h1>
       <p style="color: var(--text-muted, #9ca3af); font-size: 0.95rem; max-width: 600px; margin: 0 auto 1rem auto; line-height: 1.4;">
@@ -46,7 +48,13 @@
       </p>
 
       <form id="newsletterForm" onsubmit="handleNewsletterSubmit(event)" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto;">
-        <input type="email" id="newsletterEmail" placeholder="Enter your email address..." required="" style="padding: 0.6rem 0.9rem; border-radius: 6px; border: 1px solid var(--border, #334155); background: rgba(0, 0, 0, 0.4); color: #fff; font-size: 0.9rem; flex: 1; min-width: 200px; outline: none;">
+        <input 
+          type="email" 
+          id="newsletterEmail" 
+          placeholder="Enter your email address..." 
+          required 
+          style="padding: 0.6rem 0.9rem; border-radius: 6px; border: 1px solid var(--border, #334155); background: rgba(0, 0, 0, 0.4); color: #fff; font-size: 0.9rem; flex: 1; min-width: 200px; outline: none;"
+        />
         <button type="submit" class="btn" style="padding: 0.6rem 1.25rem; font-size: 0.9rem; background: var(--accent, #7c3aed); color: #fff; border: none; border-radius: 6px; cursor: pointer;">Subscribe Free</button>
       </form>
     </section>
@@ -61,11 +69,11 @@
       <div id="featured-post-container">
         <div class="card" style="border: 1px solid var(--accent, #7c3aed); background: rgba(15, 23, 42, 0.8); padding: 1.75rem; border-radius: 10px;">
           <div style="color: var(--accent, #a855f7); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.5rem;">FLAGSHIP PUBLICATION</div>
-          <h3 style="font-size: 1.5rem; color: #fff; margin: 0 0 0.75rem 0;">The Monthly Haunt: Latest Investigation Edition</h3>
+          <h3 style="font-size: 1.5rem; color: #fff; margin: 0 0 0.75rem 0;">The Monthly Haunt: Issue 1</h3>
           <p style="color: var(--text-muted, #9ca3af); line-height: 1.5; font-size: 0.95rem; margin-bottom: 1.25rem;">
-            Explore our latest monthly publication featuring full environmental logs, thermal imaging breakdowns, and baseline analysis from recent UK investigations.
+            Explore our inaugural monthly publication featuring full environmental logs, thermal imaging breakdowns, and baseline analysis from recent UK investigations.
           </p>
-          <a href="post.html" style="display: inline-block; padding: 0.6rem 1.2rem; background: var(--accent, #7c3aed); color: #ffffff; text-decoration: none; font-size: 0.9rem; border-radius: 6px; font-weight: 600;">Read Issue →</a>
+          <a href="post.html?id=monthly-haunt-issue1" style="display: inline-block; padding: 0.6rem 1.2rem; background: var(--accent, #7c3aed); color: #ffffff; text-decoration: none; font-size: 0.9rem; border-radius: 6px; font-weight: 600;">Read Issue &rarr;</a>
         </div>
       </div>
     </section>
@@ -76,10 +84,10 @@
         Weekly Articles &amp; Insights
       </h2>
 
-      <!-- Feed Container: Matches only the exact number of articles in data.json -->
+      <!-- Feed Container: Loads dynamically straight from data.json matching exact object schema -->
       <div id="posts-container" class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
         <div style="grid-column: 1 / -1; text-align: center; color: var(--text-muted, #9ca3af); padding: 2rem;">
-          Loading articles...
+          Loading articles from data.json...
         </div>
       </div>
     </section>
@@ -111,7 +119,7 @@
     }
   </script>
 
-  <!-- Dynamic Data Loader Script -->
+  <!-- Tailored JSON Data Loader Script (Mapped to your exact data.json keys) -->
   <script>
     async function loadBlogPosts() {
       const container = document.getElementById('posts-container');
@@ -119,28 +127,39 @@
 
       try {
         const response = await fetch('data.json');
-        if (!response.ok) throw new Error('Failed to load posts');
-        const posts = await response.json();
+        if (!response.ok) throw new Error('Failed to load data.json');
+        let posts = await response.json();
 
         if (!posts || posts.length === 0) {
           container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1;">No articles published yet.</p>';
           return;
         }
 
-        // Dynamically renders ONLY the articles that exist in data.json
+        // Filter out the flagship issue from the grid if present
+        posts = posts.filter(p => {
+          const name = p["Event Name"] || p.title || "";
+          return !name.toLowerCase().includes("monthly haunt");
+        });
+
         container.innerHTML = posts.map(post => {
-          const title = post.title || post.heading || post.name || post.header || 'Untitled Article';
-          const excerpt = post.excerpt || post.description || post.summary || post.content || '';
-          const date = post.date || post.published || post.time || '';
-          const category = post.category || post.tag || post.type || 'ARTICLE';
-          const id = post.id || post.slug || post.link || '';
+          // Explicit mapping using your exact data.json schema keys
+          const title = post["Event Name"] || "Untitled Event";
+          const location = post["Location"] || "";
+          const venue = post["EventVenue"] || post["Event Venue"] || "";
+          const date = post["Date"] || "";
+          const category = post["Event Type"] || "EVENT";
+          const availability = post["Price / Availability"] || "";
+          
+          // Generate a clean slug/id for the link fallback
+          const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
           return `
-            <div class="card" style="border: 1px solid var(--border, #334155);">
-              <div style="font-size: 0.8rem; color: var(--text-muted, #9ca3af); margin-bottom: 0.5rem;">${date ? date + ' • ' : ''}${category}</div>
+            <div class="card" style="border: 1px solid var(--border, #334155); padding: 1.25rem; border-radius: 8px; background: rgba(15, 23, 42, 0.6);">
+              <div style="font-size: 0.8rem; color: var(--text-muted, #9ca3af); margin-bottom: 0.5rem;">${date ? date.split('T')[0] + ' • ' : ''}${category}</div>
               <h3 style="font-size: 1.15rem; color: #fff; margin: 0 0 0.5rem 0;">${title}</h3>
-              <p style="color: var(--text-muted, #9ca3af); font-size: 0.9rem; line-height: 1.5;">${excerpt}</p>
-              <a href="post.html?id=${id}" style="color: var(--accent, #a855f7); font-weight: 600; text-decoration: none; font-size: 0.9rem; display: inline-block; margin-top: 0.75rem;">Read article &rarr;</a>
+              <p style="color: var(--text-muted, #9ca3af); font-size: 0.9rem; line-height: 1.4; margin-bottom: 0.5rem;"><strong>Venue:</strong> ${venue} (${location})</p>
+              <p style="color: #a855f7; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem;">${availability}</p>
+              <a href="post.html?id=${slug}" style="color: var(--accent, #a855f7); font-weight: 600; text-decoration: none; font-size: 0.9rem; display: inline-block;">Read article &rarr;</a>
             </div>
           `;
         }).join('');
@@ -154,6 +173,5 @@
     document.addEventListener('DOMContentLoaded', loadBlogPosts);
   </script>
 
-
-
-</body></html>
+</body>
+</html>
