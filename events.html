@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Investigation Schedule | Pabsmophobia</title>
@@ -7,16 +9,52 @@
   <link rel="icon" type="image/jpeg" href="images/library/Pabsmo.jpg">
   <link rel="apple-touch-icon" href="images/library/Pabsmo.jpg">
   
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Creepster&amp;family=Eczar:wght@400;600&amp;display=swap" rel="stylesheet">
 
-  <!-- External Stylesheet Link -->
   <link rel="stylesheet" href="styles.css">
-
-  
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Table Responsive Styling & Badges */
+    .events-table-wrapper {
+      overflow-x: auto;
+      margin-top: 1.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border, #334155);
+    }
+    th {
+      background: rgba(0,0,0,0.4);
+      color: var(--accent, #a855f7);
+      font-family: 'Eczar', serif;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-pabs { background: #7c3aed; color: #fff; }
+    .badge-hn { background: #0284c7; color: #fff; }
+    .badge-ram { background: #d97706; color: #fff; }
+    .disclaimer-box {
+      background: rgba(168, 85, 247, 0.1);
+      border-left: 4px solid var(--accent, #a855f7);
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -25,51 +63,42 @@
       <img src="images/library/Pabsmo.jpg" alt="Pabsmophobia Logo" class="logo-img">
       <span>Pabsmophobia</span>
     </div>
-    <!-- Nav loaded dynamically via nav.js -->
     <nav></nav>
   </header>
 
   <main class="container">
     <h1>Investigation Schedule</h1>
-    <p class="subtitle">Upcoming ghost hunts, overnight investigations, and public events.</p>
+    <p class="subtitle">Upcoming ghost hunts, overnight investigations, and partner events.</p>
 
     <!-- Partner Event Disclaimer Note -->
     <div class="disclaimer-box">
-      <strong>Please Note:</strong> While we love promoting all events hosted by our partners, there is no guarantee the Pabsmophobia core team will be physically present at every partner listing unless specified as a hosted/co-hosted event.
+      <strong>Please Note:</strong> While we promote events hosted by our partners, the Pabsmophobia core team will only be physically conducting investigations at events explicitly designated as hosted or co-hosted by Pabsmophobia.
     </div>
 
     <!-- Filters -->
-    <div class="filter-container">
+    <div class="filter-container" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
       <div class="filter-group">
         <label for="filterProvider">Provider</label>
-        <select id="filterProvider">
-          <option value="ALL">All Providers</option>
-        </select>
+        <select id="filterProvider"><option value="ALL">All Providers</option></select>
       </div>
 
       <div class="filter-group">
         <label for="filterType">Event Type</label>
-        <select id="filterType">
-          <option value="ALL">All Types</option>
-        </select>
+        <select id="filterType"><option value="ALL">All Types</option></select>
       </div>
 
       <div class="filter-group">
         <label for="filterLocation">Location</label>
-        <select id="filterLocation">
-          <option value="ALL">All Locations</option>
-        </select>
+        <select id="filterLocation"><option value="ALL">All Locations</option></select>
       </div>
 
       <div class="filter-group">
         <label for="filterVenue">Venue</label>
-        <select id="filterVenue">
-          <option value="ALL">All Venues</option>
-        </select>
+        <select id="filterVenue"><option value="ALL">All Venues</option></select>
       </div>
 
-      <div class="filter-actions">
-        <button class="btn-reset" onclick="resetFilters()">Reset Filters</button>
+      <div class="filter-actions" style="align-self: flex-end;">
+        <button class="btn-reset" onclick="resetFilters()" style="padding: 0.4rem 0.8rem; cursor: pointer;">Reset Filters</button>
       </div>
     </div>
 
@@ -85,7 +114,7 @@
             <th>Location</th>
             <th>Type</th>
             <th>Time</th>
-            <th>Price / Availability</th>
+            <th>Price</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -167,15 +196,16 @@
 
         const rows = parsedRows.slice(1);
 
+        // Fallback-enabled Mapping
         const rawEvents = rows.map(cols => ({
-          date: cols[0] || '',
-          name: cols[1] || '',
-          provider: cols[2] || '',
-          venue: cols[3] || '',
-          location: cols[4] || '',
-          type: cols[5] || '',
-          time: cols[6] || '',
-          price: cols[7] || '',
+          date: cols[0] || 'TBA',
+          name: cols[1] || 'Paranormal Investigation',
+          provider: cols[2] || 'Partner Event',
+          venue: cols[3] || 'Location Details Pending',
+          location: cols[4] || 'UK Venue',
+          type: cols[5] || 'Ghost Hunt',
+          time: cols[6] || 'See Provider',
+          price: cols[7] || 'See Provider',
           providerType: (cols[8] || '').toLowerCase(),
           coHost: (cols[9] || '').toLowerCase() === 'true'
         }));
@@ -184,14 +214,14 @@
         today.setHours(0, 0, 0, 0);
 
         eventData = rawEvents
-          .filter(item => item.date && parseDate(item.date) >= today)
+          .filter(item => item.date !== 'TBA' && parseDate(item.date) >= today)
           .sort((a, b) => parseDate(a.date) - parseDate(b.date));
 
         populateFilterDropdowns();
         renderTable();
       } catch (err) {
         console.error('Error fetching Google Sheet schedule:', err);
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 2rem; color:#f87171;">Failed to load schedule from Google Sheets. Please check the published link settings.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 2rem; color:#f87171;">Failed to load schedule from Google Sheets. Please check back later.</td></tr>`;
       }
     }
 
@@ -199,10 +229,10 @@
       const providers = new Set(), types = new Set(), locations = new Set(), venues = new Set();
       
       eventData.forEach(item => {
-        if (item.provider) providers.add(item.provider);
+        if (item.provider && item.provider !== 'Partner Event') providers.add(item.provider);
         if (item.type) types.add(item.type);
-        if (item.location) locations.add(item.location);
-        if (item.venue) venues.add(item.venue);
+        if (item.location && item.location !== 'UK Venue') locations.add(item.location);
+        if (item.venue && item.venue !== 'Location Details Pending') venues.add(item.venue);
       });
 
       appendOptions(elProvider, Array.from(providers).sort());
@@ -264,15 +294,15 @@
         }
 
         tr.innerHTML = `
-          <td class="col-date">${item.date}</td>
-          <td class="event-title">${item.name}</td>
+          <td style="white-space: nowrap;">${item.date}</td>
+          <td><strong>${item.name}</strong></td>
           <td>${badgesHTML}</td>
           <td>${item.venue}</td>
           <td>${item.location}</td>
           <td>${item.type}</td>
           <td style="white-space: nowrap;">${item.time}</td>
-          <td class="col-price">${item.price}</td>
-          <td><button class="btn" onclick="handleInquiry('${resolvedType}', '${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button></td>
+          <td style="white-space: nowrap;">${item.price}</td>
+          <td><button class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.85rem;" onclick="handleInquiry('${resolvedType}', '${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button></td>
         `;
         tbody.appendChild(tr);
       });
@@ -308,6 +338,5 @@
   <!-- Dynamic Navigation Script -->
   <script src="nav.js"></script>
 
-
-
-</body></html>
+</body>
+</html>
