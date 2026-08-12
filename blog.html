@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blogs &amp; Newsletters | Pabsmophobia</title>
@@ -16,6 +18,15 @@
 
   <!-- Site Stylesheet -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Override header font styles specifically for post titles in card grids -->
+  <style>
+    .card h3 {
+      font-family: 'Eczar', Georgia, serif !important;
+      letter-spacing: normal !important;
+      font-weight: 600 !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -29,50 +40,54 @@
 
   <main style="max-width: 1100px; margin: 0 auto; padding: 2rem 1rem;">
 
-    <!-- TOP BANNER: NEWSLETTER CAPTURE ("THE MONTHLY HAUNT") -->
-    <section class="newsletter-banner" style="margin-bottom: 3.5rem; padding: 2.5rem 1.5rem; background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(30, 41, 59, 1) 100%); border: 1px solid var(--accent, #7c3aed); border-radius: 12px; text-align: center;">
-      <h1 style="font-family: 'Creepster', cursive; font-size: 2.5rem; color: #fff; margin: 0 0 0.5rem 0; letter-spacing: 1px;">The Monthly Haunt &amp; Field Blog</h1>
-      <p style="color: var(--text-muted, #9ca3af); font-size: 1rem; max-width: 600px; margin: 0 auto 1.5rem auto; line-height: 1.5;">
-        Subscribe to receive <strong>The Monthly Haunt</strong> publication delivered directly to your inbox every month, complete with exclusive case breakdowns and early event ticket drops.
+    <!-- NEWSLETTER BANNER -->
+    <section class="newsletter-banner" style="margin-bottom: 2.5rem; padding: 1.5rem 1.25rem; background: rgba(30, 41, 59, 0.6); border: 1px solid var(--border, #334155); border-radius: 10px; text-align: center;">
+      <h1 style="font-family: 'Creepster', cursive; font-size: 2.2rem; color: #fff; margin: 0 0 0.25rem 0; letter-spacing: 1px;">The Monthly Haunt &amp; Articles</h1>
+      <p style="color: var(--text-muted, #9ca3af); font-size: 0.95rem; max-width: 600px; margin: 0 auto 1rem auto; line-height: 1.4;">
+        Subscribe to receive <strong>The Monthly Haunt</strong> publication delivered directly to your inbox every month, along with early event ticket alerts.
       </p>
 
-      <form id="newsletterForm" onsubmit="handleNewsletterSubmit(event)" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; max-width: 500px; margin: 0 auto;">
-        <input type="email" id="newsletterEmail" placeholder="Enter your email address..." required="" style="padding: 0.75rem 1rem; border-radius: 6px; border: 1px solid var(--border, #334155); background: rgba(0, 0, 0, 0.5); color: #fff; font-size: 0.95rem; flex: 1; min-width: 220px; outline: none;">
-        <button type="submit" class="btn" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">Subscribe Free</button>
+      <form id="newsletterForm" onsubmit="handleNewsletterSubmit(event)" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto;">
+        <input 
+          type="email" 
+          id="newsletterEmail" 
+          placeholder="Enter your email address..." 
+          required 
+          style="padding: 0.6rem 0.9rem; border-radius: 6px; border: 1px solid var(--border, #334155); background: rgba(0, 0, 0, 0.4); color: #fff; font-size: 0.9rem; flex: 1; min-width: 200px; outline: none;"
+        />
+        <button type="submit" class="btn" style="padding: 0.6rem 1.25rem; font-size: 0.9rem; background: var(--accent, #7c3aed); color: #fff; border: none; border-radius: 6px; cursor: pointer;">Subscribe Free</button>
       </form>
-    
     </section>
 
-    <!-- SECTION 1: FEATURED ISSUE (FLAGSHIP PUBLICATION) -->
-    <section style="margin-bottom: 4rem;">
-      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
-        <span class="badge badge-pabs" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">Flagship Edition</span>
-        <h2 style="font-family: 'Creepster', cursive; font-size: 2rem; color: #fff; margin: 0;">Featured Issue: The Monthly Haunt</h2>
+    <!-- SECTION 1: FEATURED ISSUE (THE MONTHLY HAUNT) -->
+    <section style="margin-bottom: 3.5rem;">
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+        <span class="badge badge-pabs" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; background: rgba(124, 58, 237, 0.2); color: #a855f7; padding: 0.25rem 0.5rem; border-radius: 4px;">Flagship Edition</span>
+        <h2 style="font-family: 'Creepster', cursive; font-size: 1.8rem; color: #fff; margin: 0;">Featured Issue: The Monthly Haunt</h2>
       </div>
 
       <div id="featured-post-container">
-        <!-- Featured Issue card dynamically loaded from data.json or fallback template -->
-        <div class="card" style="border: 1px solid var(--accent, #7c3aed); background: rgba(15, 23, 42, 0.8); padding: 2rem; border-radius: 12px;">
+        <div class="card" style="border: 1px solid var(--accent, #7c3aed); background: rgba(15, 23, 42, 0.8); padding: 1.75rem; border-radius: 10px;">
           <div style="color: var(--accent, #a855f7); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.5rem;">FLAGSHIP PUBLICATION</div>
-          <h3 style="font-size: 1.8rem; color: #fff; margin: 0 0 1rem 0;">The Monthly Haunt: Latest Investigation Edition</h3>
-          <p style="color: var(--text-muted, #9ca3af); line-height: 1.6; font-size: 1rem; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.5rem; color: #fff; margin: 0 0 0.75rem 0;">The Monthly Haunt: Latest Investigation Edition</h3>
+          <p style="color: var(--text-muted, #9ca3af); line-height: 1.5; font-size: 0.95rem; margin-bottom: 1.25rem;">
             Explore our latest monthly publication featuring full environmental logs, thermal imaging breakdowns, and baseline analysis from recent UK investigations.
           </p>
-          <a href="post.html" class="btn" style="padding: 0.6rem 1.25rem; text-decoration: none;">Read Issue →</a>
+          <a href="post.html" style="display: inline-block; padding: 0.6rem 1.2rem; background: var(--accent, #7c3aed); color: #ffffff; text-decoration: none; font-size: 0.9rem; border-radius: 6px; font-weight: 600;">Read Issue &rarr;</a>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 2: WEEKLY BLOG ARTICLES & FIELD NOTES -->
+    <!-- SECTION 2: ARTICLES & INSIGHTS -->
     <section>
-      <h2 style="font-size: 1.5rem; color: #fff; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border, #334155); padding-bottom: 0.75rem;">
-        Weekly Field Notes &amp; Updates
+      <h2 style="font-size: 1.4rem; color: #fff; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border, #334155); padding-bottom: 0.5rem;">
+        Weekly Articles &amp; Insights
       </h2>
 
-      <!-- Feed Container: Preserved exact ID 'posts-container' / 'blogGrid' for feed population -->
-      <div id="posts-container" class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+      <!-- Articles Container -->
+      <div id="posts-container" class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
         <div style="grid-column: 1 / -1; text-align: center; color: var(--text-muted, #9ca3af); padding: 2rem;">
-          Loading field notes &amp; blog articles...
+          Loading articles...
         </div>
       </div>
     </section>
@@ -104,8 +119,8 @@
     }
   </script>
 
-  <!-- Load Data script (Preserving existing dynamic data loader) -->
-  <script style="display:none">
+  <!-- Load Data script -->
+  <script>
     async function loadBlogPosts() {
       const container = document.getElementById('posts-container');
       if (!container) return;
@@ -120,11 +135,10 @@
           return;
         }
 
-        // Render articles while preserving exact link paths for automated feeds
         container.innerHTML = posts.map(post => `
           <div class="card" style="border: 1px solid var(--border, #334155);">
-            <div style="font-size: 0.8rem; color: var(--text-muted, #9ca3af); margin-bottom: 0.5rem;">${post.date || ''} • ${post.category || 'FIELD NOTES'}</div>
-            <h3 style="font-size: 1.2rem; color: #fff; margin: 0 0 0.5rem 0;">${post.title}</h3>
+            <div style="font-size: 0.8rem; color: var(--text-muted, #9ca3af); margin-bottom: 0.5rem;">${post.date || ''} • ${post.category || 'ARTICLE'}</div>
+            <h3 style="font-size: 1.15rem; color: #fff; margin: 0 0 0.5rem 0;">${post.title}</h3>
             <p style="color: var(--text-muted, #9ca3af); font-size: 0.9rem; line-height: 1.5;">${post.excerpt || post.description || ''}</p>
             <a href="post.html?id=${post.id}" style="color: var(--accent, #a855f7); font-weight: 600; text-decoration: none; font-size: 0.9rem; display: inline-block; margin-top: 0.75rem;">Read article &rarr;</a>
           </div>
@@ -132,12 +146,12 @@
 
       } catch (err) {
         console.error('Error loading blog posts:', err);
+        container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1;">Unable to load articles right now.</p>';
       }
     }
 
     document.addEventListener('DOMContentLoaded', loadBlogPosts);
   </script>
 
-
-
-</body></html>
+</body>
+</html>
