@@ -807,3 +807,29 @@ footer {
   background: linear-gradient(135deg, #581c87, #2e1065);
   box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
 }
+
+
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mobile-nav-toggle {
+    display: block !important;
+  }
+
+  header nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 1rem;
+  }
+
+  header nav.nav-open {
+    display: flex;
+  }
+}
