@@ -46,22 +46,22 @@ def parse_markdown(file_path):
     html = markdown.markdown(clean_text)
     soup = BeautifulSoup(html, 'html.parser')
     
-    raw_bullets = [li.text.strip() for li in soup.find_all('li')]
-    if not raw_bullets:
-        raw_bullets = [p.text.strip() for p in soup.find_all('p') if p.text.strip()]
+    # Extract clean text chunks from list items or paragraphs
+    raw_nodes = soup.find_all(['li', 'p'])
+    clean_sentences = []
     
-    bullets = []
-    for b in raw_bullets:
-        if len(b) > 90:
-            chunks = textwrap.wrap(b, width=75)
-            bullets.extend(chunks[:2])
-        else:
-            bullets.append(b)
-            
-    if not bullets:
-        bullets = ["Read the latest field log live on our website."]
+    for node in raw_nodes:
+        txt = node.text.strip()
+        if not txt or len(txt) < 15: # Skip tiny headings or structural noise
+            continue
+        # Clean up weird spacing or mid-sentence line breaks from markdown parsing
+        txt = re.sub(r'\s+', ' ', txt)
+        clean_sentences.append(txt)
         
-    return title, bullets
+    if not clean_sentences:
+        clean_sentences = ["Read the latest field log live on our website."]
+        
+    return title, clean_sentences
 
 def create_slide(header_text, body_items, output_path, is_cover=False):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -73,53 +73,68 @@ def create_slide(header_text, body_items, output_path, is_cover=False):
     font_path_reg = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
     
     try:
-        font_header = ImageFont.truetype(font_path_bold, 40 if is_cover else 34)
-        font_body = ImageFont.truetype(font_path_reg, 26)  # Scaled safely to avoid overflow
+        font_header = ImageFont.truetype(font_path_bold, 38 if is_cover else 34)
+        font_body = ImageFont.truetype(font_path_reg, 26)
         font_brand = ImageFont.truetype(font_path_bold, 26)
     except Exception:
         font_header = ImageFont.load_default()
         font_body = ImageFont.load_default()
         font_brand = ImageFont.load_default()
 
-    # Safe Container Card Bounds
-    draw.rectangle([50, 80, 1030, 1840], fill=CARD_BG, outline=CARD_BORDER, width=4)
+    # Container Card Bounds
+    draw.rectangle([50, 60, 1030, 1860], fill=CARD_BG, outline=CARD_BORDER, width=4)
 
     # Top Accent Line
-    draw.rectangle([90, 130, 990, 136], fill=ACCENT_GREEN)
+    draw.rectangle([90, 110, 990, 116], fill=ACCENT_GREEN)
     
+    # Embed Logo Watermark using the exact requested path `images/library/Pabsmo.jpg`
+    logo_paths_to_try = [
+        "images/library/Pabsmo.jpg",
+        "Pabsmophobia-Website/images/library/Pabsmo.jpg",
+        "images/library/pabsmo.jpg"
+    ]
+    logo_pasted = False
+    for l_path in logo_paths_to_try:
+        if os.path.exists(l_path):
+            try:
+                logo = Image.open(l_path).convert("RGBA")
+                logo = logo.resize((75, 75), Image.Resampling.LANCZOS)
+                img.paste(logo, (915, 135))
+                logo_pasted = True
+                break
+            except Exception:
+                pass
+                
+    if not logo_pasted:
+        draw.rounded_rectangle([880, 135, 990, 200], radius=6, fill="#0f021a", outline=ACCENT_GREEN, width=2)
+        font_fallback = ImageFont.truetype(font_path_bold, 18) if os.path.exists(font_path_bold) else font_brand
+        draw.text((895, 153), "PABSMO", fill=ACCENT_GREEN, font=font_fallback)
+
     # Header Text Block
-    y_offset = 160
-    header_lines = textwrap.wrap(header_text, width=32)
+    y_offset = 140
+    header_lines = textwrap.wrap(header_text, width=26)
     for line in header_lines:
         draw.text((90, y_offset), line, fill=TEXT_TITLE if is_cover else ACCENT_GREEN, font=font_header)
-        y_offset += 48
+        y_offset += 44
 
-    y_offset += 20
+    y_offset += 25
+    draw.line([90, y_offset, 990, y_offset], outline="#4c1d95", width=2)
+    y_offset += 25
 
-    # Body Items (Strictly capped to max 3 items per slide with tight line spacing)
+    # Flow-Optimized Body Items (Up to 3 coherent items per slide with clean wrapping)
     for item in body_items[:3]:
-        wrapped_item = textwrap.wrap(item, width=42)
+        wrapped_item = textwrap.wrap(item, width=44)
         if wrapped_item:
             draw.ellipse([90, y_offset + 5, 100, y_offset + 15], fill=ACCENT_GREEN)
             for line in wrapped_item:
                 draw.text((120, y_offset), line, fill=TEXT_BODY, font=font_body)
-                y_offset += 36
-            y_offset += 12
+                y_offset += 34
+            y_offset += 16
 
-    # Footer Divider & Domain
-    draw.line([90, 1740, 990, 1740], fill=CARD_BORDER, width=2)
-    draw.text((90, 1770), "PABSMOPHOBIA", fill=ACCENT_GREEN, font=font_brand)
-    draw.text((580, 1770), "pabsmophobia.com", fill=TEXT_TITLE, font=font_brand)
-
-    # Embed Official Logo Watermark from repo path
-    logo_path = "Pabsmophobia-Website/images/library/Pabsmo.jpg"
-    if os.path.exists(logo_path):
-        try:
-            logo = Image.open(logo_path).convert("RGBA")
-            logo = logo.resize((80, 80), Image.Resampling.LANCZOS)
-            img.paste(logo, (910, 1630))
-        except Exception as e:
-            print(f"Could not load logo image: {e}")
+    # Footer Branding & Domain
+    draw.line([90, 1760, 990, 1760], fill=CARD_BORDER, width=2)
+    draw.text((90, 1790), "PABSMOPHOBIA", fill=ACCENT_GREEN, font=font_brand)
+    draw.text((580, 1790), "pabsmophobia.com", fill=TEXT_TITLE, font=font_brand)
     
     img.save(output_path)
 
@@ -129,15 +144,16 @@ if __name__ == "__main__":
     
     if not latest_file:
         title = "Pabsmophobia Field Log"
-        bullets = ["New investigation telemetry and updates live now at pabsmophobia.com"]
+        sentences = ["New investigation telemetry and updates live now at pabsmophobia.com"]
     else:
-        title, bullets = parse_markdown(latest_file)
+        title, sentences = parse_markdown(latest_file)
 
-    midpoint = max(1, len(bullets) // 2)
-    slide_1_bullets = bullets[:midpoint]
-    slide_2_bullets = bullets[midpoint:] if len(bullets) > midpoint else ["Check out full breakdown on our site."]
+    # Split coherent sentences smoothly across Slide 1 and Slide 2
+    midpoint = max(1, len(sentences) // 2)
+    slide_1_sentences = sentences[:midpoint]
+    slide_2_sentences = sentences[midpoint:] if len(sentences) > midpoint else ["Check out full breakdown on our site."]
 
-    create_slide(title.upper(), slide_1_bullets, "images/tiktok/slide_1.png", is_cover=True)
-    create_slide("KEY FINDINGS", slide_2_bullets, "images/tiktok/slide_2.png", is_cover=False)
+    create_slide(title.upper(), slide_1_sentences, "images/tiktok/slide_1.png", is_cover=True)
+    create_slide("KEY FINDINGS", slide_2_sentences, "images/tiktok/slide_2.png", is_cover=False)
     
-    print("TikTok slides refactored cleanly with zero overflow and logo embedded!")
+    print("TikTok slides generated with smooth, non-choppy paragraph flow and active logo path!")
