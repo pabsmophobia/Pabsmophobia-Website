@@ -360,12 +360,63 @@
 
         populateFilterDropdowns();
         renderTable();
+        injectEventSchema(eventData); // Inject JSON-LD Structured Data for SEO
       } catch (err) {
         console.error('Error fetching Google Sheet schedule:', err);
         const errMsg = `<div style="text-align:center; padding: 2rem; color:#f87171;">Failed to load schedule from Google Sheets. Please check back later.</div>`;
         tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 2rem; color:#f87171;">Failed to load schedule from Google Sheets.</td></tr>`;
         cardsContainer.innerHTML = errMsg;
       }
+    }
+
+    // Dynamic JSON-LD Injector for Search Engines
+    function injectEventSchema(events) {
+      // Remove any existing dynamic schema block to prevent duplication on re-renders
+      const existingScript = document.getElementById('dynamic-event-schema');
+      if (existingScript) existingScript.remove();
+
+      const schemaList = events.map(item => {
+        const dObj = parseDate(item.date);
+        const isoDate = !isNaN(dObj.getTime()) ? dObj.toISOString() : new Date().toISOString();
+
+        return {
+          "@type": "Event",
+          "name": item.name,
+          "startDate": isoDate,
+          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+          "eventStatus": "https://schema.org/EventScheduled",
+          "location": {
+            "@type": "Place",
+            "name": item.venue,
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": item.location,
+              "addressCountry": "GB"
+            }
+          },
+          "organizer": {
+            "@type": "Organization",
+            "name": item.provider,
+            "url": "https://pabsmophobia.com"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": item.price.replace(/[^0-9.]/g, '') || "0.00",
+            "priceCurrency": "GBP",
+            "availability": "https://schema.org/InStock",
+            "url": "https://pabsmophobia.com/events"
+          }
+        };
+      });
+
+      const script = document.createElement('script');
+      script.id = 'dynamic-event-schema';
+      script.type = 'application/ld+json';
+      script.text = JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": schemaList
+      });
+      document.head.appendChild(script);
     }
 
     function populateFilterDropdowns() {
@@ -502,7 +553,4 @@
   </script>
 
   <script src="nav.js"></script>
-
-
-
 </body></html>
