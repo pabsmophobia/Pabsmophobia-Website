@@ -28,16 +28,14 @@ def create_slide(text, output_path, is_cover=False):
     img = Image.new('RGB', (1080, 1920), color='#0a0a0c')
     draw = ImageDraw.Draw(img)
     
-    # Load installed DejaVu font or fallback
     font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
     font_size = 65 if is_cover else 45
     
     try:
         font = ImageFont.truetype(font_path, font_size)
-    except:
+    except Exception:
         font = ImageFont.load_default()
 
-    # Wrap text so it stays within margins
     wrapped_lines = []
     for line in text.split('\n'):
         if line.strip():
@@ -47,7 +45,6 @@ def create_slide(text, output_path, is_cover=False):
     
     formatted_text = '\n'.join(wrapped_lines)
     
-    # Draw content and branding footer
     draw.text((80, 600), formatted_text, fill='#ffffff' if is_cover else '#d1d5db', font=font, spacing=15)
     draw.text((80, 1750), "PABSMOPHOBIA | pabsmophobia.com", fill='#8b5cf6', font=font)
     
@@ -66,10 +63,8 @@ if __name__ == "__main__":
         print(f"Processing latest file: {latest_file}")
         title, bullets = parse_markdown(latest_file)
 
-    # Render Slide 1
     create_slide(f"NEW INVESTIGATION:\n\n{title}", "images/tiktok/slide_1.png", is_cover=True)
     
-    # Render Slide 2
     takeaways = "KEY FINDINGS:\n\n" + "\n\n".join([f"• {b}" for b in bullets])
     create_slide(takeaways, "images/tiktok/slide_2.png")
     
