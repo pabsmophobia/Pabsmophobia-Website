@@ -39,7 +39,7 @@ jobs:
           git pull --rebase origin main
           git push origin main
 
-- name: Publish Photo Carousel via Postproxy API
+      - name: Publish Photo Carousel via Postproxy API
         env:
           TIKTOK_KEY: ${{ secrets.TIKTOK_PUBLISH_KEY }}
           TIKTOK_PROFILE_ID: ${{ secrets.POSTPROXY_TIKTOK_PROFILE_ID }}
