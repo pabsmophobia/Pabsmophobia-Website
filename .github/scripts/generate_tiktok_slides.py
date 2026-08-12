@@ -46,15 +46,14 @@ def parse_markdown(file_path):
     html = markdown.markdown(clean_text)
     soup = BeautifulSoup(html, 'html.parser')
     
-    # Extract clean text chunks from list items or paragraphs
+    # Extract complete readable sentences or list points cleanly
     raw_nodes = soup.find_all(['li', 'p'])
     clean_sentences = []
     
     for node in raw_nodes:
         txt = node.text.strip()
-        if not txt or len(txt) < 15: # Skip tiny headings or structural noise
+        if not txt or len(txt) < 15:
             continue
-        # Clean up weird spacing or mid-sentence line breaks from markdown parsing
         txt = re.sub(r'\s+', ' ', txt)
         clean_sentences.append(txt)
         
@@ -87,7 +86,7 @@ def create_slide(header_text, body_items, output_path, is_cover=False):
     # Top Accent Line
     draw.rectangle([90, 110, 990, 116], fill=ACCENT_GREEN)
     
-    # Embed Logo Watermark using the exact requested path `images/library/Pabsmo.jpg`
+    # Embed Logo Watermark using exact repo path `images/library/Pabsmo.jpg`
     logo_paths_to_try = [
         "images/library/Pabsmo.jpg",
         "Pabsmophobia-Website/images/library/Pabsmo.jpg",
@@ -118,10 +117,11 @@ def create_slide(header_text, body_items, output_path, is_cover=False):
         y_offset += 44
 
     y_offset += 25
-    draw.line([90, y_offset, 990, y_offset], outline="#4c1d95", width=2)
+    # Fixed argument from outline= to fill=
+    draw.line([90, y_offset, 990, y_offset], fill="#4c1d95", width=2)
     y_offset += 25
 
-    # Flow-Optimized Body Items (Up to 3 coherent items per slide with clean wrapping)
+    # Flow-Optimized Body Items
     for item in body_items[:3]:
         wrapped_item = textwrap.wrap(item, width=44)
         if wrapped_item:
@@ -148,7 +148,6 @@ if __name__ == "__main__":
     else:
         title, sentences = parse_markdown(latest_file)
 
-    # Split coherent sentences smoothly across Slide 1 and Slide 2
     midpoint = max(1, len(sentences) // 2)
     slide_1_sentences = sentences[:midpoint]
     slide_2_sentences = sentences[midpoint:] if len(sentences) > midpoint else ["Check out full breakdown on our site."]
@@ -156,4 +155,4 @@ if __name__ == "__main__":
     create_slide(title.upper(), slide_1_sentences, "images/tiktok/slide_1.png", is_cover=True)
     create_slide("KEY FINDINGS", slide_2_sentences, "images/tiktok/slide_2.png", is_cover=False)
     
-    print("TikTok slides generated with smooth, non-choppy paragraph flow and active logo path!")
+    print("TikTok slides generated successfully with corrected line arguments and flowing text!")
