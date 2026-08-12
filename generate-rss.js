@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
-const domain = "https://pabsmophobia.github.io/Pabsmophobia-Website";
+// 1. Updated domain to custom domain
+const domain = "https://pabsmophobia.com";
 const postsDir = path.join(__dirname, 'newsletter');
 
 if (!fs.existsSync(postsDir)) {
@@ -33,25 +34,28 @@ files.forEach(file => {
       const title = data.title || file.replace('.md', '');
       const description = data.description || '';
       
+      // 2. Strict pubDate fallback: Use file modification time (mtime) instead of new Date()
       let pubDate;
       if (data.date) {
         const parsedDate = new Date(data.date);
-        pubDate = isNaN(parsedDate.getTime()) 
-          ? new Date().toUTCString() 
-          : parsedDate.toUTCString();
+        pubDate = !isNaN(parsedDate.getTime()) 
+          ? parsedDate.toUTCString() 
+          : fs.statSync(filePath).mtime.toUTCString();
       } else {
-        pubDate = new Date().toUTCString();
+        // Safe fallback: Uses file creation/modified timestamp so date NEVER changes on rebuilt
+        pubDate = fs.statSync(filePath).mtime.toUTCString();
       }
 
       const postUrl = `${domain}/post.html?file=${encodeURIComponent(file)}`;
 
+      // 3. Added isPermaLink="true" to enforce deduplication
       itemsXml += `
     <item>
       <title><![CDATA[${title}]]></title>
       <link>${postUrl}</link>
       <description><![CDATA[${description}]]></description>
       <pubDate>${pubDate}</pubDate>
-      <guid>${postUrl}</guid>
+      <guid isPermaLink="true">${postUrl}</guid>
     </item>`;
     } catch (parseError) {
       console.error(`Error processing file "${file}":`, parseError.message);
@@ -60,12 +64,13 @@ files.forEach(file => {
 });
 
 const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>The Pabsmophobia Monthly Haunt</title>
     <link>${domain}/blog.html</link>
     <description>Field notes, publication archives, and balanced investigation analysis.</description>
     <language>en-gb</language>
+    <atom:link href="${domain}/feed.xml" rel="self" type="application/rss+xml" />
     ${itemsXml}
   </channel>
 </rss>`;
