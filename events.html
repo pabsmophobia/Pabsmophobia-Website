@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Investigation Schedule | Pabsmophobia</title>
@@ -12,39 +14,62 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Creepster&amp;family=Eczar:wght@400;600&amp;display=swap" rel="stylesheet">
 
+  <!-- Single Stylesheet -->
   <link rel="stylesheet" href="styles.css">
+
   <style>
-    /* Table Responsive Styling & Scroll Wrapper Fix */
+    /* Critical Overrides to Stop Clipping */
+    * {
+      box-sizing: border-box;
+    }
+
+    body, main, .container {
+      max-width: 100vw !important;
+      overflow-x: hidden;
+    }
+
+    /* Isolated Scroll Container */
     .events-table-wrapper {
-      width: 100%;
-      overflow-x: auto;
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: auto !important;
       -webkit-overflow-scrolling: touch;
       margin-top: 1.5rem;
       border: 1px solid var(--border, #334155);
       border-radius: 8px;
       background: var(--bg-card, #1e293b);
+      display: block !important;
     }
-    table {
-      width: 100%;
-      min-width: 850px; /* Prevents columns from getting squashed or cut off */
+
+    .events-table-wrapper table {
+      width: 100% !important;
+      min-width: 900px !important;
       border-collapse: collapse;
       font-size: 0.95rem;
+      table-layout: auto !important;
     }
-    th, td {
-      padding: 0.75rem 1rem;
+
+    .events-table-wrapper th, 
+    .events-table-wrapper td {
+      padding: 0.75rem 0.8rem;
       text-align: left;
       border-bottom: 1px solid var(--border, #334155);
-      white-space: nowrap;
+      white-space: nowrap !important;
     }
-    th {
+
+    .events-table-wrapper th {
       background: rgba(0,0,0,0.4);
       color: var(--accent, #a855f7);
       font-family: 'Eczar', serif;
     }
-    td:last-child, th:last-child {
+
+    .events-table-wrapper td:last-child, 
+    .events-table-wrapper th:last-child {
       text-align: center;
-      min-width: 100px;
+      min-width: 110px;
     }
+
+    /* Badges & Disclaimers */
     .badge {
       display: inline-block;
       padding: 0.2rem 0.5rem;
@@ -135,7 +160,7 @@
       </div>
     </div>
 
-    <!-- Table -->
+    <!-- Table Wrapper -->
     <div class="events-table-wrapper">
       <table>
         <thead>
@@ -367,9 +392,7 @@
     fetchLiveEvents();
   </script>
 
-  <!-- Dynamic Navigation Script -->
   <script src="nav.js"></script>
 
-
-
-</body></html>
+</body>
+</html>
