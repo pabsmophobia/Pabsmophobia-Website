@@ -21,28 +21,33 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install System Fonts & Python Dependencies
+      - name: Install System Fonts, Dependencies & FFmpeg
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-dejavu
+          sudo apt-get install -y fonts-dejavu ffmpeg
           pip install pillow markdown beautifulsoup4 requests
 
       - name: Render TikTok Slides
         run: python .github/scripts/generate_tiktok_slides.py
 
-      - name: Commit and Push Generated Slides
+      - name: Convert Slides to MP4 Video
+        run: |
+          ffmpeg -loop 1 -t 5 -i images/tiktok/slide_1.png -loop 1 -t 5 -i images/tiktok/slide_2.png -filter_complex "[0:v][1:v]concat=n=2:v=1:a=0[v]" -map "[v]" -pix_fmt yuv420p images/tiktok/slideshow.mp4 -y
+
+      - name: Commit and Push Generated Video
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add images/tiktok/*.png
-          git diff --staged --quiet || git commit -m "build: generate tiktok slides [skip ci]"
+          git add images/tiktok/*
+          git diff --staged --quiet || git commit -m "build: generate tiktok video [skip ci]"
           git pull --rebase origin main
           git push origin main
 
-      - name: Publish Photo Carousel via Postproxy API
+      - name: Publish Video via Postproxy API
         env:
           TIKTOK_KEY: ${{ secrets.TIKTOK_PUBLISH_KEY }}
           TIKTOK_PROFILE_ID: ${{ secrets.POSTPROXY_TIKTOK_PROFILE_ID }}
+          COMMIT_SHA: ${{ github.sha }}
         run: |
           python -c "
           import requests, os, sys
@@ -52,23 +57,23 @@ jobs:
               'Authorization': f'Bearer {os.environ[\"TIKTOK_KEY\"]}',
               'Content-Type': 'application/json'
           }
+          # Append SHA query string to bypass CDN caching of the video file
+          video_url = f'https://pabsmophobia.com/images/tiktok/slideshow.mp4?v={os.environ[\"COMMIT_SHA\"]}'
+
           payload = {
               'profiles': [os.environ['TIKTOK_PROFILE_ID']],
-              'media': [
-                  'https://pabsmophobia.com/images/tiktok/slide_1.png',
-                  'https://pabsmophobia.com/images/tiktok/slide_2.png'
-              ],
+              'media': [video_url],
               'post': {
                   'body': 'New investigation notes and field log live now. Read full details at pabsmophobia.com #paranormal #investigation #pabsmophobia'
-              },
-              'tiktok': {
-                  'format': 'photo'
               }
           }
 
-          res = requests.post(url, json=payload, headers=headers)
-          print('Postproxy API Response:', res.text)
-
-          if not res.ok:
+          try:
+              res = requests.post(url, json=payload, headers=headers, timeout=30)
+              print('Postproxy API Response:', res.text)
+              if not res.ok:
+                  sys.exit(1)
+          except Exception as e:
+              print('Request failed:', e)
               sys.exit(1)
           "
