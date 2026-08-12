@@ -1,0 +1,56 @@
+name: Auto Post Blog Slides to TikTok
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'newsletter/*.md'
+
+jobs:
+  post-to-tiktok:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: pip install pillow markdown beautifulsoup4 requests
+
+      - name: Render TikTok Slides
+        run: python .github/scripts/generate_tiktok_slides.py
+
+      - name: Commit Generated Slides to GitHub Pages
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "build: generate tiktok slides [skip ci]"
+
+      - name: Publish Photo Carousel via Postproxy API
+        env:
+          TIKTOK_KEY: ${{ secrets.TIKTOK_PUBLISH_KEY }}
+        run: |
+          python -c "
+          import requests, os
+          
+          url = 'https://api.postproxy.dev/api/posts'
+          headers = {
+              'Authorization': f'Bearer {os.environ[\"TIKTOK_KEY\"]}',
+              'Content-Type': 'application/json'
+          }
+          payload = {
+              'post': {
+                  'body': 'New investigation notes and field log live now. Read full details at pabsmophobia.com #paranormal #investigation #pabsmophobia',
+                  'media_urls': [
+                      'https://pabsmophobia.com/images/tiktok/slide_1.png',
+                      'https://pabsmophobia.com/images/tiktok/slide_2.png'
+                  ]
+              }
+          }
+          
+          res = requests.post(url, json=payload, headers=headers)
+          print('Postproxy API Response:', res.json())
+          "
