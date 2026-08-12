@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -44,6 +46,20 @@
     .badge-pabs { background: #7c3aed; color: #fff; }
     .badge-hn { background: #0284c7; color: #fff; }
     .badge-ram { background: #d97706; color: #fff; }
+
+    /* 2 Up / 2 Down Grid Layout */
+    .events-grid-2x2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    /* Stack on small screens for mobile optimization */
+    @media (max-width: 640px) {
+      .events-grid-2x2 {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -86,18 +102,18 @@
       </div>
     </section>
 
-    <!-- UPCOMING EVENTS HOMEPAGE WIDGET (LIVE GOOGLE SHEETS - 4 CARDS) -->
+    <!-- UPCOMING EVENTS HOMEPAGE WIDGET (LIVE GOOGLE SHEETS - 2x2 GRID) -->
     <section class="upcoming-events-widget" style="margin: 4rem 0 2rem 0; padding: 2rem 1.5rem; background: var(--bg-card, #1e293b); border: 1px solid var(--border, #334155); border-radius: 12px;">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
         <div>
           <h2 style="margin: 0; font-family: 'Creepster', cursive; font-size: 2.2rem; color: #fff; letter-spacing: 1px;">Upcoming Events</h2>
           <p style="margin: 0.25rem 0 0 0; color: var(--text-muted, #9ca3af); font-size: 0.95rem;">Join us on our next ghost hunts &amp; partner events.</p>
         </div>
-        <a href="events.html" class="btn" style="padding: 0.5rem 1.25rem; font-size: 0.9rem; text-decoration: none; display: inline-block;">View Full Schedule →</a>
+        <a href="events.html" class="btn" style="padding: 0.5rem 1.25rem; font-size: 0.9rem; text-decoration: none; display: inline-block;">View Full Schedule &rarr;</a>
       </div>
 
-      <!-- Widget Cards Grid -->
-      <div id="homepageEventsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem;">
+      <!-- Widget Cards Grid (2 Up / 2 Down Layout) -->
+      <div id="homepageEventsGrid" class="events-grid-2x2">
         <div style="text-align: center; padding: 2rem; color: #9ca3af; grid-column: 1 / -1;">Loading live upcoming events...</div>
       </div>
     </section>
@@ -260,7 +276,7 @@
           }))
           .filter(item => item.date !== 'TBA' && parseWidgetDate(item.date) >= today)
           .sort((a, b) => parseWidgetDate(a.date) - parseWidgetDate(b.date))
-          .slice(0, 4); // Fetches top 4 events
+          .slice(0, 4);
 
           if (events.length === 0) {
             gridContainer.innerHTML = `<div style="text-align: center; padding: 2rem; color: #9ca3af; grid-column: 1 / -1;">No upcoming investigations scheduled right now.</div>`;
@@ -320,6 +336,5 @@
     })();
   </script>
 
-
-
-</body></html>
+</body>
+</html>
