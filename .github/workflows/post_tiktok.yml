@@ -27,20 +27,30 @@ jobs:
           sudo apt-get install -y fonts-dejavu ffmpeg
           pip install pillow markdown beautifulsoup4 requests
 
-      - name: Clean Stale Slide Cache
-        run: rm -rf images/tiktok/*
+      - name: 1. Clean Stale Slide Cache (Cache Busting)
+        run: |
+          # Clears out old images so generator overwrites exact paths cleanly
+          rm -rf images/tiktok/*
 
       - name: Render TikTok Slides
         run: python .github/scripts/generate_tiktok_slides.py
 
-      - name: Convert Slides to 9:16 Vertical MP4 Video
+      - name: 2. Convert Slides to 9:16 Vertical MP4 Video (Forced Overwrite)
         run: |
+          # Uses -y flag to forcibly overwrite slideshow.mp4 with newly rendered PNGs
           ffmpeg -loop 1 -t 5 -i images/tiktok/slide_1.png -loop 1 -t 5 -i images/tiktok/slide_2.png \
             -filter_complex "[0:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black[v0]; \
                              [1:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black[v1]; \
                              [v0][v1]concat=n=2:v=1:a=0[v]" -map "[v]" \
             -c:v libx264 -preset fast -pix_fmt yuv420p -movflags +faststart \
             images/tiktok/slideshow.mp4 -y
+
+      - name: 3. Test with Artifact Uploads (Inspect Rendered Images)
+        uses: actions/upload-artifact@v4
+        with:
+          name: tiktok-slide-previews
+          path: images/tiktok/*.png
+          retention-days: 1
 
       - name: Commit and Push Generated Video
         run: |
@@ -51,7 +61,7 @@ jobs:
           git pull --rebase origin main
           git push origin main
 
-      - name: Publish Video via Postproxy API
+      - name: 4. Verify Deployment Pipeline Order & Accessibility
         env:
           TIKTOK_KEY: ${{ secrets.TIKTOK_PUBLISH_KEY }}
           TIKTOK_PROFILE_ID: ${{ secrets.POSTPROXY_TIKTOK_PROFILE_ID }}
@@ -92,15 +102,17 @@ jobs:
 
               post_text = f'{headline}\n\nRead full report at pabsmophobia.com #paranormal #investigation #pabsmophobia'
 
+          # Appends commit SHA to bypass web host/CDN caching during deployment
           video_url = f'https://pabsmophobia.com/images/tiktok/slideshow.mp4?v={os.environ[\"COMMIT_SHA\"]}'
 
-          print(f'Verifying video accessibility at {video_url}...')
-          for _ in range(12):
+          print(f'Waiting for site deployment & verifying accessibility at {video_url}...')
+          for attempt in range(15):
               check = requests.get(video_url)
               if check.status_code == 200 and len(check.content) > 1000:
-                  print('Video verified.')
+                  print('Video verified on live server.')
                   break
-              time.sleep(10)
+              print(f'Attempt {attempt+1}/15: Waiting for site build/deployment to propagate...')
+              time.sleep(12)
 
           url = 'https://api.postproxy.dev/api/posts'
           headers = {
