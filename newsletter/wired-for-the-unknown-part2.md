@@ -1,6 +1,6 @@
 ---
 title: "Wired for the Unknown (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World"
-date: 2026-08-12
+date: 2026-08-11
 description: "Exploring the neuroscience of intuition, sensory gating, and how the human brain processes mediumship and the 'clairs' on paranormal investigations."
 image: "/images/blogs/clairs-blog.png"
 image_alt: "Wired for the Unknown Brain Diagram showcasing the Clairs and Pabsmophobia branding"
