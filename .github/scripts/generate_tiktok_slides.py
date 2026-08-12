@@ -46,21 +46,21 @@ def parse_markdown(file_path):
     html = markdown.markdown(clean_text)
     soup = BeautifulSoup(html, 'html.parser')
     
-    # Extract complete readable sentences or list points cleanly
+    # Extract robust list items or paragraphs
     raw_nodes = soup.find_all(['li', 'p'])
-    clean_sentences = []
+    sentences = []
     
     for node in raw_nodes:
         txt = node.text.strip()
-        if not txt or len(txt) < 15:
+        if not txt or len(txt) < 12:
             continue
         txt = re.sub(r'\s+', ' ', txt)
-        clean_sentences.append(txt)
+        sentences.append(txt)
         
-    if not clean_sentences:
-        clean_sentences = ["Read the latest field log live on our website."]
+    if not sentences:
+        sentences = ["Read the latest field log live on our website at pabsmophobia.com."]
         
-    return title, clean_sentences
+    return title, sentences
 
 def create_slide(header_text, body_items, output_path, is_cover=False):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -72,7 +72,7 @@ def create_slide(header_text, body_items, output_path, is_cover=False):
     font_path_reg = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
     
     try:
-        font_header = ImageFont.truetype(font_path_bold, 38 if is_cover else 34)
+        font_header = ImageFont.truetype(font_path_bold, 36 if is_cover else 32)
         font_body = ImageFont.truetype(font_path_reg, 26)
         font_brand = ImageFont.truetype(font_path_bold, 26)
     except Exception:
@@ -86,14 +86,17 @@ def create_slide(header_text, body_items, output_path, is_cover=False):
     # Top Accent Line
     draw.rectangle([90, 110, 990, 116], fill=ACCENT_GREEN)
     
-    # Embed Logo Watermark using exact repo path `images/library/Pabsmo.jpg`
-    logo_paths_to_try = [
+    # Robust Logo Watermark Loader with Absolute Paths
+    workspace_root = os.getcwd()
+    logo_paths = [
+        os.path.join(workspace_root, "images/library/Pabsmo.jpg"),
+        os.path.join(workspace_root, "Pabsmophobia-Website/images/library/Pabsmo.jpg"),
         "images/library/Pabsmo.jpg",
-        "Pabsmophobia-Website/images/library/Pabsmo.jpg",
-        "images/library/pabsmo.jpg"
+        "Pabsmophobia-Website/images/library/Pabsmo.jpg"
     ]
+    
     logo_pasted = False
-    for l_path in logo_paths_to_try:
+    for l_path in logo_paths:
         if os.path.exists(l_path):
             try:
                 logo = Image.open(l_path).convert("RGBA")
@@ -106,30 +109,29 @@ def create_slide(header_text, body_items, output_path, is_cover=False):
                 
     if not logo_pasted:
         draw.rounded_rectangle([880, 135, 990, 200], radius=6, fill="#0f021a", outline=ACCENT_GREEN, width=2)
-        font_fallback = ImageFont.truetype(font_path_bold, 18) if os.path.exists(font_path_bold) else font_brand
-        draw.text((895, 153), "PABSMO", fill=ACCENT_GREEN, font=font_fallback)
+        font_fallback = ImageFont.truetype(font_path_bold, 16) if os.path.exists(font_path_bold) else font_brand
+        draw.text((892, 155), "PABSMO", fill=ACCENT_GREEN, font=font_fallback)
 
     # Header Text Block
     y_offset = 140
     header_lines = textwrap.wrap(header_text, width=26)
     for line in header_lines:
         draw.text((90, y_offset), line, fill=TEXT_TITLE if is_cover else ACCENT_GREEN, font=font_header)
-        y_offset += 44
+        y_offset += 42
 
-    y_offset += 25
-    # Fixed argument from outline= to fill=
+    y_offset += 20
     draw.line([90, y_offset, 990, y_offset], fill="#4c1d95", width=2)
-    y_offset += 25
+    y_offset += 22
 
-    # Flow-Optimized Body Items
-    for item in body_items[:3]:
+    # Balanced Body Items (Allows up to 4 items per slide to fill the vertical card nicely)
+    for item in body_items[:4]:
         wrapped_item = textwrap.wrap(item, width=44)
         if wrapped_item:
             draw.ellipse([90, y_offset + 5, 100, y_offset + 15], fill=ACCENT_GREEN)
             for line in wrapped_item:
                 draw.text((120, y_offset), line, fill=TEXT_BODY, font=font_body)
                 y_offset += 34
-            y_offset += 16
+            y_offset += 14
 
     # Footer Branding & Domain
     draw.line([90, 1760, 990, 1760], fill=CARD_BORDER, width=2)
@@ -144,15 +146,23 @@ if __name__ == "__main__":
     
     if not latest_file:
         title = "Pabsmophobia Field Log"
-        sentences = ["New investigation telemetry and updates live now at pabsmophobia.com"]
+        sentences = ["New investigation telemetry and updates live now at pabsmophobia.com."]
     else:
         title, sentences = parse_markdown(latest_file)
 
-    midpoint = max(1, len(sentences) // 2)
-    slide_1_sentences = sentences[:midpoint]
-    slide_2_sentences = sentences[midpoint:] if len(sentences) > midpoint else ["Check out full breakdown on our site."]
+    # Intelligent split: ensure both slides get content so we don't have a blank slide
+    total_sentences = len(sentences)
+    if total_sentences <= 1:
+        slide_1 = sentences
+        slide_2 = ["Read the full breakdown and field logs at pabsmophobia.com."]
+    else:
+        mid = (total_sentences + 1) // 2
+        slide_1 = sentences[:mid]
+        slide_2 = sentences[mid:]
+        if not slide_2:
+            slide_2 = ["Check out full investigation findings on our site."]
 
-    create_slide(title.upper(), slide_1_sentences, "images/tiktok/slide_1.png", is_cover=True)
-    create_slide("KEY FINDINGS", slide_2_sentences, "images/tiktok/slide_2.png", is_cover=False)
+    create_slide(title.upper(), slide_1, "images/tiktok/slide_1.png", is_cover=True)
+    create_slide("KEY FINDINGS", slide_2, "images/tiktok/slide_2.png", is_cover=False)
     
-    print("TikTok slides generated successfully with corrected line arguments and flowing text!")
+    print("TikTok slides generated with balanced two-slide layout and absolute logo resolution!")
