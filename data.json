@@ -1,45 +1,5 @@
 [
   {
-    "Date": "2026-07-07T23:00:00.000Z",
-    "Event Name": "The Poltergeist House Ghost Hunt",
-    "Provider": "Haunting Nights",
-    "Event Venue": "30 East Drive",
-    "Location": "Rotherham",
-    "Event Type": "Ghost Hunt",
-    "Time": "21:00 - 03:00",
-    "Price / Availability": "Last 6 Places"
-  },
-  {
-    "Date": "2026-07-07T23:00:00.000Z",
-    "Event Name": "Ancient Ram Inn Overnight Ghost Hunt",
-    "Provider": "The Ancient Ram Inn",
-    "Event Venue": "Ancient Ram Inn",
-    "Location": "Gloucestershire",
-    "Event Type": "Overnight Ghost Hunt",
-    "Time": "21:00 - 03:00",
-    "Price / Availability": "Limited Places Available"
-  },
-  {
-    "Date": "2026-08-07T23:00:00.000Z",
-    "Event Name": "Colchester Town Hall Ghost Hunt",
-    "Provider": "Haunting Nights",
-    "Event Venue": "Colchester Town Hall",
-    "Location": "Colchester",
-    "Event Type": "Ghost Hunt",
-    "Time": "21:00 - 03:00",
-    "Price / Availability": "8 Places Available"
-  },
-  {
-    "Date": "2026-08-07T23:00:00.000Z",
-    "Event Name": "Ancient Ram Inn Overnight Ghost Hunt",
-    "Provider": "The Ancient Ram Inn",
-    "Event Venue": "Ancient Ram Inn",
-    "Location": "Gloucestershire",
-    "Event Type": "Overnight Ghost Hunt",
-    "Time": "21:00 - 03:00",
-    "Price / Availability": "Limited Places Available"
-  },
-  {
     "Date": "14/08/2026",
     "Event Name": "Ancient Ram Inn Overnight Ghost Hunt",
     "Provider": "The Ancient Ram Inn",
@@ -47,7 +7,7 @@
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
-    "Price / Availability": "Available"
+    "Price / Availability": "Sold out"
   },
   {
     "Date": "15/08/2026",
@@ -81,6 +41,16 @@
   },
   {
     "Date": "15/08/2026",
+    "Event Name": "Ancient Ram Inn Open Day",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Open ",
+    "Time": "11:00 - 16:00",
+    "Price / Availability": "£10 - Psychic on site"
+  },
+  {
+    "Date": "15/08/2026",
     "Event Name": "Ancient Ram Inn Overnight Ghost Hunt",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "Ancient Ram Inn",
@@ -97,7 +67,17 @@
     "Location": "Gloucestershire",
     "Event Type": "Afternoon Ghost Hunt",
     "Time": "13:00 - 18:00",
-    "Price / Availability": "Limited Places Available"
+    "Price / Availability": "Selling Fast"
+  },
+  {
+    "Date": "19/08/2026",
+    "Event Name": "Ancient Ram Inn Junior Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Junior Ghost Hunt",
+    "Time": "14:00 - 18:00",
+    "Price / Availability": "Summer Special"
   },
   {
     "Date": "21/08/2026",
@@ -168,6 +148,16 @@
     "Event Type": "Workshop & Ghost Hunt",
     "Time": "13:00 - 17:00",
     "Price / Availability": "Available"
+  },
+  {
+    "Date": "2026-05-08T23:00:00.000Z",
+    "Event Name": "Ancient Ram Inn Open Day",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Open ",
+    "Time": "11:00 - 16:00",
+    "Price / Availability": "£10"
   },
   {
     "Date": "2026-05-08T23:00:00.000Z",
