@@ -19,7 +19,6 @@ function generateManifest() {
         const fileContent = fs.readFileSync(filePath, 'utf8');
         const { data } = matter(fileContent);
 
-        // Extract the first tag if available, or default to ARTICLE
         let category = 'ARTICLE';
         if (data.tags) {
             if (Array.isArray(data.tags)) {
@@ -29,16 +28,27 @@ function generateManifest() {
             }
         }
 
+        // Safely parse any date format into YYYY-MM-DD
+        let formattedDate = '2026-01-01';
+        if (data.date) {
+            const parsed = new Date(data.date);
+            if (!isNaN(parsed.getTime())) {
+                formattedDate = parsed.toISOString().split('T')[0];
+            } else {
+                formattedDate = String(data.date).split('T')[0];
+            }
+        }
+
         articles.push({
             file: `newsletter/${file}`,
             title: data.title || file.replace('.md', ''),
-            date: data.date ? String(data.date).split('T')[0] : '2026-01-01',
+            date: formattedDate,
             category: category,
             excerpt: data.description || ''
         });
     });
 
-    // Sort by date descending (newest first)
+    // Sort by date descending (newest first) safely
     articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     fs.writeFileSync(outputFile, JSON.stringify(articles, null, 2));
