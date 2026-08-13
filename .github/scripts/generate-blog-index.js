@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
-const newsletterDir = path.join(__dirname, '../newsletter');
-const outputFile = path.join(__dirname, '../newsletter-manifest.json');
+const newsletterDir = path.join(__dirname, '../../newsletter');
+const outputFile = path.join(__dirname, '../../newsletter-manifest.json');
 
 function generateManifest() {
     if (!fs.existsSync(newsletterDir)) {
