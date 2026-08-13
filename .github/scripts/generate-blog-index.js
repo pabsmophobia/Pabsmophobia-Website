@@ -1,30 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter');
 
 const newsletterDir = path.join(__dirname, '../newsletter');
 const outputFile = path.join(__dirname, '../newsletter-manifest.json');
-
-function parseFrontMatter(content) {
-    const frontMatterRegex = /^---\s*([\s\S]*?)\s*---/;
-    const match = content.match(frontMatterRegex);
-    if (!match) return {};
-
-    const frontMatterBlock = match[1];
-    const data = {};
-    frontMatterBlock.split('\n').forEach(line => {
-        const parts = line.split(':');
-        if (parts.length >= 2) {
-            const key = parts[0].trim();
-            let value = parts.slice(1).join(':').trim();
-            // Remove surrounding quotes if present
-            if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-                value = value.slice(1, -1);
-            }
-            data[key] = value;
-        }
-    });
-    return data;
-}
 
 function generateManifest() {
     if (!fs.existsSync(newsletterDir)) {
@@ -37,15 +16,25 @@ function generateManifest() {
 
     files.forEach(file => {
         const filePath = path.join(newsletterDir, file);
-        const content = fs.readFileSync(filePath, 'utf8');
-        const meta = parseFrontMatter(content);
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        const { data } = matter(fileContent);
+
+        // Extract the first tag if available, or default to ARTICLE
+        let category = 'ARTICLE';
+        if (data.tags) {
+            if (Array.isArray(data.tags)) {
+                category = data.tags[0].toUpperCase();
+            } else if (typeof data.tags === 'string') {
+                category = data.tags.split(',')[0].trim().toUpperCase();
+            }
+        }
 
         articles.push({
             file: `newsletter/${file}`,
-            title: meta.title || file.replace('.md', ''),
-            date: meta.date || '2026-01-01',
-            category: meta.tags ? meta.tags.replace(/[[\]']/g, '').split(',')[0].trim().toUpperCase() : 'ARTICLE',
-            excerpt: meta.description || ''
+            title: data.title || file.replace('.md', ''),
+            date: data.date ? String(data.date).split('T')[0] : '2026-01-01',
+            category: category,
+            excerpt: data.description || ''
         });
     });
 
