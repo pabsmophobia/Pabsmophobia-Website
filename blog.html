@@ -92,65 +92,29 @@
   <!-- Site Navigation Script -->
   <script src="nav.js"></script>
 
-  <!-- Newsletter Markdown Index Script -->
+  <!-- Newsletter Dynamic Index Script -->
   <script>
-    const newsletterArticles = [
-      {
-        file: "newsletter/wired-for-the-unknown-part2.md",
-        title: "Wired for the Unknown: Part 2",
-        category: "PSYCHOLOGY",
-        excerpt: "Continuing our deep dive into the psychological and physiological responses to paranormal phenomena."
-      },
-      {
-        file: "newsletter/gender-psychology-and-investigation.md",
-        title: "Gender, Psychology, and Investigation",
-        category: "ANALYSIS",
-        excerpt: "Exploring how gender and psychological factors influence our experiences during field investigations."
-      },
-      {
-        file: "newsletter/trappedsoulspod.md",
-        title: "Trapped Souls Podcast Feature",
-        category: "PODCAST",
-        excerpt: "Listen to our latest feature on the Trapped Souls podcast discussing recent field evidence."
-      },
-      {
-        file: "newsletter/why-the-veil-might-still-be-thin.md",
-        title: "Why the Veil Might Still Be Thin",
-        category: "THEORY",
-        excerpt: "An enhanced discussion on why the lingering effects of the thin veil extend well past Halloween."
-      },
-      {
-        file: "newsletter/photographic-truth-about-ghost-orbs.md",
-        title: "The Photographic Truth About Ghost Orbs",
-        category: "METHODOLOGY",
-        excerpt: "Breaking down the science of backscatter, dust, and what makes a genuine paranormal anomaly."
-      },
-      {
-        file: "newsletter/essential-ghost-hunting-toolkit.md",
-        title: "The Essential Ghost Hunting Toolkit",
-        category: "GEAR",
-        excerpt: "A comprehensive guide to the must-have scientific equipment for any serious investigator."
-      },
-      {
-        file: "newsletter/a-seat-at-the-table.md",
-        title: "A Seat at the Table",
-        category: "COMMUNITY",
-        excerpt: "Reflections on inclusion, open-mindedness, and finding your place within the paranormal community."
-      }
-    ];
-
-    function loadBlogPosts() {
+    async function loadBlogPosts() {
       const container = document.getElementById('posts-container');
       if (!container) return;
 
-      container.innerHTML = newsletterArticles.map(post => `
-        <div class="card" style="border: 1px solid var(--border, #334155); padding: 1.25rem; border-radius: 8px; background: rgba(15, 23, 42, 0.6);">
-          <div style="font-size: 0.8rem; color: var(--text-muted, #9ca3af); margin-bottom: 0.5rem;">ARTICLE • ${post.category}</div>
-          <h3 style="font-size: 1.15rem; color: #fff; margin: 0 0 0.5rem 0;">${post.title}</h3>
-          <p style="color: var(--text-muted, #9ca3af); font-size: 0.90rem; line-height: 1.4; margin-bottom: 1rem;">${post.excerpt}</p>
-          <a href="post.html?file=${post.file}" style="color: var(--accent, #a855f7); font-weight: 600; text-decoration: none; font-size: 0.90rem; display: inline-block;">Read article &rarr;</a>
-        </div>
-      `).join('');
+      try {
+        const response = await fetch('newsletter-manifest.json');
+        if (!response.ok) throw new Error('Manifest not found');
+        
+        const newsletterArticles = await response.json();
+
+        container.innerHTML = newsletterArticles.map(post => `
+          <div class="card" style="border: 1px solid var(--border, #334155); padding: 1.25rem; border-radius: 8px; background: rgba(15, 23, 42, 0.6);">
+            <div style="font-size: 0.8rem; color: var(--text-muted, #9ca3af); margin-bottom: 0.5rem;">ARTICLE • ${post.category}</div>
+            <h3 style="font-size: 1.15rem; color: #fff; margin: 0 0 0.5rem 0;">${post.title}</h3>
+            <p style="color: var(--text-muted, #9ca3af); font-size: 0.90rem; line-height: 1.4; margin-bottom: 1rem;">${post.excerpt}</p>
+            <a href="post.html?file=${post.file}" style="color: var(--accent, #a855f7); font-weight: 600; text-decoration: none; font-size: 0.90rem; display: inline-block;">Read article &rarr;</a>
+          </div>
+        `).join('');
+      } catch (error) {
+        container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: #ef4444; padding: 2rem;">Failed to load articles.</div>`;
+      }
     }
 
     document.addEventListener('DOMContentLoaded', loadBlogPosts);
