@@ -1,5 +1,5 @@
 ---
-title: "The Game of Whispers: How Sensationalism Overshadows the True History of Haunted Places"
+title: "The Game of Whispers: How Sensationalism Overshadows the True History of Haunted Places "
 date: "2026-08-13"
 description: "Why the paranormal community must choose between manufacturing myths for the algorithm and honoring the genuine, tragic histories of haunted locations."
 image: "images/library/ghost-hunting-truth.jpg"
