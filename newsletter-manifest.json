@@ -1,9 +1,65 @@
 [
   {
+    "file": "newsletter/a-seat-at-the-table.md",
+    "title": "A Seat at the Table: When Our Loved Ones Visit on Special Days",
+    "date": "2025-11-03",
+    "category": "ARTICLE",
+    "excerpt": "There's a unique kind of quiet on special occasions—birthdays, anniversaries, holidays—after the wrapping paper is cleared and the candles are blown out. In the midst of the celebration, many of us feel a faint, unmistakable echo, a sense that someone is missing, and yet, somehow, they are also present."
+  },
+  {
+    "file": "newsletter/essential-ghost-hunting-toolkit.md",
+    "title": "Unveiling the Unseen:Your Essential Ghost Hunting Toolkit!",
+    "date": "2025-11-02",
+    "category": "ARTICLE",
+    "excerpt": "Hey fellow paranormal enthusiasts! We've all seen the dramatic ghost hunting shows, full of figures creeping through abandoned buildings in the dead of night, clutching mysterious gadgets. But what are all those tools, and how do they supposedly help us connect with the other side?"
+  },
+  {
+    "file": "newsletter/gender-psychology-and-investigation.md",
+    "title": "👻 Wired for the Unknown: How Gender Psychology Shapes Our Behaviour on Ghost Hunts 🔦",
+    "date": "Sun Aug 09 2026 00:00:00 GM",
+    "category": "PARANORMAL",
+    "excerpt": "Exploring Danny Dyer's 'How to Be a Man' through the lens of paranormal investigations, stress psychology, and the human spectrum."
+  },
+  {
+    "file": "newsletter/monthly-haunt-issue1.md",
+    "title": "The Pabsmophobia Monthly Haunt: Issue #1",
+    "date": "Sat Aug 01 2026 00:00:00 GM",
+    "category": "ARTICLE",
+    "excerpt": "UK Ghost News, Lock-In Dates & Field Notes — August 2026 Launch Edition."
+  },
+  {
     "file": "newsletter/the-game-of-whispers.md",
-    "title": "The Game of Whispers",
+    "title": "The Game of Whispers: How Sensationalism Overshadows the True History of Haunted Places",
     "date": "2026-08-13",
     "category": "PARANORMAL",
-    "excerpt": "Why the paranormal community must choose between manufacturing myths and honoring history."
+    "excerpt": "Why the paranormal community must choose between manufacturing myths for the algorithm and honoring the genuine, tragic histories of haunted locations."
+  },
+  {
+    "file": "newsletter/why-the-veil-might-still-be-thin.md",
+    "title": "Don't Put Away Your Cauldrons Just Yet: Why the Veil Might Still Be Thin!",
+    "date": "2025-11-01",
+    "category": "ARTICLE",
+    "excerpt": "The pumpkins are wilting, the candy is half-eaten, and the last vestiges of spooky décor are being packed away for another year. Halloween has come and gone, and with it, many assume the mystical 'thinning of the veil' has fully snapped back into place. But what if that's not entirely true?"
+  },
+  {
+    "file": "newsletter/photographic-truth-about-ghost-orbs.md",
+    "title": "The Photographic Truth About \"Ghost Orbs\"",
+    "date": "2025-10-31",
+    "category": "ARTICLE",
+    "excerpt": "An Analysis of Common Anomalies in Paranormal Photography. I recently captured some photos in a dark interior that feature common anomalies often mistaken for paranormal 'orbs.' By analyzing these sequential shots and close-ups, we can see exactly why these features are almost always caused by photographic artifacts —not spirits."
+  },
+  {
+    "file": "newsletter/trappedsoulspod.md",
+    "title": "TRAPPED SOULS PODCAST APPEARANCE",
+    "date": "",
+    "category": "PARANORMAL",
+    "excerpt": "Pabs joins Ryan on Trapped Souls to discuss ghost hunting in the UK, investigating the Ancient Ram Inn, and the origins of Pabsmophobia."
+  },
+  {
+    "file": "newsletter/wired-for-the-unknown-part2.md",
+    "title": "Wired for the Unknown (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World",
+    "date": "Wed Aug 12 2026 00:00:00 GM",
+    "category": "PARANORMAL",
+    "excerpt": "Exploring the neuroscience of intuition, sensory gating, and how the human brain processes mediumship and the 'clairs' on paranormal investigations."
   }
 ]
