@@ -3,10 +3,8 @@ name: Social Media Auto-Poster
 on:
   workflow_dispatch: # Allows manual triggering from Actions tab
   schedule:
-    # 10:00 AM UTC -> 10:00 AM GMT (Winter: late Oct to late March)
-    - cron: '0 10 * * *'
-    # 09:00 AM UTC -> 10:00 AM BST (Summer: late March to late Oct)
-    - cron: '0 9 * * *'
+    # 18:00 UTC -> Runs daily at 7:00 PM BST / 6:00 PM GMT (Optimal UK engagement window)
+    - cron: '0 18 * * *'
 
 jobs:
   post:
@@ -14,6 +12,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # Fetches full git history so git log works
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -29,3 +29,11 @@ jobs:
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
         run: python post_social.py
+
+      - name: Commit and push posted history
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add posted_history.json
+          git commit -m "Update posted history [skip ci]" || exit 0
+          git push
