@@ -28,7 +28,6 @@ function generateManifest() {
             }
         }
 
-        // Safely parse any date format into YYYY-MM-DD
         let formattedDate = '2026-01-01';
         if (data.date) {
             const parsed = new Date(data.date);
@@ -48,7 +47,7 @@ function generateManifest() {
         });
     });
 
-    // Sort by date descending (newest first) safely
+    // Sort by date descending (newest first)
     articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     fs.writeFileSync(outputFile, JSON.stringify(articles, null, 2));
