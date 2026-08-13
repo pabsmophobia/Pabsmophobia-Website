@@ -2,39 +2,87 @@ import os
 import glob
 import re
 import time
+import json
+import subprocess
 import requests
 
+# ---------------------------------------------------------------------------
+# CONFIGURATION & CONSTANTS
+# ---------------------------------------------------------------------------
 META_ACCESS_TOKEN = os.environ.get("META_ACCESS_TOKEN")
 FB_PAGE_ID = os.environ.get("FB_PAGE_ID")
 IG_USER_ID = os.environ.get("IG_USER_ID")
 SITE_BASE_URL = "https://pabsmophobia.com"
 DEFAULT_IMAGE = "https://pabsmophobia.com/images/library/Pabsmo.jpg"
+POSTED_HISTORY_FILE = "posted_history.json"
 
-def get_page_access_token():
-    """Exchanges system token for a dedicated Page Access Token."""
-    url = f"https://graph.facebook.com/v19.0/me/accounts?access_token={META_ACCESS_TOKEN}"
-    res = requests.get(url).json()
-    
-    if "data" in res:
-        for page in res["data"]:
-            if str(page.get("id")) == str(FB_PAGE_ID):
-                print("Successfully retrieved Page Access Token.")
-                return page.get("access_token")
-                
-    print("Fallback: Using direct System User Token.")
-    return META_ACCESS_TOKEN
+# ---------------------------------------------------------------------------
+# STATE MANAGEMENT (Prevents Double-Posting)
+# ---------------------------------------------------------------------------
+def load_posted_history():
+    """Loads the set of previously published relative file paths."""
+    if os.path.exists(POSTED_HISTORY_FILE):
+        try:
+            with open(POSTED_HISTORY_FILE, "r", encoding="utf-8") as f:
+                return set(json.load(f))
+        except Exception as e:
+            print(f"Error loading posted history: {e}")
+    return set()
 
+def save_posted_history(posted_set):
+    """Saves the updated set of published relative file paths."""
+    try:
+        with open(POSTED_HISTORY_FILE, "w", encoding="utf-8") as f:
+            json.dump(list(posted_set), f, indent=2)
+        print(f"Successfully updated {POSTED_HISTORY_FILE}")
+    except Exception as e:
+        print(f"Error saving posted history: {e}")
+
+# ---------------------------------------------------------------------------
+# FILE FINDER & PARSER
+# ---------------------------------------------------------------------------
 def get_latest_markdown_file():
-    files = glob.glob("newsletter/*.md") + glob.glob("_posts/*.md") + glob.glob("*.md")
+    """
+    Finds the newest unposted Markdown file by querying Git commit history.
+    Falls back to OS file modification time if Git fails.
+    """
+    posted_files = load_posted_history()
     ignore = ["README.md", "CONTRIBUTING.md"]
-    valid_files = [f for f in files if os.path.basename(f) not in ignore]
-    
+
+    # --- METHOD 1: Try Git log (Most reliable for commit order) ---
+    try:
+        cmd = [
+            "git", "log", "--name-only", "--format=", 
+            "--", "newsletter/*.md", "_posts/*.md", "*.md"
+        ]
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        git_files = [line.strip() for line in result.stdout.splitlines() if line.strip()]
+
+        for filepath in git_files:
+            filename = os.path.basename(filepath)
+            if filename not in ignore and filepath not in posted_files:
+                if os.path.exists(filepath):
+                    print(f"Selected via Git history: {filepath}")
+                    return filepath
+    except Exception as e:
+        print(f"Git lookup skipped/failed ({e}). Falling back to local file times...")
+
+    # --- METHOD 2: Fallback to local glob / mtime ---
+    files = glob.glob("newsletter/*.md") + glob.glob("_posts/*.md") + glob.glob("*.md")
+    valid_files = [
+        f for f in files 
+        if os.path.basename(f) not in ignore and f not in posted_files
+    ]
+
     if not valid_files:
         return None
-        
-    return max(valid_files, key=os.path.getmtime)
+
+    selected = max(valid_files, key=os.path.getmtime)
+    print(f"Selected via file modification time: {selected}")
+    return selected
 
 def parse_markdown(filepath):
+    """Extracts metadata from front matter or provides defaults."""
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
 
@@ -46,13 +94,13 @@ def parse_markdown(filepath):
     description = extract_val(r'description:\s*"(.*?)"', "")
     slug = extract_val(r'slug:\s*"(.*?)"', "")
     image = extract_val(r'image:\s*"(.*?)"', DEFAULT_IMAGE)
-    
+
     tags_match = re.search(r'tags:\s*\n((?:\s*-\s*.*\n?)+)', content)
     tags = re.findall(r'-\s*(.*)', tags_match.group(1)) if tags_match else []
 
     if not slug:
         slug = os.path.splitext(os.path.basename(filepath))[0]
-        
+
     return {
         "title": title,
         "description": description,
@@ -60,6 +108,29 @@ def parse_markdown(filepath):
         "image": image if image.startswith("http") else f"{SITE_BASE_URL}/{image.lstrip('/')}",
         "tags": [t.strip() for t in tags]
     }
+
+# ---------------------------------------------------------------------------
+# SOCIAL API INTEGRATIONS
+# ---------------------------------------------------------------------------
+def get_page_access_token():
+    """Exchanges system token for a dedicated Page Access Token."""
+    if not FB_PAGE_ID or not META_ACCESS_TOKEN:
+        print("Warning: FB_PAGE_ID or META_ACCESS_TOKEN is missing.")
+        return META_ACCESS_TOKEN
+
+    url = f"https://graph.facebook.com/v19.0/me/accounts?access_token={META_ACCESS_TOKEN}"
+    try:
+        res = requests.get(url).json()
+        if "data" in res:
+            for page in res["data"]:
+                if str(page.get("id")) == str(FB_PAGE_ID):
+                    print("Successfully retrieved Page Access Token.")
+                    return page.get("access_token")
+    except Exception as e:
+        print(f"Error fetching Page Access Token: {e}")
+
+    print("Fallback: Using direct System User Token.")
+    return META_ACCESS_TOKEN
 
 def post_to_facebook(data, page_token):
     message = f"{data['title']}\n\n{data['description']}\n\nRead more:\n{data['url']}"
@@ -71,8 +142,13 @@ def post_to_facebook(data, page_token):
     }
     response = requests.post(endpoint, data=payload).json()
     print("Facebook API Response:", response)
+    return response
 
 def post_to_instagram(data):
+    if not IG_USER_ID:
+        print("Skipping Instagram: IG_USER_ID not provided.")
+        return
+
     hashtags = " ".join([f"#{tag.replace(' ', '')}" for tag in data['tags']])
     caption = f"{data['title']}\n\n{data['description']}\n\n🔗 Link in bio to read full post!\n\n{hashtags}"
 
@@ -103,11 +179,23 @@ def post_to_instagram(data):
     pub_res = requests.post(publish_url, data=publish_payload).json()
     print("Instagram API Response:", pub_res)
 
+# ---------------------------------------------------------------------------
+# MAIN EXECUTION
+# ---------------------------------------------------------------------------
 if __name__ == "__main__":
     target_file = get_latest_markdown_file()
+
     if target_file:
+        print(f"Processing target file: {target_file}")
         post_data = parse_markdown(target_file)
         page_access_token = get_page_access_token()
-        
+
         post_to_facebook(post_data, page_access_token)
         post_to_instagram(post_data)
+
+        # Record file as posted so it's skipped in future runs
+        posted_history = load_posted_history()
+        posted_history.add(target_file)
+        save_posted_history(posted_history)
+    else:
+        print("No new markdown files to post. Exiting cleanly.")
