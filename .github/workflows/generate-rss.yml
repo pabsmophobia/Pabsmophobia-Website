@@ -26,10 +26,13 @@ jobs:
       - name: Build RSS Feed
         run: node generate-rss.js
 
-      - name: Commit and Push feed.xml
+      - name: Generate Blog Manifest
+        run: node scripts/generate-blog-index.js
+
+      - name: Commit and Push Files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Auto-generate feed.xml from newsletter update [skip ci]"
-          file_pattern: 'feed.xml'
+          commit_message: "Auto-generate feed.xml and blog manifest from newsletter update [skip ci]"
+          file_pattern: 'feed.xml newsletter-manifest.json'
           commit_user_name: "github-actions[bot]"
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
