@@ -33,7 +33,7 @@ def save_posted_history(posted_set):
     """Saves the updated set of published relative file paths."""
     try:
         with open(POSTED_HISTORY_FILE, "w", encoding="utf-8") as f:
-            json.dump(list(posted_set), f, indent=2)
+            json.dump(sorted(list(posted_set)), f, indent=2)
         print(f"Successfully updated {POSTED_HISTORY_FILE}")
     except Exception as e:
         print(f"Error saving posted history: {e}")
