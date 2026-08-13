@@ -1,15 +1,11 @@
 ---
 title: "The Game of Whispers: How Sensationalism Overshadows the True History of Haunted Places"
-date: 2026-08-13
+date: "2026-08-13"
 description: "Why the paranormal community must choose between manufacturing myths for the algorithm and honoring the genuine, tragic histories of haunted locations."
 image: "images/library/ghost-hunting-truth.jpg"
 image_alt: "A conceptual image showing a historical archive folder contrasted with a modern digital ghost-hunting camera."
 slug: "the-game-of-whispers-sensationalism-vs-history"
-tags:
-  - paranormal
-  - investigation
-  - evidence
-  - historical-integrity
+tags: ["paranormal", "investigation", "evidence", "historical-integrity"]
 author: "Pabsmophobia"
 layout: post
 ---
