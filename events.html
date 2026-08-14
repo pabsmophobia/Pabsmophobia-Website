@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Investigation Schedule | Pabsmophobia</title>
@@ -206,11 +208,6 @@
     <h1>Investigation Schedule</h1>
     <p class="subtitle">Upcoming ghost hunts, overnight investigations, and partner events.</p>
 
-    <!-- Partner Event Disclaimer Note -->
-    <div class="disclaimer-box">
-      <strong>Please Note:</strong> While we promote events hosted by our partners, the Pabsmophobia core team will only be physically conducting investigations at events explicitly designated as hosted or co-hosted by Pabsmophobia.
-    </div>
-
     <!-- Filters -->
     <div class="filter-container">
       <div class="filter-group">
@@ -306,8 +303,7 @@
           type: item["Event Type"] || 'Ghost Hunt',
           time: item["Time"] || 'See Provider',
           price: item["Price / Availability"] || 'See Provider',
-          providerType: (item["Provider"] || '').toLowerCase(),
-          coHost: (item["Provider"] || '').toLowerCase().includes('pabsmophobia')
+          providerType: (item["Provider"] || '').toLowerCase()
         }));
 
         const today = new Date();
@@ -440,9 +436,6 @@
         }
 
         let badgesHTML = `<span class="badge ${badgeClass}">${item.provider}</span>`;
-        if (item.coHost) {
-          badgesHTML += ` <span class="badge badge-pabs">Co-Host</span>`;
-        }
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -510,6 +503,5 @@
 
   <script src="nav.js"></script>
 
-
-
-</body></html>
+</body>
+</html>
