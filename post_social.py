@@ -16,6 +16,15 @@ SITE_BASE_URL = "https://pabsmophobia.com"
 DEFAULT_IMAGE = "https://pabsmophobia.com/images/library/Pabsmo.jpg"
 POSTED_HISTORY_FILE = "posted_history.json"
 
+# List of files to strictly ignore if discovered
+IGNORE_FILES = [
+    "README.md",
+    "CONTRIBUTING.md",
+    "copilot-instructions.md",
+    "CODE_OF_CONDUCT.md",
+    "PULL_REQUEST_TEMPLATE.md"
+]
+
 # ---------------------------------------------------------------------------
 # STATE MANAGEMENT (Prevents Double-Posting)
 # ---------------------------------------------------------------------------
@@ -43,24 +52,23 @@ def save_posted_history(posted_set):
 # ---------------------------------------------------------------------------
 def get_latest_markdown_file():
     """
-    Finds the newest unposted Markdown file by querying Git commit history.
-    Falls back to OS file modification time if Git fails.
+    Finds the newest unposted Markdown file in newsletter/ or _posts/
+    by querying Git commit history. Falls back to OS file mtime if Git fails.
     """
     posted_files = load_posted_history()
-    ignore = ["README.md", "CONTRIBUTING.md"]
 
     # --- METHOD 1: Try Git log (Most reliable for commit order) ---
     try:
         cmd = [
             "git", "log", "--name-only", "--format=", 
-            "--", "newsletter/*.md", "_posts/*.md", "*.md"
+            "--", "newsletter/*.md", "_posts/*.md"
         ]
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         git_files = [line.strip() for line in result.stdout.splitlines() if line.strip()]
 
         for filepath in git_files:
             filename = os.path.basename(filepath)
-            if filename not in ignore and filepath not in posted_files:
+            if filename not in IGNORE_FILES and filepath not in posted_files:
                 if os.path.exists(filepath):
                     print(f"Selected via Git history: {filepath}")
                     return filepath
@@ -68,10 +76,10 @@ def get_latest_markdown_file():
         print(f"Git lookup skipped/failed ({e}). Falling back to local file times...")
 
     # --- METHOD 2: Fallback to local glob / mtime ---
-    files = glob.glob("newsletter/*.md") + glob.glob("_posts/*.md") + glob.glob("*.md")
+    files = glob.glob("newsletter/*.md") + glob.glob("_posts/*.md")
     valid_files = [
         f for f in files 
-        if os.path.basename(f) not in ignore and f not in posted_files
+        if os.path.basename(f) not in IGNORE_FILES and f not in posted_files
     ]
 
     if not valid_files:
@@ -82,7 +90,7 @@ def get_latest_markdown_file():
     return selected
 
 def parse_markdown(filepath):
-    """Extracts metadata from front matter or provides defaults."""
+    """Extracts metadata from YAML front matter or provides defaults."""
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
 
@@ -90,7 +98,7 @@ def parse_markdown(filepath):
         match = re.search(pattern, content, re.IGNORECASE | re.MULTILINE)
         if match:
             val = match.group(1).strip()
-            # Strip outer single/double quotes if present
+            # Strip outer quotes if present
             if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
                 val = val[1:-1]
             return val.strip()
@@ -136,6 +144,7 @@ def get_page_access_token():
                 if str(page.get("id")) == str(FB_PAGE_ID):
                     print("Successfully retrieved Page Access Token.")
                     return page.get("access_token")
+            print(f"Warning: Page ID {FB_PAGE_ID} not found in accounts list for provided META_ACCESS_TOKEN.")
     except Exception as e:
         print(f"Error fetching Page Access Token: {e}")
 
@@ -222,4 +231,4 @@ if __name__ == "__main__":
         posted_history.add(target_file)
         save_posted_history(posted_history)
     else:
-        print("No new markdown files to post. Exiting cleanly.")
+        print("No new markdown files to post in 'newsletter/' or '_posts/'. Exiting cleanly.")
