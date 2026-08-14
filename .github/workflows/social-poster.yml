@@ -1,24 +1,27 @@
 name: Social Media Auto-Poster
 
 on:
-  workflow_dispatch: # Allows manual triggering from Actions tab
+  workflow_dispatch:
   schedule:
-    # 18:00 UTC -> Runs daily at 7:00 PM BST / 6:00 PM GMT (Optimal UK engagement window)
+    # 18:00 UTC -> 7:00 PM BST / 6:00 PM GMT
     - cron: '0 18 * * *'
 
 jobs:
   post:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetches full git history so git log works
+          fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
       - name: Install Dependencies
         run: pip install requests
@@ -36,4 +39,4 @@ jobs:
           git config --local user.name "GitHub Action"
           git add posted_history.json
           git commit -m "Update posted history [skip ci]" || exit 0
-          git push
+          git push origin HEAD:${{ github.ref_name }}
