@@ -2,7 +2,7 @@
   {
     "Date": "14th August 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
@@ -14,35 +14,45 @@
     "Event Name": "The Thorne Workhouse Ghost Hunt Doncaster South Yorkshire",
     "Provider": "Haunting Nights",
     "Event Venue": "The Thorne Workhouse Ghost Hunt Doncaster South Yorkshire",
-    "Location": "UK Wide",
+    "Location": "Doncaster",
     "Event Type": "Ghost Hunt",
     "Time": "21:00 - 03:00",
-    "Price / Availability": "Last Few Places Last 6 Places"
+    "Price / Availability": "Selling Fast"
   },
   {
     "Date": "15th August 2026",
     "Event Name": "Matthew Hopkins The Witch Finder General Ghost Hunt Essex",
     "Provider": "Haunting Nights",
     "Event Venue": "Matthew Hopkins The Witch Finder General Ghost Hunt Essex",
-    "Location": "UK Wide",
+    "Location": "Essex",
     "Event Type": "Ghost Hunt",
     "Time": "21:00 - 02:00",
+    "Price / Availability": "Last Few Places Investigation Only Last 2 Places"
+  },
+  {
+    "Date": "15th August 2026",
+    "Event Name": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:30 - 03:00",
     "Price / Availability": "Selling Fast"
   },
   {
     "Date": "15th August 2026",
     "Event Name": "Ancient Ram Inn – Open Days",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
-    "Event Type": "Overnight Ghost Hunt",
+    "Event Type": "Open Day",
     "Time": "11:00 - 16:00",
     "Price / Availability": "Check Site"
   },
   {
     "Date": "15th August 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
@@ -52,27 +62,27 @@
   {
     "Date": "16th August 2026",
     "Event Name": "Ancient Ram Inn – Afternoon Ghost Hunt",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
-    "Event Type": "Overnight Ghost Hunt",
+    "Event Type": "Afternoon Ghost Hunt",
     "Time": "13:00 - 18:00",
     "Price / Availability": "Check Site"
   },
   {
     "Date": "19th August 2026",
     "Event Name": "Ancient Ram Inn – Junior Ghost Hunts",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
-    "Event Type": "Overnight Ghost Hunt",
+    "Event Type": "Junior Ghost Hunt",
     "Time": "14:00 - 18:00",
     "Price / Availability": "Check Site"
   },
   {
     "Date": "21st August 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
@@ -84,15 +94,15 @@
     "Event Name": "Fulford Manor Ghost Hunt Exeter Devon",
     "Provider": "Haunting Nights",
     "Event Venue": "Fulford Manor Ghost Hunt Exeter Devon",
-    "Location": "UK Wide",
+    "Location": "Devon",
     "Event Type": "Ghost Hunt",
     "Time": "21:00 - 03:00",
-    "Price / Availability": "Selling Fast"
+    "Price / Availability": "Last Few Places One Night Only! Now Just 6 Places"
   },
   {
     "Date": "22nd August 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
@@ -102,7 +112,7 @@
   {
     "Date": "28th August 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
@@ -114,35 +124,35 @@
     "Event Name": "Ghost Night With Richard Felix And Simon Entwistle Pendle Lancashire",
     "Provider": "Haunting Nights",
     "Event Venue": "Ghost Night With Richard Felix And Simon Entwistle Pendle Lancashire",
-    "Location": "UK Wide",
+    "Location": "Lancashire",
     "Event Type": "Ghost Talk",
     "Time": "19:00 - 23:00",
-    "Price / Availability": "Last Few Places One Night Only! Now Just 6 Places"
+    "Price / Availability": "Last Few Places"
   },
   {
     "Date": "29th August 2026",
     "Event Name": "Bron Y Garth Abandoned Hospital Sleepover Ghost Hunt Gwynedd Wales",
     "Provider": "Haunting Nights",
     "Event Venue": "Bron Y Garth Abandoned Hospital Sleepover Ghost Hunt Gwynedd Wales",
-    "Location": "UK Wide",
+    "Location": "Wales",
     "Event Type": "Ghost Hunt",
     "Time": "21:00 - 03:00",
-    "Price / Availability": "Last Few Places"
+    "Price / Availability": "Places Available"
   },
   {
     "Date": "29th August 2026",
     "Event Name": "The Magic Craft of Voodoo Doll Making",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
-    "Event Type": "Overnight Ghost Hunt",
+    "Event Type": "Workshop",
     "Time": "13:00 - 17:00",
     "Price / Availability": "Check Site"
   },
   {
     "Date": "29th August 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
@@ -152,7 +162,7 @@
   {
     "Date": "4th September 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
@@ -161,28 +171,48 @@
   },
   {
     "Date": "5th September 2026",
-    "Event Name": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
+    "Event Name": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
     "Provider": "Haunting Nights",
-    "Event Venue": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
-    "Location": "UK Wide",
+    "Event Venue": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
+    "Location": "Manchester",
     "Event Type": "Ghost Hunt",
-    "Time": "21:00 - 02:00",
+    "Time": "21:00 - 03:00",
     "Price / Availability": "Selling Fast"
   },
   {
     "Date": "5th September 2026",
+    "Event Name": "Woodchester Mansion Ghost Hunts Gloucestershire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Woodchester Mansion Ghost Hunts Gloucestershire",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Selling Fast"
+  },
+  {
+    "Date": "5th September 2026",
+    "Event Name": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 02:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "5th September 2026",
     "Event Name": "Ancient Ram Inn – Open Days",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
-    "Event Type": "Overnight Ghost Hunt",
+    "Event Type": "Open Day",
     "Time": "11:00 - 16:00",
     "Price / Availability": "Check Site"
   },
   {
     "Date": "5th September 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
@@ -192,17 +222,37 @@
   {
     "Date": "6th September 2026",
     "Event Name": "Ancient Ram Inn – Junior Ghost Hunts",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
-    "Event Type": "Overnight Ghost Hunt",
+    "Event Type": "Junior Ghost Hunt",
     "Time": "14:00 - 18:00",
     "Price / Availability": "Check Site"
   },
   {
     "Date": "11th September 2026",
+    "Event Name": "Hell Fire Caves Ghost Hunts West Wycombe",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Hell Fire Caves Ghost Hunts West Wycombe",
+    "Location": "West Wycombe",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "11th September 2026",
+    "Event Name": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Location": "Rotherham",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "11th September 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
-    "Provider": "Ancient Ram Inn",
+    "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
@@ -214,19 +264,509 @@
     "Event Name": "Clifton Hall Ghost Hunt Birkenhead Merseyside",
     "Provider": "Haunting Nights",
     "Event Venue": "Clifton Hall Ghost Hunt Birkenhead Merseyside",
-    "Location": "UK Wide",
+    "Location": "Birkenhead",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Last Few Places Just 6 Places"
+  },
+  {
+    "Date": "12th September 2026",
+    "Event Name": "Ripon Workhouse Ghost Hunts North Yorkshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Ripon Workhouse Ghost Hunts North Yorkshire",
+    "Location": "Yorkshire",
     "Event Type": "Ghost Hunt",
     "Time": "20:00 - 02:00",
     "Price / Availability": "Places Available"
   },
   {
-    "Date": "2026-01-10T00:00:00.000Z",
+    "Date": "12th September 2026",
+    "Event Name": "Warmley Clock Tower Ghost Hunts Bristol",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Warmley Clock Tower Ghost Hunts Bristol",
+    "Location": "Bristol",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "12th September 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "18th September 2026",
+    "Event Name": "The Four Crosses Ghost Hunts Cannock Staffordshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Four Crosses Ghost Hunts Cannock Staffordshire",
+    "Location": "Staffordshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "18th September 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "19th September 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "20th September 2026",
+    "Event Name": "Ancient Ram Inn – Afternoon Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Afternoon Ghost Hunt",
+    "Time": "13:00 - 18:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "25th September 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "26th September 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "2nd October 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "3rd October 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "4th October 2026",
     "Event Name": "The Horseshoe - In-spectre nights",
     "Provider": "Pabsmophobia",
     "Event Venue": "The Horseshoe ",
     "Location": "Chipping Sodbury",
     "Event Type": "Ghost Hunt",
     "Time": "20:00 - 23:00",
-    "Price / Availability": "Full details coming soon. Sundays through October."
+    "Price / Availability": "Full details coming soon"
+  },
+  {
+    "Date": "4th October 2026",
+    "Event Name": "Ancient Ram Inn – Junior Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Junior Ghost Hunt",
+    "Time": "14:00 - 18:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "9th October 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "10th October 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "11th October 2026",
+    "Event Name": "The Horseshoe - In-spectre nights",
+    "Provider": "Pabsmophobia",
+    "Event Venue": "The Horseshoe ",
+    "Location": "Chipping Sodbury",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 23:00",
+    "Price / Availability": "Full details coming soon"
+  },
+  {
+    "Date": "11th October 2026",
+    "Event Name": "Ancient Ram Inn – Afternoon Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Afternoon Ghost Hunt",
+    "Time": "13:00 - 18:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "16th October 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "17th October 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "18th October 2026",
+    "Event Name": "The Horseshoe - In-spectre nights",
+    "Provider": "Pabsmophobia",
+    "Event Venue": "The Horseshoe ",
+    "Location": "Chipping Sodbury",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 23:00",
+    "Price / Availability": "Full details coming soon"
+  },
+  {
+    "Date": "18th October 2026",
+    "Event Name": "Ancient Ram Inn – Junior Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Junior Ghost Hunt",
+    "Time": "14:00 - 18:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "23rd October 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "24th October 2026",
+    "Event Name": "Ancient Ram Inn – Open Days",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Open Day",
+    "Time": "11:00 - 16:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "24th October 2026",
+    "Event Name": "The Magic Craft of Voodoo Doll Making",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Workshop",
+    "Time": "13:00 - 17:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "24th October 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "25th October 2026",
+    "Event Name": "The Horseshoe - In-spectre nights",
+    "Provider": "Pabsmophobia",
+    "Event Venue": "The Horseshoe ",
+    "Location": "Chipping Sodbury",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 23:00",
+    "Price / Availability": "Full details coming soon"
+  },
+  {
+    "Date": "25th October 2026",
+    "Event Name": "Ancient Ram Inn – Afternoon Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Afternoon Ghost Hunt",
+    "Time": "13:00 - 18:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "30th October 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "31st October 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "1st November 2026",
+    "Event Name": "The Horseshoe - In-spectre nights",
+    "Provider": "Pabsmophobia",
+    "Event Venue": "The Horseshoe ",
+    "Location": "Chipping Sodbury",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 23:00",
+    "Price / Availability": "Full details coming soon"
+  },
+  {
+    "Date": "1st November 2026",
+    "Event Name": "Ancient Ram Inn – Junior Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Junior Ghost Hunt",
+    "Time": "14:00 - 18:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "6th November 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "7th November 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "13th November 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "14th November 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "15th November 2026",
+    "Event Name": "Ancient Ram Inn – Afternoon Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Afternoon Ghost Hunt",
+    "Time": "13:00 - 18:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "20th November 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "21st November 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "27th November 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "28th November 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "4th December 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "5th December 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "6th December 2026",
+    "Event Name": "Ancient Ram Inn – Junior Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Junior Ghost Hunt",
+    "Time": "14:00 - 18:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "11th December 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "12th December 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "18th December 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "19th December 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "20th December 2026",
+    "Event Name": "Ancient Ram Inn – Afternoon Ghost Hunt",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Afternoon Ghost Hunt",
+    "Time": "13:00 - 18:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "26th December 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "31st December 2026",
+    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
+    "Provider": "The Ancient Ram Inn",
+    "Event Venue": "The Ancient Ram Inn",
+    "Location": "Gloucestershire",
+    "Event Type": "Overnight Ghost Hunt",
+    "Time": "20:00 - 01:00",
+    "Price / Availability": "Check Site"
   }
 ]
