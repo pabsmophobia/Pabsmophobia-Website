@@ -87,13 +87,19 @@ def parse_markdown(filepath):
         content = f.read()
 
     def extract_val(pattern, default=""):
-        match = re.search(pattern, content, re.IGNORECASE)
-        return match.group(1).strip() if match else default
+        match = re.search(pattern, content, re.IGNORECASE | re.MULTILINE)
+        if match:
+            val = match.group(1).strip()
+            # Strip outer single/double quotes if present
+            if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
+                val = val[1:-1]
+            return val.strip()
+        return default
 
-    title = extract_val(r'title:\s*"(.*?)"', "New Post Alert!")
-    description = extract_val(r'description:\s*"(.*?)"', "")
-    slug = extract_val(r'slug:\s*"(.*?)"', "")
-    image = extract_val(r'image:\s*"(.*?)"', DEFAULT_IMAGE)
+    title = extract_val(r'^title:\s*(.*)$', "New Post Alert!")
+    description = extract_val(r'^description:\s*(.*)$', "")
+    slug = extract_val(r'^slug:\s*(.*)$', "")
+    image = extract_val(r'^image:\s*(.*)$', DEFAULT_IMAGE)
 
     tags_match = re.search(r'tags:\s*\n((?:\s*-\s*.*\n?)+)', content)
     tags = re.findall(r'-\s*(.*)', tags_match.group(1)) if tags_match else []
@@ -101,11 +107,15 @@ def parse_markdown(filepath):
     if not slug:
         slug = os.path.splitext(os.path.basename(filepath))[0]
 
+    # Standardize image URL
+    if not image.startswith("http"):
+        image = f"{SITE_BASE_URL}/{image.lstrip('/')}"
+
     return {
         "title": title,
         "description": description,
         "url": f"{SITE_BASE_URL}/{slug}",
-        "image": image if image.startswith("http") else f"{SITE_BASE_URL}/{image.lstrip('/')}",
+        "image": image,
         "tags": [t.strip() for t in tags]
     }
 
@@ -144,7 +154,7 @@ def post_to_facebook(data, page_token):
     print("Facebook API Response:", response)
     return response
 
-def post_to_instagram(data):
+def post_to_instagram(data, page_token):
     if not IG_USER_ID:
         print("Skipping Instagram: IG_USER_ID not provided.")
         return
@@ -157,7 +167,7 @@ def post_to_instagram(data):
     container_payload = {
         "image_url": data['image'],
         "caption": caption,
-        "access_token": META_ACCESS_TOKEN
+        "access_token": page_token
     }
     res = requests.post(container_url, data=container_payload).json()
     container_id = res.get("id")
@@ -166,15 +176,29 @@ def post_to_instagram(data):
         print("Failed to create Instagram container:", res)
         return
 
-    # Step 2: Wait for Instagram processing
-    print(f"Container {container_id} created. Waiting 10s for IG to process image...")
-    time.sleep(10)
+    print(f"Container {container_id} created. Checking processing status...")
+
+    # Step 2: Poll status until FINISHED or ERROR
+    status_url = f"https://graph.facebook.com/v19.0/{container_id}?fields=status_code&access_token={page_token}"
+    for attempt in range(12):
+        status_res = requests.get(status_url).json()
+        status = status_res.get("status_code")
+        
+        if status == "FINISHED":
+            print("Instagram media processing complete.")
+            break
+        elif status == "ERROR":
+            print(f"Instagram media processing failed: {status_res}")
+            return
+        
+        print(f"Status is '{status}'. Waiting 5s (attempt {attempt + 1}/12)...")
+        time.sleep(5)
 
     # Step 3: Publish Container
     publish_url = f"https://graph.facebook.com/v19.0/{IG_USER_ID}/media_publish"
     publish_payload = {
         "creation_id": container_id,
-        "access_token": META_ACCESS_TOKEN
+        "access_token": page_token
     }
     pub_res = requests.post(publish_url, data=publish_payload).json()
     print("Instagram API Response:", pub_res)
@@ -191,7 +215,7 @@ if __name__ == "__main__":
         page_access_token = get_page_access_token()
 
         post_to_facebook(post_data, page_access_token)
-        post_to_instagram(post_data)
+        post_to_instagram(post_data, page_access_token)
 
         # Record file as posted so it's skipped in future runs
         posted_history = load_posted_history()
