@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Investigation Schedule | Pabsmophobia</title>
@@ -273,7 +275,7 @@
   </footer>
 
   <script>
-    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQg_l7qnk1kof0lZhIqP0BSNjOfsS5F0MVB92p56wrIzgdSGOKUfxpK-Ec8FMq3uTePGnAs6jF_aIDD/pub?gid=0&single=true&output=csv';
+    const JSON_DATA_URL = 'data.json';
 
     let eventData = [];
 
@@ -286,69 +288,28 @@
 
     function parseDate(dateStr) {
       if (!dateStr) return new Date(0);
-      const parts = dateStr.split('/');
-      if (parts.length !== 3) return new Date(0);
-      const [day, month, year] = parts.map(p => parseInt(p, 10));
-      return new Date(year, month - 1, day);
-    }
-
-    function parseCSV(text) {
-      const lines = [];
-      let row = [];
-      let inQuotes = false;
-      let currentVal = '';
-
-      for (let i = 0; i < text.length; i++) {
-        const char = text[i];
-        const nextChar = text[i + 1];
-
-        if (char === '"') {
-          if (inQuotes && nextChar === '"') {
-            currentVal += '"';
-            i++;
-          } else {
-            inQuotes = !inQuotes;
-          }
-        } else if (char === ',' && !inQuotes) {
-          row.push(currentVal.trim());
-          currentVal = '';
-        } else if ((char === '\r' || char === '\n') && !inQuotes) {
-          if (char === '\r' && nextChar === '\n') i++;
-          row.push(currentVal.trim());
-          if (row.some(val => val.length > 0)) lines.push(row);
-          row = [];
-          currentVal = '';
-        } else {
-          currentVal += char;
-        }
-      }
-      if (currentVal.length > 0 || row.length > 0) {
-        row.push(currentVal.trim());
-        lines.push(row);
-      }
-      return lines;
+      const cleanDate = dateStr.replace(/st|nd|rd|th/g, '');
+      const parsed = Date.parse(cleanDate);
+      return !isNaN(parsed) ? new Date(parsed) : new Date(0);
     }
 
     async function fetchLiveEvents() {
       try {
-        const response = await fetch(SHEET_CSV_URL);
+        const response = await fetch(JSON_DATA_URL);
         if (!response.ok) throw new Error('Network response was not ok');
-        const csvText = await response.text();
-        const parsedRows = parseCSV(csvText);
+        const jsonData = await response.json();
 
-        const rows = parsedRows.slice(1);
-
-        const rawEvents = rows.map(cols => ({
-          date: cols[0] || 'TBA',
-          name: cols[1] || 'Paranormal Investigation',
-          provider: cols[2] || 'Partner Event',
-          venue: cols[3] || 'Location Pending',
-          location: cols[4] || 'UK Venue',
-          type: cols[5] || 'Ghost Hunt',
-          time: cols[6] || 'See Provider',
-          price: cols[7] || 'See Provider',
-          providerType: (cols[8] || '').toLowerCase(),
-          coHost: (cols[9] || '').toLowerCase() === 'true'
+        const rawEvents = jsonData.map(item => ({
+          date: item["Date"] || 'TBA',
+          name: item["Event Name"] || 'Paranormal Investigation',
+          provider: item["Provider"] || 'Partner Event',
+          venue: item["Event Venue"] || 'Location Pending',
+          location: item["Location"] || 'UK Venue',
+          type: item["Event Type"] || 'Ghost Hunt',
+          time: item["Time"] || 'See Provider',
+          price: item["Price / Availability"] || 'See Provider',
+          providerType: (item["Provider"] || '').toLowerCase(),
+          coHost: (item["Provider"] || '').toLowerCase().includes('pabsmophobia')
         }));
 
         const today = new Date();
@@ -360,18 +321,17 @@
 
         populateFilterDropdowns();
         renderTable();
-        injectEventSchema(eventData); // Inject JSON-LD Structured Data for SEO
+        injectEventSchema(eventData); 
       } catch (err) {
-        console.error('Error fetching Google Sheet schedule:', err);
-        const errMsg = `<div style="text-align:center; padding: 2rem; color:#f87171;">Failed to load schedule from Google Sheets. Please check back later.</div>`;
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 2rem; color:#f87171;">Failed to load schedule from Google Sheets.</td></tr>`;
+        console.error('Error fetching data.json schedule:', err);
+        const errMsg = `<div style="text-align:center; padding: 2rem; color:#f87171;">Failed to load schedule. Please check back later.</div>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 2rem; color:#f87171;">Failed to load schedule.</td></tr>`;
         cardsContainer.innerHTML = errMsg;
       }
     }
 
     // Dynamic JSON-LD Injector for Search Engines
     function injectEventSchema(events) {
-      // Remove any existing dynamic schema block to prevent duplication on re-renders
       const existingScript = document.getElementById('dynamic-event-schema');
       if (existingScript) existingScript.remove();
 
@@ -471,12 +431,12 @@
         const pName = (item.provider || '').toLowerCase().trim();
 
         let badgeClass = 'badge-hn';
-        let resolvedType = pType || 'hn';
+        let resolvedType = 'hn';
 
-        if (pType === 'pabs' || pName.includes('pabs')) {
+        if (pType.includes('pabs') || pName.includes('pabs')) {
           badgeClass = 'badge-pabs';
           resolvedType = 'pabs';
-        } else if (pType === 'ram' || pName.includes('ram')) {
+        } else if (pType.includes('ram') || pName.includes('ram') || pName.includes('ancient ram')) {
           badgeClass = 'badge-ram';
           resolvedType = 'ram';
         }
@@ -486,7 +446,6 @@
           badgesHTML += ` <span class="badge badge-pabs">Co-Host</span>`;
         }
 
-        // 1. Build Desktop Table Row
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${item.date}</td>
@@ -501,7 +460,6 @@
         `;
         tbody.appendChild(tr);
 
-        // 2. Build Mobile Card Element
         const card = document.createElement('div');
         card.className = 'event-card';
         card.innerHTML = `
@@ -554,4 +512,5 @@
 
   <script src="nav.js"></script>
 
-</body></html>
+</body>
+</html>
