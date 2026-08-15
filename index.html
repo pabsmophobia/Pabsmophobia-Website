@@ -1,187 +1,181 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Primary Meta Tags & SEO -->
-  <title>Pabsmophobia | Real-World UK Paranormal Research &amp; Investigations</title>
-  <meta name="title" content="Pabsmophobia | Real-World UK Paranormal Research &amp; Investigations">
-  <meta name="description" content="Pabsmophobia is a UK-based paranormal research team using scientific equipment, environmental logs, and historical analysis to investigate the unexplained.">
-
-  <!-- Open Graph / Facebook / WhatsApp -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pabsmophobia.com/">
-  <meta property="og:title" content="Pabsmophobia | Real-World UK Paranormal Research &amp; Investigations">
-  <meta property="og:description" content="UK-based paranormal research team combining scientific equipment, environmental logs, and site analysis to investigate the unexplained.">
-  <meta property="og:image" content="https://pabsmophobia.com/images/library/Pabsmo.jpg">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://pabsmophobia.com/">
-  <meta property="twitter:title" content="Pabsmophobia | Real-World UK Paranormal Research &amp; Investigations">
-  <meta property="twitter:description" content="UK-based paranormal research team combining scientific equipment, environmental logs, and site analysis to investigate the unexplained.">
-  <meta property="twitter:image" content="https://pabsmophobia.com/images/library/Pabsmo.jpg">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/jpeg" href="images/library/Pabsmo.jpg">
-  <link rel="apple-touch-icon" href="images/library/Pabsmo.jpg">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Creepster&amp;family=Eczar:wght@400;600&amp;display=swap" rel="stylesheet">
-
-  <!-- External Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
-
+  <title>Pabsmophobia - Paranormal Research & Investigations</title>
   <style>
-    /* Inline Widget Badges */
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --border: #334155;
+      --accent: #a855f7;
+      --accent-hover: #9333ea;
+      --text: #f8fafc;
+      --text-muted: #9ca3af;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text);
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
     .badge {
       display: inline-block;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
       font-size: 0.75rem;
-      font-weight: 600;
-    }
-    .badge-pabs { background: #7c3aed; color: #fff; }
-    .badge-hn { background: #0284c7; color: #fff; }
-    .badge-ram { background: #d97706; color: #fff; }
-
-    /* 2 Up / 2 Down Grid Layout */
-    .events-grid-2x2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-weight: bold;
+      text-transform: uppercase;
     }
 
-    /* Stack on small screens for mobile optimization */
-    @media (max-width: 640px) {
-      .events-grid-2x2 {
-        grid-template-columns: 1fr;
-      }
+    .badge-paranormal { background: #581c87; color: #e9d5ff; }
+    .badge-debunked { background: #374151; color: #d1d5db; }
+    .badge-pabs { background: #065f46; color: #a7f3d0; }
+    .badge-hn { background: #1e40af; color: #bfdbfe; }
+    .badge-ram { background: #991b1b; color: #fecaca; }
+
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo">
-      <img src="images/library/Pabsmo.jpg" alt="Pabsmophobia Logo" class="logo-img">
-      <span>Pabsmophobia</span>
-    </div>
-    <!-- nav.js will populate your menu items here dynamically -->
-    <nav></nav>
-  </header>
-
-  <main>
-    <!-- HERO SECTION -->
-    <section class="hero">
-      <h1>Real-World UK Paranormal Research &amp; Investigation</h1>
-      <p>Combining scientific equipment, baseline environmental logging, and site history to objectively analyze the unexplained.</p>
-      <a href="events.html" class="btn">View Upcoming Events</a>
-    </section>
-
-    <!-- MAIN CATEGORY CARDS -->
-    <section class="grid-container">
-      <div class="card">
-        <h3>Upcoming Investigations</h3>
-        <p>Book tickets and view full details for both our own and our partners' upcoming public and private investigation nights.</p>
-        <a href="events.html" style="color: var(--accent); text-decoration: none; font-weight: 600; display: inline-block; margin-top: 0.5rem;">Explore schedule →</a>
-      </div>
-
-      <div class="card">
-        <h3>The Monthly Haunt</h3>
-        <p>Read our latest digital publication featuring investigation summaries, equipment logs, and site breakdowns.</p>
-        <a href="blog.html" style="color: var(--accent); text-decoration: none; font-weight: 600; display: inline-block; margin-top: 0.5rem;">Read articles →</a>
-      </div>
-
-      <div class="card">
-        <h3>Evidence &amp; Debunking</h3>
-        <p>Review audio logs, environmental EMF data, and rational debunking analysis from past investigations.</p>
-        <a href="evidence.html" style="color: var(--accent); text-decoration: none; font-weight: 600; display: inline-block; margin-top: 0.5rem;">Browse evidence →</a>
+  <div class="container">
+    
+    <!-- Latest Field Evidence Section -->
+    <section>
+      <h2>Latest Field Evidence</h2>
+      <div id="latest-investigations-container" class="grid">
+        <p style="color: var(--text-muted); grid-column: 1 / -1;">Loading field telemetry...</p>
       </div>
     </section>
 
-    <!-- UPCOMING EVENTS HOMEPAGE WIDGET (LIVE GOOGLE SHEETS - 2x2 GRID) -->
-    <section class="upcoming-events-widget" style="margin: 4rem 0 2rem 0; padding: 2rem 1.5rem; background: var(--bg-card, #1e293b); border: 1px solid var(--border, #334155); border-radius: 12px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
-        <div>
-          <h2 style="margin: 0; font-family: 'Creepster', cursive; font-size: 2.2rem; color: #fff; letter-spacing: 1px;">Upcoming Events</h2>
-          <p style="margin: 0.25rem 0 0 0; color: var(--text-muted, #9ca3af); font-size: 0.95rem;">Join us on our next ghost hunts &amp; partner events.</p>
-        </div>
-        <a href="events.html" class="btn" style="padding: 0.5rem 1.25rem; font-size: 0.9rem; text-decoration: none; display: inline-block;">View Full Schedule →</a>
-      </div>
-
-      <!-- Widget Cards Grid (2 Up / 2 Down Layout) -->
-      <div id="homepageEventsGrid" class="events-grid-2x2">
-        <div style="text-align: center; padding: 2rem; color: #9ca3af; grid-column: 1 / -1;">Loading live upcoming events...</div>
+    <!-- Upcoming Investigations Section -->
+    <section>
+      <h2>Upcoming Investigations</h2>
+      <div id="homepageEventsGrid" class="grid">
+        <p style="color: var(--text-muted); grid-column: 1 / -1;">Loading upcoming events...</p>
       </div>
     </section>
 
-    <!-- LATEST FIELD EVIDENCE SECTION -->
-    <section style="margin-top: 4rem;">
-      <h2 class="section-title">Latest Field Evidence</h2>
-      <p style="color: var(--text-muted); margin-bottom: 2rem;">Our most recent case findings, environmental logs, and analysis from active investigations.</p>
-      
-      <div id="latest-investigations-container" class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-muted);">
-          Loading latest investigations...
-        </div>
-      </div>
+  </div>
 
-      <div style="text-align: center; margin-top: 2rem;">
-        <a href="evidence.html" class="btn">View All Evidence →</a>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <p>© Pabsmophobia. All rights reserved.</p>
-  </footer>
-
-  <!-- Global Navigation Script -->
-  <script src="nav.js"></script>
-  
-  <!-- Load Latest Investigations Script -->
+  <!-- Load Latest Field Evidence Live from YouTube API -->
   <script>
     async function loadLatestInvestigations() {
       const container = document.getElementById('latest-investigations-container');
-      
+      const PLAYLIST_ID = 'PLEj-QWD6H1U';
+      const YOUTUBE_API_KEY = 'YOUR_ACTIVE_API_KEY'; // Insert active API key here
+
+      const endpoint = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${PLAYLIST_ID}&key=${YOUTUBE_API_KEY}&_cb=${Date.now()}`;
+
       try {
-        const response = await fetch('evidence-data.json');
-        const evidenceList = await response.json();
-        
-        // Get the 3 most recent investigations
-        const latest = evidenceList.slice(-3).reverse();
-        
-        if (latest.length === 0) {
-          container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">No recent investigations yet.</p>';
+        const response = await fetch(endpoint);
+        const data = await response.json();
+
+        if (!response.ok) throw new Error(data.error?.message || 'API fetch failed');
+
+        const items = data.items || [];
+        const validItems = items.filter(item => 
+          item.snippet && 
+          item.snippet.title !== 'Private video' && 
+          item.snippet.title !== 'Deleted video'
+        );
+
+        if (validItems.length === 0) {
+          container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">No recent field logs found.</p>';
           return;
         }
-        
+
+        // Take the top 3 most recent entries
+        const latest = validItems.slice(0, 3);
+
         container.innerHTML = latest.map(item => {
-          const statusClass = item.status === 'debunked' ? 'badge-debunked' : 'badge-paranormal';
-          const statusLabel = item.status === 'debunked' ? 'Debunked' : 'Unexplained';
-          
+          const snippet = item.snippet;
+          const description = snippet.description || '';
+
+          // Status detection
+          let status = 'paranormal';
+          if (description.toLowerCase().includes('#status:debunked') || description.toLowerCase().includes('#debunked')) {
+            status = 'debunked';
+          }
+
+          // Location tag extraction (#loc:Name or Location: Name)
+          let location = 'Field Telemetry';
+          const locTagMatch = description.match(/#loc:([^\r\n#]+)/i);
+          const locColonMatch = description.match(/Location:\s*([^\r\n#]+)/i);
+
+          if (locTagMatch && locTagMatch[1]) {
+            location = locTagMatch[1].trim();
+          } else if (locColonMatch && locColonMatch[1]) {
+            location = locColonMatch[1].trim();
+          }
+
+          const statusClass = status === 'debunked' ? 'badge-debunked' : 'badge-paranormal';
+          const statusLabel = status === 'debunked' ? 'Debunked' : 'Unexplained';
+
+          const formattedDate = snippet.publishedAt ? new Date(snippet.publishedAt).toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          }) : '';
+
           return `
-            <div class="card" style="border: 1px solid var(--border); cursor: pointer; transition: all 0.3s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                <span class="badge ${statusClass}" style="font-size: 0.7rem;">${statusLabel}</span>
-                <span style="font-size: 0.8rem; color: var(--text-muted);">${item.date}</span>
+            <div class="card" style="background: var(--card-bg); padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border); transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <span class="badge ${statusClass}">${statusLabel}</span>
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">${formattedDate}</span>
+                </div>
+                <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.2rem;">${snippet.title}</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.75rem;">📍 ${location}</p>
+                <p style="color: var(--text-muted); line-height: 1.4; font-size: 0.9rem;">${description.length > 150 ? description.substring(0, 150) + '...' : description}</p>
               </div>
-              <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.3rem;">${item.title}</h3>
-              <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem;">📍 ${item.location}</p>
-              <p style="color: var(--text-muted); line-height: 1.5; font-size: 0.95rem;">${item.description}</p>
-              <a href="evidence.html" style="color: var(--accent); text-decoration: none; font-weight: 600; margin-top: 1rem; display: inline-block;">View Details →</a>
+              <a href="evidence.html" style="color: var(--accent); text-decoration: none; font-weight: 600; margin-top: 1rem; display: inline-block;">View Log →</a>
             </div>
           `;
         }).join('');
-        
+
       } catch (err) {
-        console.error('Error loading latest investigations:', err);
-        container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">Unable to load investigations.</p>';
+        console.error('Error loading latest YouTube evidence:', err);
+        container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">Unable to load recent field logs.</p>';
       }
     }
-    
+
     document.addEventListener('DOMContentLoaded', loadLatestInvestigations);
   </script>
 
@@ -260,7 +254,7 @@
           const today = new Date();
           today.setHours(0, 0, 0, 0);
 
-          const events = rows.map(cols => ({
+          let events = rows.map(cols => ({
             date: cols[0] || 'TBA',
             name: cols[1] || 'Paranormal Investigation',
             provider: cols[2] || 'Partner Event',
@@ -272,9 +266,17 @@
             providerType: (cols[8] || '').toLowerCase(),
             coHost: (cols[9] || '').toLowerCase() === 'true'
           }))
-          .filter(item => item.date !== 'TBA' && parseWidgetDate(item.date) >= today)
-          .sort((a, b) => parseWidgetDate(a.date) - parseWidgetDate(b.date))
-          .slice(0, 4);
+          .filter(item => item.date !== 'TBA');
+
+          // Filter future events; if none are future, display the most recent entries
+          const futureEvents = events.filter(item => parseWidgetDate(item.date) >= today);
+          if (futureEvents.length > 0) {
+            events = futureEvents.sort((a, b) => parseWidgetDate(a.date) - parseWidgetDate(b.date));
+          } else {
+            events = events.sort((a, b) => parseWidgetDate(b.date) - parseWidgetDate(a.date));
+          }
+
+          events = events.slice(0, 4);
 
           if (events.length === 0) {
             gridContainer.innerHTML = `<div style="text-align: center; padding: 2rem; color: #9ca3af; grid-column: 1 / -1;">No upcoming investigations scheduled right now.</div>`;
@@ -301,13 +303,13 @@
             if (item.coHost) badgesHTML += ` <span class="badge badge-pabs">Co-Host</span>`;
 
             const card = document.createElement('div');
-            card.style.cssText = "background: rgba(0,0,0,0.25); border: 1px solid var(--border, #334155); border-radius: 8px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;";
+            card.style.cssText = "background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;";
             
             card.innerHTML = `
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
                   <h3 style="margin: 0; font-size: 1.1rem; font-weight: bold; color: #fff;">${item.name}</h3>
-                  <span style="font-size: 0.85rem; color: var(--accent, #a855f7); font-family: 'Eczar', serif; white-space: nowrap;">${item.date}</span>
+                  <span style="font-size: 0.85rem; color: var(--accent); font-weight: bold; white-space: nowrap;">${item.date}</span>
                 </div>
                 <div style="margin-bottom: 0.75rem;">${badgesHTML}</div>
                 <div style="font-size: 0.85rem; color: #9ca3af; line-height: 1.4;">
@@ -333,8 +335,5 @@
       document.addEventListener('DOMContentLoaded', loadWidgetEvents);
     })();
   </script>
-
-
-
-
-</body></html>
+</body>
+</html>
