@@ -1,41 +1,47 @@
 // CONFIGURATION
 const YOUTUBE_API_KEY = 'AIzaSyDl5JCoXlDBG502MvrXI8XDuzLYC5R9pIM'; // Replace with your Google Cloud API key
-const PLAYLIST_ID = 'PLEj-QWD6FI1U&si=62QJwUR86Phmkdop';           // Replace with your YouTube playlist ID
+const PLAYLIST_ID = 'PLEj-QWD6FI1U&si=62QJwUR86Phmkdop'; // Replace with the full PL... playlist ID
 
 async function loadEvidenceVault() {
   const gridContainer = document.getElementById('evidence-grid');
   
+  if (!PLAYLIST_ID || PLAYLIST_ID === 'YOUR_PL_PLAYLIST_ID_HERE') {
+    gridContainer.innerHTML = '<p style="color: #ef4444;">Configuration Error: Please update PLAYLIST_ID in evidence.js with a valid PL... ID.</p>';
+    return;
+  }
+
   // YouTube Data API endpoint
   const endpoint = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${PLAYLIST_ID}&key=${YOUTUBE_API_KEY}`;
 
   try {
     const response = await fetch(endpoint);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP Error: ${response.status}`);
-    }
-
     const data = await response.json();
 
+    if (!response.ok) {
+      console.error('YouTube API Error Response:', data);
+      const apiMessage = data.error?.message || `HTTP ${response.status}`;
+      throw new Error(apiMessage);
+    }
+
     if (!data.items || data.items.length === 0) {
-      gridContainer.innerHTML = '<p>No evidence entries found.</p>';
+      gridContainer.innerHTML = '<p>No evidence entries found in playlist.</p>';
       return;
     }
 
-    // Transform YouTube API items into the exact data structure expected by renderEvidence
+    // Transform YouTube API items into the evidence vault data structure
     const evidenceList = data.items
       .filter(item => item.snippet.title !== 'Private video' && item.snippet.title !== 'Deleted video')
       .map(item => {
         const snippet = item.snippet;
         const description = snippet.description || '';
         
-        // Auto-detect status from description tags (defaults to 'paranormal')
+        // Auto-detect status from description tags
         let status = 'paranormal';
         if (description.toLowerCase().includes('#debunked') || description.toLowerCase().includes('status: debunked')) {
           status = 'debunked';
         }
 
-        // Extract location if tagged as 'Location: Name' or default to 'Unknown Location'
+        // Extract location if tagged as 'Location: Name'
         let location = 'Field Telemetry';
         const locationMatch = description.match(/Location:\s*([^\n\r]+)/i);
         if (locationMatch && locationMatch[1]) {
@@ -65,7 +71,7 @@ async function loadEvidenceVault() {
 
   } catch (err) {
     console.error('Error loading evidence:', err);
-    gridContainer.innerHTML = '<p>Unable to load evidence vault.</p>';
+    gridContainer.innerHTML = `<p style="color: #ef4444;">Unable to load evidence vault: ${escapeHtml(err.message)}</p>`;
   }
 }
 
@@ -147,7 +153,6 @@ function populateLocationFilter() {
   const locationFilter = document.getElementById('location-filter');
   if (!locationFilter || !window.allEvidence) return;
   
-  // Clear existing dynamically generated options (keep default first option)
   locationFilter.innerHTML = '<option value="">All Locations</option>';
 
   const locations = [...new Set(window.allEvidence.map(item => item.location))].sort();
