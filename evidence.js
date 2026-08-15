@@ -1,14 +1,61 @@
+// CONFIGURATION
+const YOUTUBE_API_KEY = 'AIzaSyDl5JCoXlDBG502MvrXI8XDuzLYC5R9pIM'; // Replace with your Google Cloud API key
+const PLAYLIST_ID = 'PLEj-QWD6FI1U';           // Replace with your YouTube playlist ID
+
 async function loadEvidenceVault() {
   const gridContainer = document.getElementById('evidence-grid');
   
-  try {
-    const response = await fetch('evidence-data.json');
-    const evidenceList = await response.json();
+  // YouTube Data API endpoint
+  const endpoint = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${PLAYLIST_ID}&key=${YOUTUBE_API_KEY}`;
 
-    if (!evidenceList || evidenceList.length === 0) {
+  try {
+    const response = await fetch(endpoint);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.items || data.items.length === 0) {
       gridContainer.innerHTML = '<p>No evidence entries found.</p>';
       return;
     }
+
+    // Transform YouTube API items into the exact data structure expected by renderEvidence
+    const evidenceList = data.items
+      .filter(item => item.snippet.title !== 'Private video' && item.snippet.title !== 'Deleted video')
+      .map(item => {
+        const snippet = item.snippet;
+        const description = snippet.description || '';
+        
+        // Auto-detect status from description tags (defaults to 'paranormal')
+        let status = 'paranormal';
+        if (description.toLowerCase().includes('#debunked') || description.toLowerCase().includes('status: debunked')) {
+          status = 'debunked';
+        }
+
+        // Extract location if tagged as 'Location: Name' or default to 'Unknown Location'
+        let location = 'Field Telemetry';
+        const locationMatch = description.match(/Location:\s*([^\n\r]+)/i);
+        if (locationMatch && locationMatch[1]) {
+          location = locationMatch[1].trim();
+        }
+
+        return {
+          title: snippet.title,
+          description: description || 'No detailed log summary provided.',
+          location: location,
+          type: 'video',
+          status: status,
+          date: new Date(snippet.publishedAt).toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          }),
+          mediaUrl: `https://www.youtube-nocookie.com/embed/${snippet.resourceId.videoId}`
+        };
+      });
 
     // Store evidence globally for filtering
     window.allEvidence = evidenceList;
@@ -40,15 +87,15 @@ function renderEvidence(evidenceList) {
       </div>` : '';
 
     return `
-      <article class="card" data-type="${item.type}" data-status="${item.status}" data-location="${item.location}" data-date="${item.date}" style="border: 1px solid #333; padding: 1rem; border-radius: 8px; background: #181818; text-align: left;">
+      <article class="card" data-type="${item.type}" data-status="${item.status}" data-location="${escapeHtml(item.location)}" data-date="${item.date}" style="border: 1px solid #333; padding: 1rem; border-radius: 8px; background: #181818; text-align: left;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <span class="badge ${statusClass}" style="padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; font-weight: bold;">${statusLabel}</span>
           <span style="font-size: 0.8rem; color: #888;">${item.date}</span>
         </div>
-        <h3 style="margin: 0.75rem 0 0.25rem 0; color: #fff;">${item.title}</h3>
-        <p style="font-size: 0.85rem; color: #aaa; margin: 0;">📍 ${item.location}</p>
+        <h3 style="margin: 0.75rem 0 0.25rem 0; color: #fff;">${escapeHtml(item.title)}</h3>
+        <p style="font-size: 0.85rem; color: #aaa; margin: 0;">📍 ${escapeHtml(item.location)}</p>
         ${mediaMarkup}
-        <p style="font-size: 0.9rem; line-height: 1.4; color: #ccc;">${item.description}</p>
+        <p style="font-size: 0.9rem; line-height: 1.4; color: #ccc;">${escapeHtml(item.description)}</p>
       </article>
     `;
   }).join('');
@@ -100,6 +147,9 @@ function populateLocationFilter() {
   const locationFilter = document.getElementById('location-filter');
   if (!locationFilter || !window.allEvidence) return;
   
+  // Clear existing dynamically generated options (keep default first option)
+  locationFilter.innerHTML = '<option value="">All Locations</option>';
+
   const locations = [...new Set(window.allEvidence.map(item => item.location))].sort();
   
   locations.forEach(location => {
@@ -129,6 +179,12 @@ function applyAdvancedFilters() {
     
     card.style.display = (matchesSearch && matchesLocation && matchesStatus) ? 'block' : 'none';
   });
+}
+
+function escapeHtml(str) {
+  return str.replace(/[&<>'"]/g, tag => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+  }[tag] || tag));
 }
 
 document.addEventListener('DOMContentLoaded', loadEvidenceVault);
