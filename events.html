@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Investigation Schedule | Pabsmophobia</title>
@@ -147,7 +149,7 @@
       }
     }
 
-    /* Badges & Disclaimers */
+    /* Badges */
     .badge {
       display: inline-block;
       padding: 0.2rem 0.5rem;
@@ -158,15 +160,6 @@
     .badge-pabs { background: #7c3aed; color: #fff; }
     .badge-hn { background: #0284c7; color: #fff; }
     .badge-ram { background: #d97706; color: #fff; }
-    
-    .disclaimer-box {
-      background: rgba(168, 85, 247, 0.1);
-      border-left: 4px solid var(--accent, #a855f7);
-      padding: 1rem;
-      border-radius: 4px;
-      margin: 1.5rem 0;
-      font-size: 0.9rem;
-    }
 
     .filter-container {
       display: flex;
@@ -292,17 +285,30 @@
         if (!response.ok) throw new Error('Network response was not ok');
         const jsonData = await response.json();
 
-        const rawEvents = jsonData.map(item => ({
-          date: item["Date"] || 'TBA',
-          name: item["Event Name"] || 'Paranormal Investigation',
-          provider: item["Provider"] || 'Partner Event',
-          venue: item["Event Venue"] || 'Location Pending',
-          location: item["Location"] || 'UK Venue',
-          type: item["Event Type"] || 'Ghost Hunt',
-          time: item["Time"] || 'See Provider',
-          price: item["Price / Availability"] || 'See Provider',
-          providerType: (item["Provider"] || '').toLowerCase()
-        }));
+        const rawEvents = jsonData.map(item => {
+          const providerName = item["Provider"] || 'Partner Event';
+          const pType = providerName.toLowerCase();
+          
+          let providerImage = 'images/library/Pabsmo.jpg'; 
+          if (pType.includes('haunting nights')) {
+            providerImage = 'images/library/hn.png';
+          } else if (pType.includes('ram') || pType.includes('ancient ram')) {
+            providerImage = 'images/library/Ram.jpeg';
+          }
+
+          return {
+            date: item["Date"] || 'TBA',
+            name: item["Event Name"] || 'Paranormal Investigation',
+            provider: providerName,
+            venue: item["Event Venue"] || 'Location Pending',
+            location: item["Location"] || 'UK Venue',
+            type: item["Event Type"] || 'Ghost Hunt',
+            time: item["Time"] || 'See Provider',
+            price: item["Price / Availability"] || 'See Provider',
+            providerType: pType,
+            image: providerImage
+          };
+        });
 
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -337,6 +343,7 @@
           "startDate": isoDate,
           "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
           "eventStatus": "https://schema.org/EventScheduled",
+          "image": [item.image],
           "location": {
             "@type": "Place",
             "name": item.venue,
@@ -438,7 +445,12 @@
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${item.date}</td>
-          <td><strong>${item.name}</strong></td>
+          <td>
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <img src="${item.image}" alt="${item.provider}" style="width: 32px; height: 32px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
+              <strong>${item.name}</strong>
+            </div>
+          </td>
           <td>${badgesHTML}</td>
           <td>${item.venue}</td>
           <td>${item.location}</td>
@@ -453,7 +465,10 @@
         card.className = 'event-card';
         card.innerHTML = `
           <div class="event-card-header">
-            <h3 class="event-card-title">${item.name}</h3>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <img src="${item.image}" alt="${item.provider}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; flex-shrink: 0;">
+              <h3 class="event-card-title">${item.name}</h3>
+            </div>
             <span class="event-card-date">${item.date}</span>
           </div>
           <div>${badgesHTML}</div>
@@ -501,6 +516,5 @@
 
   <script src="nav.js"></script>
 
-
-
-</body></html>
+</body>
+</html>
