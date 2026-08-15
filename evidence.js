@@ -1,5 +1,5 @@
 // CONFIGURATION
-const YOUTUBE_API_KEY = 'AIzaSyDl5JCoXlDBG502MvrXI8XDuzLYC5R9pIM'; // Replace with your Google Cloud API key
+const YOUTUBE_API_KEY = 'AIzaSyCv0faWGjPT3P92PBiJsqIRQOLa6HOWXEE'; // Replace with your Google Cloud API key
 const PLAYLIST_ID = 'PLEj-QWD6FI1U&si=62QJwUR86Phmkdop'; // Replace with the full PL... playlist ID
 
 async function loadEvidenceVault() {
