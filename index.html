@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -67,7 +69,6 @@
       <img src="images/library/Pabsmo.jpg" alt="Pabsmophobia Logo" class="logo-img">
       <span>Pabsmophobia</span>
     </div>
-    <!-- nav.js will populate your menu items here dynamically -->
     <nav></nav>
   </header>
 
@@ -150,7 +151,6 @@
         const response = await fetch('evidence-data.json');
         const evidenceList = await response.json();
         
-        // Get the 3 most recent investigations
         const latest = evidenceList.slice(-3).reverse();
         
         if (latest.length === 0) {
@@ -189,14 +189,20 @@
   <script>
     (function() {
       const WIDGET_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQg_l7qnk1kof0lZhIqP0BSNjOfsS5F0MVB92p56wrIzgdSGOKUfxpK-Ec8FMq3uTePGnAs6jF_aIDD/pub?gid=0&single=true&output=csv';
-      const gridContainer = document.getElementById('homepageEventsGrid');
 
       function parseWidgetDate(dateStr) {
-        if (!dateStr) return new Date(0);
-        const parts = dateStr.split('/');
-        if (parts.length !== 3) return new Date(0);
-        const [day, month, year] = parts.map(p => parseInt(p, 10));
-        return new Date(year, month - 1, day);
+        if (!dateStr) return null;
+        const cleaned = dateStr.trim().replace(/[-.]/g, '/');
+        const parts = cleaned.split('/');
+        if (parts.length !== 3) return null;
+        
+        let day = parseInt(parts[0], 10);
+        let month = parseInt(parts[1], 10) - 1;
+        let year = parseInt(parts[2], 10);
+        if (year < 100) year += 2000;
+
+        const date = new Date(year, month, day);
+        return isNaN(date.getTime()) ? null : date;
       }
 
       function parseWidgetCSV(text) {
@@ -250,6 +256,9 @@
       }
 
       async function loadWidgetEvents() {
+        const gridContainer = document.getElementById('homepageEventsGrid');
+        if (!gridContainer) return;
+
         try {
           const response = await fetch(WIDGET_SHEET_URL);
           if (!response.ok) throw new Error('Fetch failed');
@@ -260,20 +269,25 @@
           const today = new Date();
           today.setHours(0, 0, 0, 0);
 
-          const events = rows.map(cols => ({
-            date: cols[0] || 'TBA',
-            name: cols[1] || 'Paranormal Investigation',
-            provider: cols[2] || 'Partner Event',
-            venue: cols[3] || 'Location Pending',
-            location: cols[4] || 'UK Venue',
-            type: cols[5] || 'Ghost Hunt',
-            time: cols[6] || 'See Provider',
-            price: cols[7] || 'See Provider',
-            providerType: (cols[8] || '').toLowerCase(),
-            coHost: (cols[9] || '').toLowerCase() === 'true'
-          }))
-          .filter(item => item.date !== 'TBA' && parseWidgetDate(item.date) >= today)
-          .sort((a, b) => parseWidgetDate(a.date) - parseWidgetDate(b.date))
+          const events = rows.map(cols => {
+            const rawDate = cols[0] || '';
+            const parsedDate = parseWidgetDate(rawDate);
+            return {
+              dateStr: rawDate || 'TBA',
+              parsedDate: parsedDate,
+              name: cols[1] || 'Paranormal Investigation',
+              provider: cols[2] || 'Partner Event',
+              venue: cols[3] || 'Location Pending',
+              location: cols[4] || 'UK Venue',
+              type: cols[5] || 'Ghost Hunt',
+              time: cols[6] || 'See Provider',
+              price: cols[7] || 'See Provider',
+              providerType: (cols[8] || '').toLowerCase(),
+              coHost: (cols[9] || '').toLowerCase() === 'true'
+            };
+          })
+          .filter(item => item.parsedDate && item.parsedDate >= today)
+          .sort((a, b) => a.parsedDate - b.parsedDate)
           .slice(0, 4);
 
           if (events.length === 0) {
@@ -303,11 +317,13 @@
             const card = document.createElement('div');
             card.style.cssText = "background: rgba(0,0,0,0.25); border: 1px solid var(--border, #334155); border-radius: 8px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;";
             
+            const sanitizedName = item.name.replace(/'/g, "\\'");
+
             card.innerHTML = `
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
                   <h3 style="margin: 0; font-size: 1.1rem; font-weight: bold; color: #fff;">${item.name}</h3>
-                  <span style="font-size: 0.85rem; color: var(--accent, #a855f7); font-family: 'Eczar', serif; white-space: nowrap;">${item.date}</span>
+                  <span style="font-size: 0.85rem; color: var(--accent, #a855f7); font-family: 'Eczar', serif; white-space: nowrap;">${item.dateStr}</span>
                 </div>
                 <div style="margin-bottom: 0.75rem;">${badgesHTML}</div>
                 <div style="font-size: 0.85rem; color: #9ca3af; line-height: 1.4;">
@@ -317,7 +333,7 @@
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.25rem;">
                 <span style="font-weight: 600; color: #34d399; font-size: 0.95rem;">${item.price}</span>
-                <button class="btn" style="padding: 0.35rem 0.85rem; font-size: 0.85rem;" onclick="handleWidgetInquiry('${resolvedType}', '${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button>
+                <button class="btn" style="padding: 0.35rem 0.85rem; font-size: 0.85rem;" onclick="handleWidgetInquiry('${resolvedType}', '${sanitizedName}', '${item.dateStr}')">Inquire</button>
               </div>
             `;
             gridContainer.appendChild(card);
@@ -330,11 +346,14 @@
       }
 
       window.handleWidgetInquiry = handleWidgetInquiry;
-      document.addEventListener('DOMContentLoaded', loadWidgetEvents);
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadWidgetEvents);
+      } else {
+        loadWidgetEvents();
+      }
     })();
   </script>
 
-
-
-
-</body></html>
+</body>
+</html>
