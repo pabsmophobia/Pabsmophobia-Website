@@ -1,12 +1,14 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pabsmophobia - Paranormal Research &amp; Investigations</title>
+  <title>Pabsmophobia - Paranormal Research & Investigations</title>
   <style>
     :root {
-      --bg-dark: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.7);
-      --border: #334155;
+      --bg-dark: #0a0f1d;
+      --card-bg: #111827;
+      --border: #1f2937;
       --accent: #a855f7;
       --accent-hover: #9333ea;
       --text: #f8fafc;
@@ -29,21 +31,21 @@
     h2 {
       font-size: 1.8rem;
       margin-bottom: 1.5rem;
-      border-bottom: 2px solid var(--border);
+      border-bottom: 1px solid var(--border);
       padding-bottom: 0.5rem;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
       margin-bottom: 3rem;
     }
 
     .badge {
       display: inline-block;
-      font-size: 0.75rem;
-      padding: 0.25rem 0.6rem;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
       border-radius: 4px;
       font-weight: bold;
       text-transform: uppercase;
@@ -52,16 +54,17 @@
     .badge-paranormal { background: #581c87; color: #e9d5ff; }
     .badge-debunked { background: #374151; color: #d1d5db; }
     .badge-pabs { background: #065f46; color: #a7f3d0; }
-    .badge-hn { background: #1e40af; color: #bfdbfe; }
+    .badge-hn { background: #1e3a8a; color: #bfdbfe; }
     .badge-ram { background: #991b1b; color: #fecaca; }
 
     .btn {
-      background: var(--accent);
+      background: #8b5cf6;
       color: #fff;
       border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
       cursor: pointer;
+      font-weight: 600;
       transition: background 0.2s;
     }
 
@@ -69,7 +72,6 @@
       background: var(--accent-hover);
     }
   </style>
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -98,7 +100,14 @@
     async function loadLatestInvestigations() {
       const container = document.getElementById('latest-investigations-container');
       const PLAYLIST_ID = 'PLEj-QWD6H1U';
-      const YOUTUBE_API_KEY = 'YOUR_ACTIVE_API_KEY'; // Insert active API key here
+      
+      // Replace with your valid Google YouTube Data API Key
+      const YOUTUBE_API_KEY = window.PABS_YOUTUBE_API_KEY || 'YOUR_ACTIVE_API_KEY';
+
+      if (YOUTUBE_API_KEY === 'YOUR_ACTIVE_API_KEY') {
+        container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">Unable to load recent field logs. (API key missing)</p>';
+        return;
+      }
 
       const endpoint = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${PLAYLIST_ID}&key=${YOUTUBE_API_KEY}&_cb=${Date.now()}`;
 
@@ -120,20 +129,17 @@
           return;
         }
 
-        // Take the top 3 most recent entries
         const latest = validItems.slice(0, 3);
 
         container.innerHTML = latest.map(item => {
           const snippet = item.snippet;
           const description = snippet.description || '';
 
-          // Status detection
           let status = 'paranormal';
           if (description.toLowerCase().includes('#status:debunked') || description.toLowerCase().includes('#debunked')) {
             status = 'debunked';
           }
 
-          // Location tag extraction (#loc:Name or Location: Name)
           let location = 'Field Telemetry';
           const locTagMatch = description.match(/#loc:([^\r\n#]+)/i);
           const locColonMatch = description.match(/Location:\s*([^\r\n#]+)/i);
@@ -154,15 +160,15 @@
           }) : '';
 
           return `
-            <div class="card" style="background: var(--card-bg); padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border); transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="background: var(--card-bg); padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between;">
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
                   <span class="badge ${statusClass}">${statusLabel}</span>
                   <span style="font-size: 0.8rem; color: var(--text-muted);">${formattedDate}</span>
                 </div>
-                <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.2rem;">${snippet.title}</h3>
+                <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.1rem;">${snippet.title}</h3>
                 <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.75rem;">📍 ${location}</p>
-                <p style="color: var(--text-muted); line-height: 1.4; font-size: 0.9rem;">${description.length > 150 ? description.substring(0, 150) + '...' : description}</p>
+                <p style="color: var(--text-muted); line-height: 1.4; font-size: 0.85rem;">${description.length > 140 ? description.substring(0, 140) + '...' : description}</p>
               </div>
               <a href="evidence.html" style="color: var(--accent); text-decoration: none; font-weight: 600; margin-top: 1rem; display: inline-block;">View Log →</a>
             </div>
@@ -186,10 +192,16 @@
 
       function parseWidgetDate(dateStr) {
         if (!dateStr) return new Date(0);
+        const cleanStr = dateStr.replace(/(st|nd|rd|th)/gi, '');
+        const parsed = new Date(cleanStr);
+        if (!isNaN(parsed.getTime())) return parsed;
+
         const parts = dateStr.split('/');
-        if (parts.length !== 3) return new Date(0);
-        const [day, month, year] = parts.map(p => parseInt(p, 10));
-        return new Date(year, month - 1, day);
+        if (parts.length === 3) {
+          const [day, month, year] = parts.map(p => parseInt(p, 10));
+          return new Date(year, month - 1, day);
+        }
+        return new Date(0);
       }
 
       function parseWidgetCSV(text) {
@@ -267,14 +279,8 @@
           }))
           .filter(item => item.date !== 'TBA');
 
-          // Filter future events; if none are future, display the most recent entries
-          const futureEvents = events.filter(item => parseWidgetDate(item.date) >= today);
-          if (futureEvents.length > 0) {
-            events = futureEvents.sort((a, b) => parseWidgetDate(a.date) - parseWidgetDate(b.date));
-          } else {
-            events = events.sort((a, b) => parseWidgetDate(b.date) - parseWidgetDate(a.date));
-          }
-
+          // Sort by date ascending to show immediate upcoming events
+          events.sort((a, b) => parseWidgetDate(a.date) - parseWidgetDate(b.date));
           events = events.slice(0, 4);
 
           if (events.length === 0) {
@@ -307,8 +313,8 @@
             card.innerHTML = `
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
-                  <h3 style="margin: 0; font-size: 1.1rem; font-weight: bold; color: #fff;">${item.name}</h3>
-                  <span style="font-size: 0.85rem; color: var(--accent); font-weight: bold; white-space: nowrap;">${item.date}</span>
+                  <h3 style="margin: 0; font-size: 1.05rem; font-weight: bold; color: #fff; line-height: 1.3;">${item.name}</h3>
+                  <span style="font-size: 0.8rem; color: #c084fc; font-weight: bold; white-space: nowrap;">${item.date}</span>
                 </div>
                 <div style="margin-bottom: 0.75rem;">${badgesHTML}</div>
                 <div style="font-size: 0.85rem; color: #9ca3af; line-height: 1.4;">
@@ -316,9 +322,9 @@
                   <div><strong>Location:</strong> ${item.location}</div>
                 </div>
               </div>
-              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.25rem;">
-                <span style="font-weight: 600; color: #34d399; font-size: 0.95rem;">${item.price}</span>
-                <button class="btn" style="padding: 0.35rem 0.85rem; font-size: 0.85rem;" onclick="handleWidgetInquiry('${resolvedType}', '${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button>
+              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.75rem; margin-top: 0.25rem;">
+                <span style="font-weight: 600; color: #34d399; font-size: 0.9rem;">${item.price}</span>
+                <button class="btn" onclick="handleWidgetInquiry('${resolvedType}', '${item.name.replace(/'/g, "\\'")}', '${item.date}')">Inquire</button>
               </div>
             `;
             gridContainer.appendChild(card);
@@ -334,6 +340,5 @@
       document.addEventListener('DOMContentLoaded', loadWidgetEvents);
     })();
   </script>
-
-
-</body></html>
+</body>
+</html>
