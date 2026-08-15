@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -44,6 +46,10 @@
     .badge-pabs { background: #7c3aed; color: #fff; }
     .badge-hn { background: #0284c7; color: #fff; }
     .badge-ram { background: #d97706; color: #fff; }
+
+    /* Status Badges for Field Evidence */
+    .badge-paranormal { background: #7c3aed; color: #fff; }
+    .badge-debunked { background: #475569; color: #fff; }
 
     /* 2 Up / 2 Down Grid Layout */
     .events-grid-2x2 {
@@ -118,11 +124,12 @@
     <!-- LATEST FIELD EVIDENCE SECTION -->
     <section style="margin-top: 4rem;">
       <h2 class="section-title">Latest Field Evidence</h2>
-      <p style="color: var(--text-muted); margin-bottom: 2rem;">Our most recent case findings, environmental logs, and analysis from active investigations.</p>
+      <p style="color: var(--text-muted); margin-bottom: 2rem;">Our most recent case findings, video logs, and sensor telemetry from active investigations.</p>
       
-      <div id="latest-investigations-container" class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+      <!-- Dynamic Video & Evidence Grid -->
+      <div id="latest-investigations-container" class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
         <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-muted);">
-          Loading latest investigations...
+          Loading latest video evidence...
         </div>
       </div>
 
@@ -140,19 +147,28 @@
   <!-- Global Navigation Script -->
   <script src="nav.js"></script>
   
-  <!-- Load Latest Investigations Script -->
+  <!-- Load Latest Evidence Script (Aligned with evidence.html media structures) -->
   <script>
+    function getYouTubeEmbedUrl(url) {
+      if (!url) return null;
+      const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+      return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+    }
+
     async function loadLatestInvestigations() {
       const container = document.getElementById('latest-investigations-container');
+      if (!container) return;
       
       try {
         const response = await fetch('evidence-data.json');
+        if (!response.ok) throw new Error('Failed to fetch evidence data');
         const evidenceList = await response.json();
         
+        // Grab the 3 most recent entries
         const latest = evidenceList.slice(-3).reverse();
         
         if (latest.length === 0) {
-          container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">No recent investigations yet.</p>';
+          container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">No recent evidence logs available.</p>';
           return;
         }
         
@@ -160,23 +176,57 @@
           const statusClass = item.status === 'debunked' ? 'badge-debunked' : 'badge-paranormal';
           const statusLabel = item.status === 'debunked' ? 'Debunked' : 'Unexplained';
           
-          return `
-            <div class="card" style="border: 1px solid var(--border); cursor: pointer; transition: all 0.3s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                <span class="badge ${statusClass}" style="font-size: 0.7rem;">${statusLabel}</span>
-                <span style="font-size: 0.8rem; color: var(--text-muted);">${item.date}</span>
+          // Determine Video Media Markup (YouTube, Native Video, or Image Fallback)
+          let mediaMarkup = '';
+          const videoSource = item.youtubeUrl || item.videoUrl || item.video || item.mediaUrl;
+          const ytEmbed = getYouTubeEmbedUrl(videoSource);
+
+          if (ytEmbed) {
+            mediaMarkup = `
+              <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; margin-bottom: 1rem; background: #000;">
+                <iframe src="${ytEmbed}" title="${item.title || 'Evidence Video'}" style="position: absolute; top:0; left:0; width: 100%; height: 100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               </div>
-              <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.3rem;">${item.title}</h3>
-              <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem;">📍 ${item.location}</p>
-              <p style="color: var(--text-muted); line-height: 1.5; font-size: 0.95rem;">${item.description}</p>
-              <a href="evidence.html" style="color: var(--accent); text-decoration: none; font-weight: 600; margin-top: 1rem; display: inline-block;">View Details →</a>
+            `;
+          } else if (videoSource && videoSource.match(/\.(mp4|webm|ogg)$/i)) {
+            mediaMarkup = `
+              <div style="border-radius: 6px; overflow: hidden; margin-bottom: 1rem; background: #000;">
+                <video controls style="width: 100%; max-height: 220px; display: block;">
+                  <source src="${videoSource}">
+                  Your browser does not support html5 video.
+                </video>
+              </div>
+            `;
+          } else if (item.imageUrl || item.image) {
+            const imgSrc = item.imageUrl || item.image;
+            mediaMarkup = `
+              <div style="height: 180px; overflow: hidden; border-radius: 6px; margin-bottom: 1rem; background: #1a1a24;">
+                <img src="${imgSrc}" alt="${item.title || 'Evidence'}" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+            `;
+          }
+
+          return `
+            <div class="card" style="border: 1px solid var(--border, #334155); display: flex; flex-direction: column; justify-content: space-between; background: rgba(0,0,0,0.25); border-radius: 8px; padding: 1.25rem;">
+              <div>
+                ${mediaMarkup}
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <span class="badge ${statusClass}" style="font-size: 0.7rem;">${statusLabel}</span>
+                  <span style="font-size: 0.8rem; color: var(--text-muted, #9ca3af);">${item.date || ''}</span>
+                </div>
+                <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.25rem;">${item.title || 'Untitled Case File'}</h3>
+                <p style="color: var(--text-muted, #9ca3af); font-size: 0.85rem; margin-bottom: 0.75rem;">📍 ${item.location || 'UK Location'}</p>
+                <p style="color: var(--text-muted, #9ca3af); line-height: 1.5; font-size: 0.9rem; margin-bottom: 1rem;">${item.description || ''}</p>
+              </div>
+              <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.5rem;">
+                <a href="evidence.html" style="color: var(--accent, #a855f7); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-block;">View full evidence file →</a>
+              </div>
             </div>
           `;
         }).join('');
         
       } catch (err) {
-        console.error('Error loading latest investigations:', err);
-        container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">Unable to load investigations.</p>';
+        console.error('Error loading latest evidence:', err);
+        container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">Unable to load recent field evidence right now.</p>';
       }
     }
     
@@ -319,6 +369,5 @@
     })();
   </script>
 
-
-
-</body></html>
+</body>
+</html>
