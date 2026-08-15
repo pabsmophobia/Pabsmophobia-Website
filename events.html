@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Investigation Schedule | Pabsmophobia</title>
@@ -291,7 +293,7 @@
           if (pType.includes('haunting nights')) {
             providerImage = 'images/library/hn.png';
           } else if (pType.includes('ram') || pType.includes('ancient ram')) {
-            providerImage = 'images/library/Ram.jpeg';
+            providerImage = 'images/library/Ram.jpg'; // Adjust extension here if your file is Ram.jpeg or Ram.png
           }
 
           return {
@@ -445,7 +447,7 @@
           <td>${item.date}</td>
           <td>
             <div style="display: flex; align-items: center; gap: 0.6rem;">
-              <img src="${item.image}" alt="${item.provider}" style="width: 32px; height: 32px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
+              <img src="${item.image}" alt="${item.provider}" style="width: 32px; height: 32px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" onerror="this.onerror=null; this.src='images/library/Pabsmo.jpg';">
               <strong>${item.name}</strong>
             </div>
           </td>
@@ -464,7 +466,7 @@
         card.innerHTML = `
           <div class="event-card-header">
             <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <img src="${item.image}" alt="${item.provider}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; flex-shrink: 0;">
+              <img src="${item.image}" alt="${item.provider}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; flex-shrink: 0;" onerror="this.onerror=null; this.src='images/library/Pabsmo.jpg';">
               <h3 class="event-card-title">${item.name}</h3>
             </div>
             <span class="event-card-date">${item.date}</span>
@@ -514,6 +516,5 @@
 
   <script src="nav.js"></script>
 
-
-
-</body></html>
+</body>
+</html>
