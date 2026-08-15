@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -99,7 +101,7 @@
       </div>
     </section>
 
-    <!-- UPCOMING EVENTS HOMEPAGE WIDGET (LIVE GOOGLE SHEETS - 2x2 GRID) -->
+    <!-- UPCOMING EVENTS HOMEPAGE WIDGET -->
     <section class="upcoming-events-widget" style="margin: 4rem 0 2rem 0; padding: 2rem 1.5rem; background: var(--bg-card, #1e293b); border: 1px solid var(--border, #334155); border-radius: 12px;">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
         <div>
@@ -183,61 +185,16 @@
     document.addEventListener('DOMContentLoaded', loadLatestInvestigations);
   </script>
 
-  <!-- Live Google Sheet Homepage Events Widget Script -->
+  <!-- Synchronized Homepage Events Widget Script -->
   <script>
     (function() {
-      const WIDGET_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQg_l7qnk1kof0lZhIqP0BSNjOfsS5F0MVB92p56wrIzgdSGOKUfxpK-Ec8FMq3uTePGnAs6jF_aIDD/pub?gid=0&single=true&output=csv';
+      const JSON_DATA_URL = 'data.json';
 
       function parseWidgetDate(dateStr) {
-        if (!dateStr) return null;
-        const cleaned = dateStr.trim().replace(/[-.]/g, '/');
-        const parts = cleaned.split('/');
-        if (parts.length !== 3) return null;
-        
-        let day = parseInt(parts[0], 10);
-        let month = parseInt(parts[1], 10) - 1;
-        let year = parseInt(parts[2], 10);
-        if (year < 100) year += 2000;
-
-        const date = new Date(year, month, day);
-        return isNaN(date.getTime()) ? null : date;
-      }
-
-      function parseWidgetCSV(text) {
-        const lines = [];
-        let row = [];
-        let inQuotes = false;
-        let currentVal = '';
-
-        for (let i = 0; i < text.length; i++) {
-          const char = text[i];
-          const nextChar = text[i + 1];
-
-          if (char === '"') {
-            if (inQuotes && nextChar === '"') {
-              currentVal += '"';
-              i++;
-            } else {
-              inQuotes = !inQuotes;
-            }
-          } else if (char === ',' && !inQuotes) {
-            row.push(currentVal.trim());
-            currentVal = '';
-          } else if ((char === '\r' || char === '\n') && !inQuotes) {
-            if (char === '\r' && nextChar === '\n') i++;
-            row.push(currentVal.trim());
-            if (row.some(val => val.length > 0)) lines.push(row);
-            row = [];
-            currentVal = '';
-          } else {
-            currentVal += char;
-          }
-        }
-        if (currentVal.length > 0 || row.length > 0) {
-          row.push(currentVal.trim());
-          lines.push(row);
-        }
-        return lines;
+        if (!dateStr) return new Date(0);
+        const cleanDate = dateStr.replace(/st|nd|rd|th/g, '');
+        const parsed = Date.parse(cleanDate);
+        return !isNaN(parsed) ? new Date(parsed) : new Date(0);
       }
 
       function handleWidgetInquiry(providerType, eventName, eventDate) {
@@ -258,35 +215,42 @@
         if (!gridContainer) return;
 
         try {
-          const response = await fetch(WIDGET_SHEET_URL);
+          const response = await fetch(JSON_DATA_URL);
           if (!response.ok) throw new Error('Fetch failed');
-          const csvText = await response.text();
-          const parsedRows = parseWidgetCSV(csvText);
+          const jsonData = await response.json();
 
-          const rows = parsedRows.slice(1);
           const today = new Date();
           today.setHours(0, 0, 0, 0);
 
-          const events = rows.map(cols => {
-            const rawDate = cols[0] || '';
-            const parsedDate = parseWidgetDate(rawDate);
+          const rawEvents = jsonData.map(item => {
+            const providerName = item["Provider"] || 'Partner Event';
+            const pType = providerName.toLowerCase();
+            
+            let providerImage = 'images/library/Pabsmo.jpg'; 
+            if (pType.includes('haunting nights')) {
+              providerImage = 'images/library/hn.png';
+            } else if (pType.includes('ram') || pType.includes('ancient ram')) {
+              providerImage = 'images/library/Ram.jpg';
+            }
+
             return {
-              dateStr: rawDate || 'TBA',
-              parsedDate: parsedDate,
-              name: cols[1] || 'Paranormal Investigation',
-              provider: cols[2] || 'Partner Event',
-              venue: cols[3] || 'Location Pending',
-              location: cols[4] || 'UK Venue',
-              type: cols[5] || 'Ghost Hunt',
-              time: cols[6] || 'See Provider',
-              price: cols[7] || 'See Provider',
-              providerType: (cols[8] || '').toLowerCase(),
-              coHost: (cols[9] || '').toLowerCase() === 'true'
+              dateStr: item["Date"] || 'TBA',
+              name: item["Event Name"] || 'Paranormal Investigation',
+              provider: providerName,
+              venue: item["Event Venue"] || 'Location Pending',
+              location: item["Location"] || 'UK Venue',
+              type: item["Event Type"] || 'Ghost Hunt',
+              time: item["Time"] || 'See Provider',
+              price: item["Price / Availability"] || 'See Provider',
+              providerType: pType,
+              image: providerImage
             };
-          })
-          .filter(item => item.parsedDate && item.parsedDate >= today)
-          .sort((a, b) => a.parsedDate - b.parsedDate)
-          .slice(0, 4);
+          });
+
+          const events = rawEvents
+            .filter(item => item.dateStr !== 'TBA' && parseWidgetDate(item.dateStr) >= today)
+            .sort((a, b) => parseWidgetDate(a.dateStr) - parseWidgetDate(b.dateStr))
+            .slice(0, 4);
 
           if (events.length === 0) {
             gridContainer.innerHTML = `<div style="text-align: center; padding: 2rem; color: #9ca3af; grid-column: 1 / -1;">No upcoming investigations scheduled right now.</div>`;
@@ -299,18 +263,22 @@
             const pName = (item.provider || '').toLowerCase().trim();
 
             let badgeClass = 'badge-hn';
-            let resolvedType = pType || 'hn';
+            let resolvedType = 'hn';
 
-            if (pType === 'pabs' || pName.includes('pabs')) {
+            if (pType.includes('pabs') || pName.includes('pabs')) {
               badgeClass = 'badge-pabs';
               resolvedType = 'pabs';
-            } else if (pType === 'ram' || pName.includes('ram')) {
+            } else if (pType.includes('ram') || pName.includes('ram') || pName.includes('ancient ram')) {
               badgeClass = 'badge-ram';
               resolvedType = 'ram';
             }
 
-            let badgesHTML = `<span class="badge ${badgeClass}">${item.provider}</span>`;
-            if (item.coHost) badgesHTML += ` <span class="badge badge-pabs">Co-Host</span>`;
+            let providerCellHTML = `
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <img src="${item.image}" alt="${item.provider}" style="width: 24px; height: 24px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" onerror="this.onerror=null; this.src='images/library/Pabsmo.jpg';">
+                <span class="badge ${badgeClass}">${item.provider}</span>
+              </div>
+            `;
 
             const card = document.createElement('div');
             card.style.cssText = "background: rgba(0,0,0,0.25); border: 1px solid var(--border, #334155); border-radius: 8px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;";
@@ -323,7 +291,7 @@
                   <h3 style="margin: 0; font-size: 1.1rem; font-weight: bold; color: #fff;">${item.name}</h3>
                   <span style="font-size: 0.85rem; color: var(--accent, #a855f7); font-family: 'Eczar', serif; white-space: nowrap;">${item.dateStr}</span>
                 </div>
-                <div style="margin-bottom: 0.75rem;">${badgesHTML}</div>
+                <div style="margin-bottom: 0.75rem;">${providerCellHTML}</div>
                 <div style="font-size: 0.85rem; color: #9ca3af; line-height: 1.4;">
                   <div><strong>Venue:</strong> ${item.venue}</div>
                   <div><strong>Location:</strong> ${item.location}</div>
@@ -353,6 +321,5 @@
     })();
   </script>
 
-
-
-</body></html>
+</body>
+</html>
