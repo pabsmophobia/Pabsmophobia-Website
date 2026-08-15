@@ -1,38 +1,200 @@
-// Transform YouTube API items into the exact data structure expected by renderEvidence
-const evidenceList = data.items
-  .filter(item => item.snippet.title !== 'Private video' && item.snippet.title !== 'Deleted video')
-  .map(item => {
-    const snippet = item.snippet;
-    const description = snippet.description || '';
+// CONFIGURATION
+const YOUTUBE_API_KEY = 'AIzaSyDl5JCoXlDBG502MvrXI8XDuzLYC5R9pIM'; // Replace with your active Google Cloud API key
+const PLAYLIST_ID = 'PLEj-QWD6FI1U&si=Z9SzpiQylw-yUTQ6';           // Your playlist ID
+
+async function loadEvidenceVault() {
+  const gridContainer = document.getElementById('evidence-grid');
+
+  if (!gridContainer) {
+    console.error("Target container '#evidence-grid' not found in DOM.");
+    return;
+  }
+
+  // Force cache bypass with _cb timestamp parameter
+  const endpoint = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${PLAYLIST_ID}&key=${YOUTUBE_API_KEY}&_cb=${Date.now()}`;
+
+  try {
+    const response = await fetch(endpoint);
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('YouTube API Response Error:', data);
+      throw new Error(data.error?.message || `HTTP ${response.status}`);
+    }
+
+    if (!data.items || data.items.length === 0) {
+      gridContainer.innerHTML = '<p style="color: #aaa;">No evidence entries found in vault.</p>';
+      return;
+    }
+
+    // Transform YouTube API items
+    const evidenceList = data.items
+      .filter(item => item.snippet && item.snippet.title !== 'Private video' && item.snippet.title !== 'Deleted video')
+      .map(item => {
+        const snippet = item.snippet;
+        const description = snippet.description || '';
+        
+        // Detect status (#status:debunked or #debunked)
+        let status = 'paranormal';
+        if (description.toLowerCase().includes('#status:debunked') || description.toLowerCase().includes('#debunked')) {
+          status = 'debunked';
+        }
+
+        // Extract location from #loc:Name or Location: Name
+        let location = 'Field Telemetry';
+        const locTagMatch = description.match(/#loc:([^\r\n#]+)/i);
+        const locColonMatch = description.match(/Location:\s*([^\r\n#]+)/i);
+
+        if (locTagMatch && locTagMatch[1]) {
+          location = locTagMatch[1].trim();
+        } else if (locColonMatch && locColonMatch[1]) {
+          location = locColonMatch[1].trim();
+        }
+
+        return {
+          title: snippet.title || 'Untitled Field Log',
+          description: description || 'No detailed log summary provided.',
+          location: location,
+          type: 'video',
+          status: status,
+          date: snippet.publishedAt ? new Date(snippet.publishedAt).toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          }) : 'Unknown Date',
+          mediaUrl: snippet.resourceId?.videoId ? `https://www.youtube-nocookie.com/embed/${snippet.resourceId.videoId}` : ''
+        };
+      });
+
+    // Store evidence globally for filtering
+    window.allEvidence = evidenceList;
     
-    // Auto-detect status from description (#status:debunked or #debunked)
-    let status = 'paranormal';
-    if (description.toLowerCase().includes('#status:debunked') || description.toLowerCase().includes('#debunked')) {
-      status = 'debunked';
-    }
+    renderEvidence(evidenceList);
+    setupFilters();
+    setupAdvancedFilters();
 
-    // Extract location from #loc:Location Name or fallback to Location: Name
-    let location = 'Field Telemetry';
-    const locTagMatch = description.match(/#loc:([^\r\n#]+)/i);
-    const locColonMatch = description.match(/Location:\s*([^\r\n#]+)/i);
+  } catch (err) {
+    console.error('Error loading evidence vault:', err);
+    gridContainer.innerHTML = `<p style="color: #ef4444; padding: 1rem; border: 1px solid #ef4444; border-radius: 6px; background: rgba(239, 68, 68, 0.1);">Vault Error: ${escapeHtml(err.message)}</p>`;
+  }
+}
 
-    if (locTagMatch && locTagMatch[1]) {
-      location = locTagMatch[1].trim();
-    } else if (locColonMatch && locColonMatch[1]) {
-      location = locColonMatch[1].trim();
-    }
+function renderEvidence(evidenceList) {
+  const gridContainer = document.getElementById('evidence-grid');
+  if (!gridContainer) return;
 
-    return {
-      title: snippet.title,
-      description: description || 'No detailed log summary provided.',
-      location: location,
-      type: 'video',
-      status: status,
-      date: new Date(snippet.publishedAt).toLocaleDateString('en-GB', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric'
-      }),
-      mediaUrl: `https://www.youtube-nocookie.com/embed/${snippet.resourceId.videoId}`
-    };
+  if (evidenceList.length === 0) {
+    gridContainer.innerHTML = '<p style="color: #aaa;">No matching case logs found.</p>';
+    return;
+  }
+
+  gridContainer.innerHTML = evidenceList.map(item => {
+    const statusClass = item.status === 'debunked' ? 'badge-debunked' : 'badge-paranormal';
+    const statusLabel = item.status === 'debunked' ? 'Debunked' : 'Unexplained';
+
+    const mediaMarkup = item.mediaUrl ? `
+      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; margin: 1rem 0; background: #000;">
+        <iframe 
+          src="${item.mediaUrl}" 
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>` : '';
+
+    return `
+      <article class="card" data-type="${item.type}" data-status="${item.status}" data-location="${escapeHtml(item.location)}" data-date="${item.date}" style="border: 1px solid #333; padding: 1rem; border-radius: 8px; background: #181818; text-align: left; margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span class="badge ${statusClass}" style="padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; font-weight: bold;">${statusLabel}</span>
+          <span style="font-size: 0.8rem; color: #888;">${item.date}</span>
+        </div>
+        <h3 style="margin: 0.75rem 0 0.25rem 0; color: #fff;">${escapeHtml(item.title)}</h3>
+        <p style="font-size: 0.85rem; color: #aaa; margin: 0;">📍 ${escapeHtml(item.location)}</p>
+        ${mediaMarkup}
+        <p style="font-size: 0.9rem; line-height: 1.4; color: #ccc;">${escapeHtml(item.description)}</p>
+      </article>
+    `;
+  }).join('');
+}
+
+function setupFilters() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+
+      const filter = e.target.getAttribute('data-filter');
+      const cards = document.querySelectorAll('#evidence-grid .card');
+
+      cards.forEach(card => {
+        const type = card.getAttribute('data-type');
+        const status = card.getAttribute('data-status');
+
+        if (filter === 'all' || type === filter || status === filter) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
   });
+}
+
+function setupAdvancedFilters() {
+  const searchInput = document.getElementById('evidence-search');
+  const locationFilter = document.getElementById('location-filter');
+  const statusFilter = document.getElementById('status-filter');
+  
+  if (searchInput) searchInput.addEventListener('input', applyAdvancedFilters);
+  if (locationFilter) {
+    locationFilter.addEventListener('change', applyAdvancedFilters);
+    populateLocationFilter();
+  }
+  if (statusFilter) statusFilter.addEventListener('change', applyAdvancedFilters);
+}
+
+function populateLocationFilter() {
+  const locationFilter = document.getElementById('location-filter');
+  if (!locationFilter || !window.allEvidence) return;
+  
+  locationFilter.innerHTML = '<option value="">All Locations</option>';
+  const locations = [...new Set(window.allEvidence.map(item => item.location))].sort();
+  
+  locations.forEach(location => {
+    const option = document.createElement('option');
+    option.value = location;
+    option.textContent = location;
+    locationFilter.appendChild(option);
+  });
+}
+
+function applyAdvancedFilters() {
+  const searchTerm = (document.getElementById('evidence-search')?.value || '').toLowerCase();
+  const selectedLocation = document.getElementById('location-filter')?.value || '';
+  const selectedStatus = document.getElementById('status-filter')?.value || '';
+  
+  const cards = document.querySelectorAll('#evidence-grid .card');
+  
+  cards.forEach(card => {
+    const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+    const description = card.textContent.toLowerCase();
+    const location = card.getAttribute('data-location') || '';
+    const status = card.getAttribute('data-status') || '';
+    
+    const matchesSearch = searchTerm === '' || title.includes(searchTerm) || description.includes(searchTerm);
+    const matchesLocation = selectedLocation === '' || location === selectedLocation;
+    const matchesStatus = selectedStatus === '' || status === selectedStatus;
+    
+    card.style.display = (matchesSearch && matchesLocation && matchesStatus) ? 'block' : 'none';
+  });
+}
+
+function escapeHtml(str) {
+  return str.replace(/[&<>'"]/g, tag => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+  }[tag] || tag));
+}
+
+document.addEventListener('DOMContentLoaded', loadEvidenceVault);
