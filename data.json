@@ -1,75 +1,5 @@
 [
   {
-    "Date": "14th August 2026",
-    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
-    "Provider": "The Ancient Ram Inn",
-    "Event Venue": "The Ancient Ram Inn",
-    "Location": "Gloucestershire",
-    "Event Type": "Overnight Ghost Hunt",
-    "Time": "21:00 - 03:00",
-    "Price / Availability": "Sold Out"
-  },
-  {
-    "Date": "15th August 2026",
-    "Event Name": "The Thorne Workhouse Ghost Hunt Doncaster South Yorkshire",
-    "Provider": "Haunting Nights",
-    "Event Venue": "The Thorne Workhouse Ghost Hunt Doncaster South Yorkshire",
-    "Location": "Doncaster",
-    "Event Type": "Ghost Hunt",
-    "Time": "21:00 - 03:00",
-    "Price / Availability": "Selling Fast"
-  },
-  {
-    "Date": "15th August 2026",
-    "Event Name": "Matthew Hopkins The Witch Finder General Ghost Hunt Essex",
-    "Provider": "Haunting Nights",
-    "Event Venue": "Matthew Hopkins The Witch Finder General Ghost Hunt Essex",
-    "Location": "Essex",
-    "Event Type": "Ghost Hunt",
-    "Time": "21:00 - 02:00",
-    "Price / Availability": "Last Few Places Investigation Only Last 2 Places"
-  },
-  {
-    "Date": "15th August 2026",
-    "Event Name": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
-    "Provider": "Haunting Nights",
-    "Event Venue": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
-    "Location": "Wales",
-    "Event Type": "Ghost Hunt",
-    "Time": "21:30 - 03:00",
-    "Price / Availability": "Selling Fast"
-  },
-  {
-    "Date": "15th August 2026",
-    "Event Name": "Ancient Ram Inn – Open Days",
-    "Provider": "The Ancient Ram Inn",
-    "Event Venue": "The Ancient Ram Inn",
-    "Location": "Gloucestershire",
-    "Event Type": "Open Day",
-    "Time": "11:00 - 16:00",
-    "Price / Availability": "Check Site"
-  },
-  {
-    "Date": "15th August 2026",
-    "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
-    "Provider": "The Ancient Ram Inn",
-    "Event Venue": "The Ancient Ram Inn",
-    "Location": "Gloucestershire",
-    "Event Type": "Overnight Ghost Hunt",
-    "Time": "21:00 - 03:00",
-    "Price / Availability": "Check Site"
-  },
-  {
-    "Date": "16th August 2026",
-    "Event Name": "Ancient Ram Inn – Afternoon Ghost Hunt",
-    "Provider": "The Ancient Ram Inn",
-    "Event Venue": "The Ancient Ram Inn",
-    "Location": "Gloucestershire",
-    "Event Type": "Afternoon Ghost Hunt",
-    "Time": "13:00 - 18:00",
-    "Price / Availability": "Check Site"
-  },
-  {
     "Date": "19th August 2026",
     "Event Name": "Ancient Ram Inn – Junior Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
@@ -177,7 +107,7 @@
     "Location": "Manchester",
     "Event Type": "Ghost Hunt",
     "Time": "21:00 - 03:00",
-    "Price / Availability": "Selling Fast"
+    "Price / Availability": "Last Few Places Last 6 Places"
   },
   {
     "Date": "5th September 2026",
@@ -187,7 +117,7 @@
     "Location": "Gloucestershire",
     "Event Type": "Ghost Hunt",
     "Time": "21:00 - 03:00",
-    "Price / Availability": "Selling Fast"
+    "Price / Availability": "Last Few Places Last 6 Places"
   },
   {
     "Date": "5th September 2026",
@@ -307,7 +237,7 @@
     "Location": "Staffordshire",
     "Event Type": "Ghost Hunt",
     "Time": "21:00 - 03:00",
-    "Price / Availability": "Places Available"
+    "Price / Availability": "Last Few Places"
   },
   {
     "Date": "18th September 2026",
@@ -318,6 +248,36 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "19th September 2026",
+    "Event Name": "Lowlands Mansion Ghost Hunts, Liverpool",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Lowlands Mansion Ghost Hunts, Liverpool",
+    "Location": "Liverpool",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 01:00",
+    "Price / Availability": "Last Few Places Colchester Most Haunted Hotel Last 6 Places"
+  },
+  {
+    "Date": "19th September 2026",
+    "Event Name": "The Red Lion Hotel Ghost Hunt Colchester Essex",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Red Lion Hotel Ghost Hunt Colchester Essex",
+    "Location": "Essex",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "19th September 2026",
+    "Event Name": "Bodmin Jail Ghost Hunts Bodmin Cornwall",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Bodmin Jail Ghost Hunts Bodmin Cornwall",
+    "Location": "Cornwall",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
   },
   {
     "Date": "19th September 2026",
