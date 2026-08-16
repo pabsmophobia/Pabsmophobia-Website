@@ -2,7 +2,7 @@
 title: "The Host’s Dilemma: Balancing Public Expectation with Paranormal Credibility"
 date: 2026-08-16
 description: "How lead hosts for commercial ghost hunts can keep guests engaged while maintaining strict scientific credibility and avoiding tech-driven false positives."
-image: "images/blogs/host-dilemma.png.png"
+image: "/images/blogs/host-dilemma.png.png"
 image_alt: "A commercial ghost hunt host balancing guest engagement with paranormal investigation credibility"
 slug: "the-hosts-dilemma-balancing-public-expectation-with-paranormal-credibility"
 tags:
