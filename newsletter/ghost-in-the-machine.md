@@ -2,7 +2,7 @@
 title: "Ghost in the Machine: Why the Panasonic DR60 and SLS Cameras Fail as Paranormal Investigation Tools"
 date: 2026-08-16
 description: "High-tech ghost hunting tools like the Panasonic DR60 and SLS camera don't detect spirits—they produce technology-driven false positives."
-image: "images/blogs/ghost-in-the-machine.jpg.png"
+image: "/images/blogs/ghost-in-the-machine.jpg.png"
 image_alt: "A Panasonic DR60 audio recorder and an SLS camera used in paranormal investigations"
 slug: "ghost-in-the-machine-panasonic-dr60-sls-camera-flaws"
 tags:
