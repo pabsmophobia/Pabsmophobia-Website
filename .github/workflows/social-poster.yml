@@ -3,11 +3,15 @@ name: Social Media Auto-Poster
 on:
   workflow_dispatch:
   schedule:
-    # 18:00 UTC -> 7:00 PM BST / 6:00 PM GMT
-    - cron: '0 18 * * *'
+    # Shifted off the top of the hour to prevent GitHub Actions cron queue delays
+    - cron: '17 18 * * *'
+  push:
+    paths:
+      - 'newsletter/**'
+      - '.github/scripts/**'
 
 jobs:
-  post:
+  generate-and-post:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -18,12 +22,26 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Node Dependencies
+        run: npm install gray-matter
+
+      - name: Build RSS Feed
+        run: node generate-rss.js
+
+      - name: Generate Blog Manifest
+        run: node .github/scripts/generate-blog-index.js
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install Dependencies
+      - name: Install Python Dependencies
         run: pip install requests
 
       - name: Run Social Poster
@@ -33,10 +51,10 @@ jobs:
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
         run: python post_social.py
 
-      - name: Commit and push posted history
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add posted_history.json
-          git commit -m "Update posted history [skip ci]" || exit 0
-          git push origin HEAD:${{ github.ref_name }}
+      - name: Commit and Push All Updates
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto-update feed, manifest, and social history [skip ci]"
+          file_pattern: 'feed.xml newsletter-manifest.json posted_history.json'
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
