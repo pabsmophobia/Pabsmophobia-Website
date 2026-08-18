@@ -15,6 +15,8 @@ layout: post
 
 # Bridging the Unknown: A Balanced Look at the Paranormal Tool Kit
 
+![A collection of paranormal investigation tools on a wooden table, including dowsing rods, a spirit box, and EMF meters, with the Pabsmophobia logo in the corner.](/images/blogs/toolkit.png)
+
 For decades, ghost hunters and paranormal investigators have relied on an array of specialized equipment to document, measure, and communicate with the unseen. From Victorian-era divining tools to modern digital devices, the "paranormal tool kit" is diverse and fascinating.
 
 However, the validity of these devices remains a subject of intense debate. While believers argue that these instruments successfully register anomalous spiritual energy, skeptics attribute their readings to psychological phenomena, environmental interference, and the laws of physics.
