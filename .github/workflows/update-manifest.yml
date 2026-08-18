@@ -1,0 +1,30 @@
+name: Auto-generate Blog Manifest
+
+on:
+  push:
+    paths:
+      - 'newsletter/**.md' # Triggers whenever a markdown file in the newsletter folder changes
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+            node-version: '18'
+
+      - name: Install dependencies
+        run: npm install gray-matter
+
+      - name: Run manifest generator
+        run: node generate-manifest.js
+
+      - name: Commit and push if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+            commit_message: "Auto-update newsletter manifest [skip ci]"
+            branch: main
