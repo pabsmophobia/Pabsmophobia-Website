@@ -2,7 +2,7 @@
 title: "Bridging the Unknown: A Balanced Look at the Paranormal Tool Kit"
 date: 2026-08-18
 description: "Explore the fascinating world of ghost hunting equipment and discover the ongoing debate between believers and skeptics regarding how they work."
-image: "../images/blogs/paranormal-toolkit.jpg"
+image: "/images/blogs/paranormal-toolkit.jpg"
 image_alt: "A collection of paranormal investigation tools on a wooden table, including dowsing rods, a spirit box, and EMF meters, with the Pabsmophobia logo in the corner."
 slug: "paranormal-tool-kit-guide"
 tags:
