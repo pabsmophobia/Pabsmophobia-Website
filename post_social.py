@@ -4,6 +4,7 @@ import re
 import time
 import json
 import subprocess
+import datetime
 import requests
 
 # ---------------------------------------------------------------------------
@@ -12,6 +13,7 @@ import requests
 META_ACCESS_TOKEN = os.environ.get("META_ACCESS_TOKEN")
 FB_PAGE_ID = os.environ.get("FB_PAGE_ID")
 IG_USER_ID = os.environ.get("IG_USER_ID")
+TRIGGER_TYPE = os.environ.get("TRIGGER_TYPE", "schedule")
 SITE_BASE_URL = "https://pabsmophobia.com"
 DEFAULT_IMAGE = "https://pabsmophobia.com/images/library/Pabsmo.jpg"
 POSTED_HISTORY_FILE = "posted_history.json"
@@ -48,83 +50,72 @@ def save_posted_history(posted_set):
         print(f"Error saving posted history: {e}")
 
 # ---------------------------------------------------------------------------
-# FILE FINDER & PARSER
+# CONTENT BUILDERS (Events, Blog Hub, and Individual Markdown Posts)
 # ---------------------------------------------------------------------------
-def get_latest_markdown_file():
-    """
-    Finds the newest unposted Markdown file in newsletter/ or _posts/
-    by querying Git commit history. Falls back to OS file mtime if Git fails.
-    """
+def get_events_payload():
+    """Payload for the static Events page (Shared Mondays and Thursdays)."""
+    return {
+        "title": "Upcoming Paranormal Investigations & Events",
+        "description": "Join us on our next hunt! Check out where we are heading next, secure your spot, and come investigate with the Pabsmophobia team.",
+        "url": f"{SITE_BASE_URL}/events",
+        "image": DEFAULT_IMAGE,
+        "tags": ["ParanormalEvents", "GhostHunt", "Pabsmophobia", "UKParanormal"]
+    }
+
+def get_blog_hub_payload():
+    """Payload for the main Blog archive page (Shared Tuesdays and Fridays)."""
+    return {
+        "title": "Explore All Pabsmophobia Articles & Newsletters",
+        "description": "Catch up on our latest paranormal investigations, ghost-hunting equipment deep dives, and community updates on our main blog hub!",
+        "url": f"{SITE_BASE_URL}/blog",
+        "image": DEFAULT_IMAGE,
+        "tags": ["ParanormalBlog", "GhostStories", "Pabsmophobia", "Newsletter"]
+    }
+
+def get_latest_markdown_payload():
+    """Finds unposted Markdown files and builds payload for instant push posting."""
     posted_files = load_posted_history()
-
-    # --- METHOD 1: Try Git log (Most reliable for commit order) ---
-    try:
-        cmd = [
-            "git", "log", "--name-only", "--format=", 
-            "--", "newsletter/*.md", "_posts/*.md"
-        ]
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
-        git_files = [line.strip() for line in result.stdout.splitlines() if line.strip()]
-
-        for filepath in git_files:
-            filename = os.path.basename(filepath)
-            if filename not in IGNORE_FILES and filepath not in posted_files:
-                if os.path.exists(filepath):
-                    print(f"Selected via Git history: {filepath}")
-                    return filepath
-    except Exception as e:
-        print(f"Git lookup skipped/failed ({e}). Falling back to local file times...")
-
-    # --- METHOD 2: Fallback to local glob / mtime ---
     files = glob.glob("newsletter/*.md") + glob.glob("_posts/*.md")
-    valid_files = [
-        f for f in files 
-        if os.path.basename(f) not in IGNORE_FILES and f not in posted_files
-    ]
+    valid_files = [f for f in files if os.path.basename(f) not in IGNORE_FILES and f not in posted_files]
 
     if not valid_files:
-        return None
+        return None, None
 
-    selected = max(valid_files, key=os.path.getmtime)
-    print(f"Selected via file modification time: {selected}")
-    return selected
-
-def parse_markdown(filepath):
-    """Extracts metadata from YAML front matter or provides defaults."""
-    with open(filepath, 'r', encoding='utf-8') as f:
+    target_file = max(valid_files, key=os.path.getmtime)
+    print(f"Selected new Markdown file: {target_file}")
+    
+    with open(target_file, 'r', encoding='utf-8') as f:
         content = f.read()
 
     def extract_val(pattern, default=""):
         match = re.search(pattern, content, re.IGNORECASE | re.MULTILINE)
         if match:
             val = match.group(1).strip()
-            # Strip outer quotes if present
             if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
                 val = val[1:-1]
             return val.strip()
         return default
 
-    title = extract_val(r'^title:\s*(.*)$', "New Post Alert!")
+    title = extract_val(r'^title:\s*(.*)$', "New Paranormal Article")
     description = extract_val(r'^description:\s*(.*)$', "")
     image = extract_val(r'^image:\s*(.*)$', DEFAULT_IMAGE)
 
     tags_match = re.search(r'tags:\s*\n((?:\s*-\s*.*\n?)+)', content)
     tags = re.findall(r'-\s*(.*)', tags_match.group(1)) if tags_match else []
 
-    # Standardize image URL
     if not image.startswith("http"):
         image = f"{SITE_BASE_URL}/{image.lstrip('/')}"
 
-    # Standardize relative file path for safe routing matching site structure
-    relative_filepath = filepath.replace("\\", "/")
+    relative_filepath = target_file.replace("\\", "/")
 
-    return {
+    payload = {
         "title": title,
         "description": description,
         "url": f"{SITE_BASE_URL}/post?file={relative_filepath}",
         "image": image,
         "tags": [t.strip() for t in tags]
     }
+    return payload, target_file
 
 # ---------------------------------------------------------------------------
 # SOCIAL API INTEGRATIONS
@@ -151,7 +142,6 @@ def get_page_access_token():
     return META_ACCESS_TOKEN
 
 def post_to_facebook(data, page_token):
-    # Include title, description, and the correct query-parameter link directly in caption
     message = f"{data['title']}\n\n{data['description']}\n\nRead the full article here:\n{data['url']}"
     
     endpoint = f"https://graph.facebook.com/v19.0/{FB_PAGE_ID}/photos"
@@ -169,7 +159,7 @@ def post_to_instagram(data, page_token):
         print("Skipping Instagram: IG_USER_ID not provided.")
         return
 
-    hashtags = " ".join([f"#{tag.replace(' ', '')}" for tag in data['tags']])
+    hashtags = " ".join([f"#{tag.replace(' ', '')}" for tag in data['tags']]) if data.get('tags') else "#Pabsmophobia #Paranormal"
     caption = f"{data['title']}\n\n{data['description']}\n\n🔗 Link in bio to read full post!\n\n{hashtags}"
 
     # Step 1: Create Container
@@ -214,22 +204,42 @@ def post_to_instagram(data, page_token):
     print("Instagram API Response:", pub_res)
 
 # ---------------------------------------------------------------------------
-# MAIN EXECUTION
+# MAIN EXECUTION ROUTER
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    target_file = get_latest_markdown_file()
+    post_data = None
+    tracked_file = None
 
-    if target_file:
-        print(f"Processing target file: {target_file}")
-        post_data = parse_markdown(target_file)
+    # RULE 1: If triggered by a manual push with a new .md file, post it instantly!
+    if TRIGGER_TYPE == "push":
+        print("Triggered by Push event. Checking for unposted markdown files...")
+        post_data, tracked_file = get_latest_markdown_payload()
+
+    # RULE 2: If it's a scheduled cron run, use the day-of-the-week mapping
+    if not post_data:
+        current_day = datetime.datetime.now().strftime("%A")
+        print(f"Triggered by Schedule ({current_day}). Evaluating calendar...")
+
+        if current_day in ["Monday", "Thursday"]:
+            print("Scheduled Content: EVENTS PAGE")
+            post_data = get_events_payload()
+
+        elif current_day in ["Tuesday", "Friday"]:
+            print("Scheduled Content: BLOG HUB (/blog)")
+            post_data = get_blog_hub_payload()
+        else:
+            print(f"No scheduled posting rule for {current_day}. Exiting cleanly.")
+
+    # Execute posting if a valid payload is established
+    if post_data:
         page_access_token = get_page_access_token()
-
         post_to_facebook(post_data, page_access_token)
         post_to_instagram(post_data, page_access_token)
 
-        # Record file as posted so it's skipped in future runs
-        posted_history = load_posted_history()
-        posted_history.add(target_file)
-        save_posted_history(posted_history)
+        # If it was a tracked markdown file, save it to history so it doesn't re-post
+        if tracked_file:
+            posted_history = load_posted_history()
+            posted_history.add(tracked_file)
+            save_posted_history(posted_history)
     else:
-        print("No new markdown files to post in 'newsletter/' or '_posts/'. Exiting cleanly.")
+        print("No content action required for this run.")
