@@ -152,15 +152,30 @@ def get_page_access_token():
     return META_ACCESS_TOKEN
 
 def post_to_facebook(data, page_token):
-    message = f"{data['title']}\n\n{data['description']}\n\nRead more:\n{data['url']}"
-    endpoint = f"https://graph.facebook.com/v19.0/{FB_PAGE_ID}/feed"
+    # 1. Craft native post caption with a call to action
+    message = f"{data['title']}\n\n{data['description']}\n\nRead the full breakdown below! 👇"
+    
+    # 2. Post as a native photo to avoid Facebook link-preview card penalties
+    endpoint = f"https://graph.facebook.com/v19.0/{FB_PAGE_ID}/photos"
     payload = {
+        "url": data['image'],
         "message": message,
-        "link": data['url'],
         "access_token": page_token
     }
     response = requests.post(endpoint, data=payload).json()
-    print("Facebook API Response:", response)
+    print("Facebook Photo API Response:", response)
+    
+    # 3. Automatically comment the actual blog link on the newly created post
+    if "id" in response:
+        post_id = response["id"]
+        comment_endpoint = f"https://graph.facebook.com/v19.0/{post_id}/comments"
+        comment_payload = {
+            "message": f"Read the full article here: {data['url']}",
+            "access_token": page_token
+        }
+        comment_response = requests.post(comment_endpoint, data=comment_payload).json()
+        print("Facebook Comment API Response:", comment_response)
+        
     return response
 
 def post_to_instagram(data, page_token):
