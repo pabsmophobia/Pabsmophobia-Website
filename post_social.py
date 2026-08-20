@@ -106,23 +106,22 @@ def parse_markdown(filepath):
 
     title = extract_val(r'^title:\s*(.*)$', "New Post Alert!")
     description = extract_val(r'^description:\s*(.*)$', "")
-    slug = extract_val(r'^slug:\s*(.*)$', "")
     image = extract_val(r'^image:\s*(.*)$', DEFAULT_IMAGE)
 
     tags_match = re.search(r'tags:\s*\n((?:\s*-\s*.*\n?)+)', content)
     tags = re.findall(r'-\s*(.*)', tags_match.group(1)) if tags_match else []
 
-    if not slug:
-        slug = os.path.splitext(os.path.basename(filepath))[0]
-
     # Standardize image URL
     if not image.startswith("http"):
         image = f"{SITE_BASE_URL}/{image.lstrip('/')}"
 
+    # Standardize relative file path for safe routing matching site structure
+    relative_filepath = filepath.replace("\\", "/")
+
     return {
         "title": title,
         "description": description,
-        "url": f"{SITE_BASE_URL}/{slug}",
+        "url": f"{SITE_BASE_URL}/post?file={relative_filepath}",
         "image": image,
         "tags": [t.strip() for t in tags]
     }
@@ -152,10 +151,9 @@ def get_page_access_token():
     return META_ACCESS_TOKEN
 
 def post_to_facebook(data, page_token):
-    # 1. Craft native post caption with a call to action
-    message = f"{data['title']}\n\n{data['description']}\n\nRead the full breakdown below! 👇"
+    # Include title, description, and the correct query-parameter link directly in caption
+    message = f"{data['title']}\n\n{data['description']}\n\nRead the full article here:\n{data['url']}"
     
-    # 2. Post as a native photo to avoid Facebook link-preview card penalties
     endpoint = f"https://graph.facebook.com/v19.0/{FB_PAGE_ID}/photos"
     payload = {
         "url": data['image'],
@@ -164,18 +162,6 @@ def post_to_facebook(data, page_token):
     }
     response = requests.post(endpoint, data=payload).json()
     print("Facebook Photo API Response:", response)
-    
-    # 3. Automatically comment the actual blog link on the newly created post
-    if "id" in response:
-        post_id = response["id"]
-        comment_endpoint = f"https://graph.facebook.com/v19.0/{post_id}/comments"
-        comment_payload = {
-            "message": f"Read the full article here: {data['url']}",
-            "access_token": page_token
-        }
-        comment_response = requests.post(comment_endpoint, data=comment_payload).json()
-        print("Facebook Comment API Response:", comment_response)
-        
     return response
 
 def post_to_instagram(data, page_token):
