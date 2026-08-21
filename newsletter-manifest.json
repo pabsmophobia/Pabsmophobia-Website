@@ -1,86 +1,80 @@
 [
   {
-    "file": "newsletter/bridging-the-unknown.md",
-    "title": "Bridging the Unknown: A Balanced Look at the Paranormal Tool Kit",
-    "date": "2026-08-18",
-    "category": "PARANORMAL",
-    "excerpt": "Explore the fascinating world of ghost hunting equipment and discover the ongoing debate between believers and skeptics regarding how they work."
-  },
-  {
-    "file": "newsletter/ghost-in-the-machine.md",
-    "title": "Ghost in the Machine: Why the Panasonic DR60 and SLS Cameras Fail as Paranormal Investigation Tools",
-    "date": "2026-08-16",
-    "category": "PARANORMAL",
-    "excerpt": "High-tech ghost hunting tools like the Panasonic DR60 and SLS camera don't detect spirits—they produce technology-driven false positives."
-  },
-  {
-    "file": "newsletter/host-dilemma.md",
-    "title": "The Host’s Dilemma: Balancing Public Expectation with Paranormal Credibility",
-    "date": "2026-08-16",
-    "category": "PARANORMAL",
-    "excerpt": "How lead hosts for commercial ghost hunts can keep guests engaged while maintaining strict scientific credibility and avoiding tech-driven false positives."
-  },
-  {
-    "file": "newsletter/the-game-of-whispers.md",
-    "title": "The Game of Whispers: How Sensationalism Overshadows the True History of Haunted Places ",
-    "date": "2026-08-13",
-    "category": "PARANORMAL",
-    "excerpt": "Why the paranormal community must choose between manufacturing myths for the algorithm and honoring the genuine, tragic histories of haunted locations."
-  },
-  {
-    "file": "newsletter/wired-for-the-unknown-part2.md",
-    "title": "Wired for the Unknown (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World",
-    "date": "2026-08-12",
-    "category": "PARANORMAL",
-    "excerpt": "Exploring the neuroscience of intuition, sensory gating, and how the human brain processes mediumship and the 'clairs' on paranormal investigations."
-  },
-  {
-    "file": "newsletter/gender-psychology-and-investigation.md",
-    "title": "👻 Wired for the Unknown: How Gender Psychology Shapes Our Behaviour on Ghost Hunts 🔦",
-    "date": "2026-08-09",
-    "category": "PARANORMAL",
-    "excerpt": "Exploring Danny Dyer's 'How to Be a Man' through the lens of paranormal investigations, stress psychology, and the human spectrum."
-  },
-  {
-    "file": "newsletter/monthly-haunt-issue1.md",
-    "title": "The Pabsmophobia Monthly Haunt: Issue #1",
-    "date": "2026-08-01",
-    "category": "ARTICLE",
-    "excerpt": "UK Ghost News, Lock-In Dates & Field Notes — August 2026 Launch Edition."
-  },
-  {
-    "file": "newsletter/trappedsoulspod.md",
-    "title": "TRAPPED SOULS PODCAST APPEARANCE",
-    "date": "2026-01-15",
-    "category": "PARANORMAL",
-    "excerpt": "Pabs joins Ryan on Trapped Souls to discuss ghost hunting in the UK, investigating the Ancient Ram Inn, and the origins of Pabsmophobia."
-  },
-  {
-    "file": "newsletter/a-seat-at-the-table.md",
     "title": "A Seat at the Table: When Our Loved Ones Visit on Special Days",
-    "date": "2025-11-03",
-    "category": "ARTICLE",
-    "excerpt": "There's a unique kind of quiet on special occasions—birthdays, anniversaries, holidays—after the wrapping paper is cleared and the candles are blown out. In the midst of the celebration, many of us feel a faint, unmistakable echo, a sense that someone is missing, and yet, somehow, they are also present."
+    "excerpt": "There's a unique kind of quiet on special occasions—birthdays, anniversaries, holidays—after the wrapping paper is cleared and the candles are blown out. In the midst of the celebration, many of us feel a faint, unmistakable echo, a sense that someone is missing, and yet, somehow, they are also present.",
+    "category": "General",
+    "file": "newsletter/a-seat-at-the-table.md"
   },
   {
-    "file": "newsletter/essential-ghost-hunting-toolkit.md",
+    "title": "Bridging the Unknown: A Balanced Look at the Paranormal Tool Kit",
+    "excerpt": "Explore the fascinating world of ghost hunting equipment and discover the ongoing debate between believers and skeptics regarding how they work.",
+    "category": "paranormal",
+    "file": "newsletter/bridging-the-unknown.md"
+  },
+  {
     "title": "Unveiling the Unseen:Your Essential Ghost Hunting Toolkit!",
-    "date": "2025-11-02",
-    "category": "ARTICLE",
-    "excerpt": "Hey fellow paranormal enthusiasts! We've all seen the dramatic ghost hunting shows, full of figures creeping through abandoned buildings in the dead of night, clutching mysterious gadgets. But what are all those tools, and how do they supposedly help us connect with the other side?"
+    "excerpt": "Hey fellow paranormal enthusiasts! We've all seen the dramatic ghost hunting shows, full of figures creeping through abandoned buildings in the dead of night, clutching mysterious gadgets. But what are all those tools, and how do they supposedly help us connect with the other side?",
+    "category": "General",
+    "file": "newsletter/essential-ghost-hunting-toolkit.md"
   },
   {
-    "file": "newsletter/why-the-veil-might-still-be-thin.md",
-    "title": "Don't Put Away Your Cauldrons Just Yet: Why the Veil Might Still Be Thin!",
-    "date": "2025-11-01",
-    "category": "ARTICLE",
-    "excerpt": "The pumpkins are wilting, the candy is half-eaten, and the last vestiges of spooky décor are being packed away for another year. Halloween has come and gone, and with it, many assume the mystical 'thinning of the veil' has fully snapped back into place. But what if that's not entirely true?"
+    "title": "👻 Wired for the Unknown: How Gender Psychology Shapes Our Behaviour on Ghost Hunts 🔦",
+    "excerpt": "Exploring Danny Dyer's 'How to Be a Man' through the lens of paranormal investigations, stress psychology, and the human spectrum.",
+    "category": "paranormal",
+    "file": "newsletter/gender-psychology-and-investigation.md"
   },
   {
-    "file": "newsletter/photographic-truth-about-ghost-orbs.md",
+    "title": "Ghost in the Machine: Why the Panasonic DR60 and SLS Cameras Fail as Paranormal Investigation Tools",
+    "excerpt": "High-tech ghost hunting tools like the Panasonic DR60 and SLS camera don't detect spirits—they produce technology-driven false positives.",
+    "category": "paranormal",
+    "file": "newsletter/ghost-in-the-machine.md"
+  },
+  {
+    "title": "The Host’s Dilemma: Balancing Public Expectation with Paranormal Credibility",
+    "excerpt": "How lead hosts for commercial ghost hunts can keep guests engaged while maintaining strict scientific credibility and avoiding tech-driven false positives.",
+    "category": "paranormal",
+    "file": "newsletter/host-dilemma.md"
+  },
+  {
+    "title": "The Power Stays On: How to Debunk False Positives When You Can't Kill the Mains",
+    "excerpt": "How to separate true paranormal anomalies from routine noise when investigating commercial venues where shutting off the power isn't an option.",
+    "category": "paranormal",
+    "file": "newsletter/investigating-with-power-on.md"
+  },
+  {
+    "title": "The Pabsmophobia Monthly Haunt: Issue #1",
+    "excerpt": "UK Ghost News, Lock-In Dates & Field Notes — August 2026 Launch Edition.",
+    "category": "General",
+    "file": "newsletter/monthly-haunt-issue1.md"
+  },
+  {
     "title": "The Photographic Truth About \"Ghost Orbs\"",
-    "date": "2025-10-31",
-    "category": "ARTICLE",
-    "excerpt": "An Analysis of Common Anomalies in Paranormal Photography. I recently captured some photos in a dark interior that feature common anomalies often mistaken for paranormal 'orbs.' By analyzing these sequential shots and close-ups, we can see exactly why these features are almost always caused by photographic artifacts —not spirits."
+    "excerpt": "An Analysis of Common Anomalies in Paranormal Photography. I recently captured some photos in a dark interior that feature common anomalies often mistaken for paranormal 'orbs.' By analyzing these sequential shots and close-ups, we can see exactly why these features are almost always caused by photographic artifacts —not spirits.",
+    "category": "General",
+    "file": "newsletter/photographic-truth-about-ghost-orbs.md"
+  },
+  {
+    "title": "The Game of Whispers: How Sensationalism Overshadows the True History of Haunted Places ",
+    "excerpt": "Why the paranormal community must choose between manufacturing myths for the algorithm and honoring the genuine, tragic histories of haunted locations.",
+    "category": "paranormal",
+    "file": "newsletter/the-game-of-whispers.md"
+  },
+  {
+    "title": "TRAPPED SOULS PODCAST APPEARANCE",
+    "excerpt": "Pabs joins Ryan on Trapped Souls to discuss ghost hunting in the UK, investigating the Ancient Ram Inn, and the origins of Pabsmophobia.",
+    "category": "paranormal",
+    "file": "newsletter/trappedsoulspod.md"
+  },
+  {
+    "title": "Don't Put Away Your Cauldrons Just Yet: Why the Veil Might Still Be Thin!",
+    "excerpt": "The pumpkins are wilting, the candy is half-eaten, and the last vestiges of spooky décor are being packed away for another year. Halloween has come and gone, and with it, many assume the mystical 'thinning of the veil' has fully snapped back into place. But what if that's not entirely true?",
+    "category": "General",
+    "file": "newsletter/why-the-veil-might-still-be-thin.md"
+  },
+  {
+    "title": "Wired for the Unknown (Part 2): Unlocking the Hidden Mind, Intuition, and the Spirit World",
+    "excerpt": "Exploring the neuroscience of intuition, sensory gating, and how the human brain processes mediumship and the 'clairs' on paranormal investigations.",
+    "category": "paranormal",
+    "file": "newsletter/wired-for-the-unknown-part2.md"
   }
 ]
