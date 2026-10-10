@@ -148,7 +148,7 @@
   <!-- Global Navigation Script -->
   <script src="nav.js"></script>
   
-  <!-- Load Latest Evidence Script (Aligned with evidence.html media structures) -->
+  <!-- Combined Unified Homepage Loader -->
   <script>
     function getYouTubeEmbedUrl(url) {
       if (!url) return null;
@@ -156,23 +156,50 @@
       return match ? `https://www.youtube.com/embed/${match[1]}` : null;
     }
 
+    function parseWidgetDate(dateStr) {
+      if (!dateStr || dateStr === 'TBA') return new Date(0);
+      const cleanDate = dateStr.replace(/(st|nd|rd|th)/gi, '').trim();
+      const parsed = Date.parse(cleanDate);
+      return !isNaN(parsed) ? new Date(parsed) : new Date(0);
+    }
+
+    function handleWidgetInquiry(providerType, eventName, eventDate) {
+      if (providerType === 'ram') {
+        window.open('https://ancientraminn.co.uk/events/', '_blank');
+      } else if (providerType === 'hn') {
+        window.open('https://hauntingnights.co.uk/ghost-hunts/', '_blank');
+      } else {
+        const googleFormBaseURL = "https://docs.google.com/forms/d/e/1FAIpQLScBWQ4Vw5OzlGSav07EIQsSTlUNy6_OayTkYy1ltcbyyu5OdA/viewform";
+        const entryID = "entry.1202371367"; 
+        const eventDetail = `${eventName} (${eventDate})`;
+        window.open(`${googleFormBaseURL}?usp=pp_url&${entryID}=${encodeURIComponent(eventDetail)}`, '_blank');
+      }
+    }
+    window.handleWidgetInquiry = handleWidgetInquiry;
+
+    async function fetchJSON(filenames) {
+      for (const name of filenames) {
+        try {
+          const res = await fetch(name);
+          if (res.ok) return await res.json();
+        } catch(e) {}
+      }
+      return null;
+    }
+
     async function loadLatestInvestigations() {
       const container = document.getElementById('latest-investigations-container');
       if (!container) return;
       
       try {
-        const response = await fetch('evidence-data.json');
-        if (!response.ok) throw new Error('Failed to fetch evidence data');
-        const evidenceList = await response.json();
-        
-        // Grab the 3 most recent entries
-        const latest = evidenceList.slice(-3).reverse();
-        
-        if (latest.length === 0) {
-          container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">No recent evidence logs available.</p>';
+        const evidenceList = await fetchJSON(['evidence-data.json', './evidence-data.json', '/evidence-data.json']);
+        if (!evidenceList || !Array.isArray(evidenceList) || evidenceList.length === 0) {
+          container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1; text-align: center;">No recent evidence logs available right now.</p>';
           return;
         }
-        
+
+        const latest = evidenceList.slice(-3).reverse();
+
         container.innerHTML = latest.map(item => {
           const statusClass = item.status === 'debunked' ? 'badge-debunked' : 'badge-paranormal';
           const statusLabel = item.status === 'debunked' ? 'Debunked' : 'Unexplained';
@@ -199,4 +226,5 @@
           } else if (item.imageUrl || item.image) {
             const imgSrc = item.imageUrl || item.image;
             mediaMarkup = `
-</script></body></html>
+              <div style="height: 180px; overflow: hidden; border-radius: 6px; margin-bottom: 1rem; background: #1a1a24;">
+                <img src="${imgSrc}" alt="${item.title || '
