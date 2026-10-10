@@ -116,57 +116,21 @@
         <a href="events.html" class="btn" style="padding: 0.5rem 1.25rem; font-size: 0.9rem; text-decoration: none; display: inline-block;">View Full Schedule →</a>
       </div>
 
-      <!-- Widget Cards Grid (Top 4 Events) -->
+      <!-- Widget Cards Grid (2 Up / 2 Down Layout) -->
       <div id="homepageEventsGrid" class="events-grid-2x2">
-        <!-- Instant fallback render card 1 -->
-        <div class="card" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border, #334155); border-radius: 8px; padding: 1.25rem;">
-          <div style="display: flex; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <h3 style="margin: 0; font-size: 1.1rem; color: #fff;">The Ancient Ram Inn – Overnight Ghost Hunts</h3>
-            <span style="font-size: 0.85rem; color: var(--accent, #a855f7); white-space: nowrap;">10th October 2026</span>
-          </div>
-          <div style="margin-bottom: 0.75rem;">
-            <span class="badge badge-ram">The Ancient Ram Inn</span>
-          </div>
-          <div style="font-size: 0.85rem; color: #9ca3af; line-height: 1.4; margin-bottom: 1rem;">
-            <div><strong>Venue:</strong> The Ancient Ram Inn</div>
-            <div><strong>Location:</strong> Gloucestershire</div>
-          </div>
-          <a href="events.html" class="btn" style="padding: 0.35rem 0.85rem; font-size: 0.85rem; text-decoration: none; display: inline-block;">View →</a>
-        </div>
-
-        <!-- Instant fallback render card 2 -->
-        <div class="card" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border, #334155); border-radius: 8px; padding: 1.25rem;">
-          <div style="display: flex; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <h3 style="margin: 0; font-size: 1.1rem; color: #fff;">The Horseshoe - In-spectre nights</h3>
-            <span style="font-size: 0.85rem; color: var(--accent, #a855f7); white-space: nowrap;">11th October 2026</span>
-          </div>
-          <div style="margin-bottom: 0.75rem;">
-            <span class="badge badge-pabs">Pabsmophobia</span>
-          </div>
-          <div style="font-size: 0.85rem; color: #9ca3af; line-height: 1.4; margin-bottom: 1rem;">
-            <div><strong>Venue:</strong> The Horseshoe</div>
-            <div><strong>Location:</strong> Chipping Sodbury</div>
-          </div>
-          <a href="events.html" class="btn" style="padding: 0.35rem 0.85rem; font-size: 0.85rem; text-decoration: none; display: inline-block;">View →</a>
-        </div>
+        <div style="text-align: center; padding: 2rem; color: #9ca3af; grid-column: 1 / -1;">Loading live upcoming events...</div>
       </div>
     </section>
 
     <!-- LATEST FIELD EVIDENCE SECTION -->
     <section style="margin-top: 4rem;">
-      <h2 style="font-family: 'Creepster', cursive; font-size: 2.2rem; color: #fff; letter-spacing: 1px; margin-bottom: 0.25rem;">Latest Field Evidence</h2>
+      <h2 class="section-title">Latest Field Evidence</h2>
       <p style="color: var(--text-muted); margin-bottom: 2rem;">Our most recent case findings, video logs, and sensor telemetry from active investigations.</p>
       
-      <!-- Top 3 Evidence Items Container -->
+      <!-- Dynamic Video & Evidence Grid -->
       <div id="latest-investigations-container" class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
-        <div class="card" style="border: 1px solid var(--border, #334155); background: rgba(0,0,0,0.25); border-radius: 8px; padding: 1.25rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-            <span class="badge badge-paranormal" style="font-size: 0.7rem;">Unexplained</span>
-            <span style="font-size: 0.8rem; color: var(--text-muted, #9ca3af);">15 Aug 2026</span>
-          </div>
-          <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.25rem;">Cat ball lighting up &amp; rolling off stool</h3>
-          <p style="color: var(--text-muted, #9ca3af); font-size: 0.85rem; margin-bottom: 1rem;">📍 The Ancient Ram Inn</p>
-          <a href="evidence.html" style="color: var(--accent, #a855f7); text-decoration: none; font-weight: 600; font-size: 0.9rem;">View full evidence file →</a>
+        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-muted);">
+          Loading latest video evidence...
         </div>
       </div>
 
@@ -184,58 +148,106 @@
   <!-- Global Navigation Script -->
   <script src="nav.js"></script>
   
-  <!-- Robust Hydration Script -->
+  <!-- Load Latest Evidence Script (Aligned with evidence.html media structures) -->
   <script>
-    function parseCustomDate(dateStr) {
-      if (!dateStr) return new Date(0);
-      const cleanDate = dateStr.replace(/(st|nd|rd|th)/gi, '');
-      const parsed = Date.parse(cleanDate);
-      return !isNaN(parsed) ? new Date(parsed) : new Date(0);
+    function getYouTubeEmbedUrl(url) {
+      if (!url) return null;
+      const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+      return match ? `https://www.youtube.com/embed/${match[1]}` : null;
     }
 
-    async function hydrateEvents() {
-      const filesToFetch = ['data.json', './data.json', '/data.json'];
-      let jsonData = null;
+    async function loadLatestInvestigations() {
+      const container = document.getElementById('latest-investigations-container');
+      if (!container) return;
+      
+      try {
+        const response = await fetch('evidence-data.json');
+        if (!response.ok) throw new Error('Failed to fetch evidence data');
+        const evidenceList = await response.json();
+        
+        // Grab the 3 most recent entries
+        const latest = evidenceList.slice(-3).reverse();
+        
+        if (latest.length === 0) {
+          container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">No recent evidence logs available.</p>';
+          return;
+        }
+        
+        container.innerHTML = latest.map(item => {
+          const statusClass = item.status === 'debunked' ? 'badge-debunked' : 'badge-paranormal';
+          const statusLabel = item.status === 'debunked' ? 'Debunked' : 'Unexplained';
+          
+          let mediaMarkup = '';
+          const videoSource = item.youtubeUrl || item.videoUrl || item.video || item.mediaUrl;
+          const ytEmbed = getYouTubeEmbedUrl(videoSource);
 
-      for (const file of filesToFetch) {
-        try {
-          const res = await fetch(file);
-          if (res.ok) {
-            jsonData = await res.json();
-            break;
+          if (ytEmbed) {
+            mediaMarkup = `
+              <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; margin-bottom: 1rem; background: #000;">
+                <iframe src="${ytEmbed}" title="${item.title || 'Evidence Video'}" style="position: absolute; top:0; left:0; width: 100%; height: 100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            `;
+          } else if (videoSource && videoSource.match(/\.(mp4|webm|ogg)$/i)) {
+            mediaMarkup = `
+              <div style="border-radius: 6px; overflow: hidden; margin-bottom: 1rem; background: #000;">
+                <video controls style="width: 100%; max-height: 220px; display: block;">
+                  <source src="${videoSource}">
+                  Your browser does not support html5 video.
+                </video>
+              </div>
+            `;
+          } else if (item.imageUrl || item.image) {
+            const imgSrc = item.imageUrl || item.image;
+            mediaMarkup = `
+              <div style="height: 180px; overflow: hidden; border-radius: 6px; margin-bottom: 1rem; background: #1a1a24;">
+                <img src="${imgSrc}" alt="${item.title || 'Evidence'}" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+            `;
           }
-        } catch(e) {}
+
+          return `
+            <div class="card" style="border: 1px solid var(--border, #334155); display: flex; flex-direction: column; justify-content: space-between; background: rgba(0,0,0,0.25); border-radius: 8px; padding: 1.25rem;">
+              <div>
+                ${mediaMarkup}
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <span class="badge ${statusClass}" style="font-size: 0.7rem;">${statusLabel}</span>
+                  <span style="font-size: 0.8rem; color: var(--text-muted, #9ca3af);">${item.date || ''}</span>
+                </div>
+                <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.25rem;">${item.title || 'Untitled Case File'}</h3>
+                <p style="color: var(--text-muted, #9ca3af); font-size: 0.85rem; margin-bottom: 0.75rem;">📍 ${item.location || 'UK Location'}</p>
+                <p style="color: var(--text-muted, #9ca3af); line-height: 1.5; font-size: 0.9rem; margin-bottom: 1rem;">${item.description || ''}</p>
+              </div>
+              <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.5rem;">
+                <a href="evidence.html" style="color: var(--accent, #a855f7); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-block;">View full evidence file →</a>
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+      } catch (err) {
+        console.error('Error loading latest evidence:', err);
+        container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">Unable to load recent field evidence right now.</p>';
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', loadLatestInvestigations);
+  </script>
+
+  <!-- Synchronized Homepage Events Widget Script with Date Fix -->
+  <script>
+    (function() {
+      const JSON_DATA_URL = 'data.json';
+
+      function parseWidgetDate(dateStr) {
+        if (!dateStr) return new Date(0);
+        // Clean ordinal suffixes (st, nd, rd, th) so JS can parse dates properly
+        const cleanDate = dateStr.replace(/(st|nd|rd|th)/gi, '');
+        const parsed = Date.parse(cleanDate);
+        return !isNaN(parsed) ? new Date(parsed) : new Date(0);
       }
 
-      const container = document.getElementById('homepageEventsGrid');
-      if (!container || !Array.isArray(jsonData)) return;
-
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      const validEvents = jsonData
-        .map(item => ({ ...item, parsedDate: parseCustomDate(item["Date"]) }))
-        .filter(item => item.parsedDate >= today)
-        .sort((a, b) => a.parsedDate - b.parsedDate)
-        .slice(0, 4);
-
-      if (validEvents.length === 0) return;
-
-      container.innerHTML = validEvents.map(item => `
-        <div class="card" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border, #334155); border-radius: 8px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;">
-          <div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
-              <h3 style="margin: 0; font-size: 1.1rem; font-weight: bold; color: #fff;">${item["Event Name"] || 'Investigation'}</h3>
-              <span style="font-size: 0.85rem; color: var(--accent, #a855f7); font-family: 'Eczar', serif; white-space: nowrap;">${item["Date"]}</span>
-            </div>
-            <div style="margin-bottom: 0.75rem;">
-              <span class="badge ${ (item["Provider"]\vert{}\vert{}'').toLowerCase().includes('ram') ? 'badge-ram' : ((item["Provider"]\vert{}\vert{}'').toLowerCase().includes('pabs') ? 'badge-pabs' : 'badge-hn') }">${item["Provider"] || 'Partner Event'}</span>
-            </div>
-            <div style="font-size: 0.85rem; color: #9ca3af; line-height: 1.4;">
-              <div><strong>Venue:</strong> ${item["Event Venue"] || 'TBA'}</div>
-              <div><strong>Location:</strong> ${item["Location"] || 'UK'}</div>
-            </div>
-          </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.25rem;">
-            <span style="font-weight: 600; color: #34d399; font-size: 0.95
-</script></body></html>
+      function handleWidgetInquiry(providerType, eventName, eventDate) {
+        if (providerType === 'ram') {
+          window.open('https://ancientraminn.co.uk/events/', '_blank');
+        } else if (providerType === 'hn') {
+          window.open('
