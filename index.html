@@ -116,9 +116,53 @@
         <a href="events.html" class="btn" style="padding: 0.5rem 1.25rem; font-size: 0.9rem; text-decoration: none; display: inline-block;">View Full Schedule →</a>
       </div>
 
-      <!-- Widget Cards Grid (2 Up / 2 Down Layout) -->
+      <!-- Instant Pre-Rendered Cards (Replaced dynamically if JSON loads) -->
       <div id="homepageEventsGrid" class="events-grid-2x2">
-        <div style="text-align: center; padding: 2rem; color: #9ca3af; grid-column: 1 / -1;">Loading live upcoming events...</div>
+        <div class="card" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border, #334155); border-radius: 8px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <h3 style="margin: 0; font-size: 1.1rem; font-weight: bold; color: #fff;">The Ancient Ram Inn – Overnight Ghost Hunts</h3>
+              <span style="font-size: 0.85rem; color: var(--accent, #a855f7); font-family: 'Eczar', serif; white-space: nowrap;">10th October 2026</span>
+            </div>
+            <div style="margin-bottom: 0.75rem;">
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <img src="images/library/Ram.jpg" alt="The Ancient Ram Inn" style="width: 24px; height: 24px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" onerror="this.onerror=null; this.src='images/library/Pabsmo.jpg';">
+                <span class="badge badge-ram">The Ancient Ram Inn</span>
+              </div>
+            </div>
+            <div style="font-size: 0.85rem; color: #9ca3af; line-height: 1.4;">
+              <div><strong>Venue:</strong> The Ancient Ram Inn</div>
+              <div><strong>Location:</strong> Gloucestershire</div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.25rem;">
+            <span style="font-weight: 600; color: #34d399; font-size: 0.95rem;">Check Site</span>
+            <button class="btn" style="padding: 0.35rem 0.85rem; font-size: 0.85rem;" onclick="handleWidgetInquiry('ram', 'The Ancient Ram Inn – Overnight Ghost Hunts', '10th October 2026')">Inquire</button>
+          </div>
+        </div>
+
+        <div class="card" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border, #334155); border-radius: 8px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <h3 style="margin: 0; font-size: 1.1rem; font-weight: bold; color: #fff;">The Horseshoe - In-spectre nights</h3>
+              <span style="font-size: 0.85rem; color: var(--accent, #a855f7); font-family: 'Eczar', serif; white-space: nowrap;">11th October 2026</span>
+            </div>
+            <div style="margin-bottom: 0.75rem;">
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <img src="images/library/Pabsmo.jpg" alt="Pabsmophobia" style="width: 24px; height: 24px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
+                <span class="badge badge-pabs">Pabsmophobia</span>
+              </div>
+            </div>
+            <div style="font-size: 0.85rem; color: #9ca3af; line-height: 1.4;">
+              <div><strong>Venue:</strong> The Horseshoe</div>
+              <div><strong>Location:</strong> Chipping Sodbury</div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.25rem;">
+            <span style="font-weight: 600; color: #34d399; font-size: 0.95rem;">Full details coming soon</span>
+            <button class="btn" style="padding: 0.35rem 0.85rem; font-size: 0.85rem;" onclick="handleWidgetInquiry('pabs', 'The Horseshoe - In-spectre nights', '11th October 2026')">Inquire</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -127,10 +171,34 @@
       <h2 class="section-title">Latest Field Evidence</h2>
       <p style="color: var(--text-muted); margin-bottom: 2rem;">Our most recent case findings, video logs, and sensor telemetry from active investigations.</p>
       
-      <!-- Dynamic Video & Evidence Grid -->
+      <!-- Instant Pre-Rendered Evidence Grid -->
       <div id="latest-investigations-container" class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
-        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-muted);">
-          Loading latest video evidence...
+        <div class="card" style="border: 1px solid var(--border, #334155); display: flex; flex-direction: column; justify-content: space-between; background: rgba(0,0,0,0.25); border-radius: 8px; padding: 1.25rem;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span class="badge badge-paranormal" style="font-size: 0.7rem;">Unexplained</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted, #9ca3af);">15 Aug 2026</span>
+            </div>
+            <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.25rem;">Not so much the cat ball lighting up but it is the rolling off the stool after, paranormal?</h3>
+            <p style="color: var(--text-muted, #9ca3af); font-size: 0.85rem; margin-bottom: 0.75rem;">📍 The Ancient Ram Inn</p>
+          </div>
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.5rem;">
+            <a href="evidence.html" style="color: var(--accent, #a855f7); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-block;">View full evidence file →</a>
+          </div>
+        </div>
+
+        <div class="card" style="border: 1px solid var(--border, #334155); display: flex; flex-direction: column; justify-content: space-between; background: rgba(0,0,0,0.25); border-radius: 8px; padding: 1.25rem;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span class="badge badge-paranormal" style="font-size: 0.7rem;">Unexplained</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted, #9ca3af);">15 Aug 2026</span>
+            </div>
+            <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.25rem;">What do you guys think of this?</h3>
+            <p style="color: var(--text-muted, #9ca3af); font-size: 0.85rem; margin-bottom: 0.75rem;">📍 The Horseshoe Chipping Sodbury</p>
+          </div>
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.5rem;">
+            <a href="evidence.html" style="color: var(--accent, #a855f7); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-block;">View full evidence file →</a>
+          </div>
         </div>
       </div>
 
@@ -147,8 +215,8 @@
 
   <!-- Global Navigation Script -->
   <script src="nav.js"></script>
-  
-  <!-- Combined Unified Homepage Loader -->
+
+  <!-- Dynamic Hydration Script -->
   <script>
     function getYouTubeEmbedUrl(url) {
       if (!url) return null;
@@ -177,26 +245,15 @@
     }
     window.handleWidgetInquiry = handleWidgetInquiry;
 
-    async function fetchJSON(filenames) {
-      for (const name of filenames) {
-        try {
-          const res = await fetch(name);
-          if (res.ok) return await res.json();
-        } catch(e) {}
-      }
-      return null;
-    }
-
     async function loadLatestInvestigations() {
       const container = document.getElementById('latest-investigations-container');
       if (!container) return;
       
       try {
-        const evidenceList = await fetchJSON(['evidence-data.json', './evidence-data.json', '/evidence-data.json']);
-        if (!evidenceList || !Array.isArray(evidenceList) || evidenceList.length === 0) {
-          container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1; text-align: center;">No recent evidence logs available right now.</p>';
-          return;
-        }
+        const response = await fetch('evidence-data.json');
+        if (!response.ok) return;
+        const evidenceList = await response.json();
+        if (!Array.isArray(evidenceList) || evidenceList.length === 0) return;
 
         const latest = evidenceList.slice(-3).reverse();
 
@@ -227,5 +284,135 @@
             const imgSrc = item.imageUrl || item.image;
             mediaMarkup = `
               <div style="height: 180px; overflow: hidden; border-radius: 6px; margin-bottom: 1rem; background: #1a1a24;">
-                <img src="${imgSrc}" alt="${item.title || '
-</script></body></html>
+                <img src="${imgSrc}" alt="${item.title || 'Evidence'}" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+            `;
+          }
+
+          return `
+            <div class="card" style="border: 1px solid var(--border, #334155); display: flex; flex-direction: column; justify-content: space-between; background: rgba(0,0,0,0.25); border-radius: 8px; padding: 1.25rem;">
+              <div>
+                ${mediaMarkup}
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <span class="badge ${statusClass}" style="font-size: 0.7rem;">${statusLabel}</span>
+                  <span style="font-size: 0.8rem; color: var(--text-muted, #9ca3af);">${item.date || ''}</span>
+                </div>
+                <h3 style="margin: 0 0 0.5rem 0; color: #fff; font-size: 1.25rem;">${item.title || 'Untitled Case File'}</h3>
+                <p style="color: var(--text-muted, #9ca3af); font-size: 0.85rem; margin-bottom: 0.75rem;">📍 ${item.location || 'UK Location'}</p>
+                <p style="color: var(--text-muted, #9ca3af); line-height: 1.5; font-size: 0.9rem; margin-bottom: 1rem;">${item.description || ''}</p>
+              </div>
+              <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.5rem;">
+                <a href="evidence.html" style="color: var(--accent, #a855f7); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-block;">View full evidence file →</a>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        console.error('Evidence hydration skipped:', err);
+      }
+    }
+
+    async function loadWidgetEvents() {
+      const gridContainer = document.getElementById('homepageEventsGrid');
+      if (!gridContainer) return;
+
+      try {
+        const response = await fetch('data.json');
+        if (!response.ok) return;
+        const jsonData = await response.json();
+        if (!Array.isArray(jsonData) || jsonData.length === 0) return;
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const rawEvents = jsonData.map(item => {
+          const providerName = item["Provider"] || 'Partner Event';
+          const pType = providerName.toLowerCase();
+          
+          let providerImage = 'images/library/Pabsmo.jpg'; 
+          if (pType.includes('haunting nights')) {
+            providerImage = 'images/library/hn.png';
+          } else if (pType.includes('ram') || pType.includes('ancient ram')) {
+            providerImage = 'images/library/Ram.jpg';
+          }
+
+          return {
+            dateStr: item["Date"] || 'TBA',
+            name: item["Event Name"] || 'Paranormal Investigation',
+            provider: providerName,
+            venue: item["Event Venue"] || 'Location Pending',
+            location: item["Location"] || 'UK Venue',
+            type: item["Event Type"] || 'Ghost Hunt',
+            time: item["Time"] || 'See Provider',
+            price: item["Price / Availability"] || 'See Provider',
+            providerType: pType,
+            image: providerImage,
+            parsedDate: parseWidgetDate(item["Date"])
+          };
+        });
+
+        const events = rawEvents
+          .filter(item => item.dateStr !== 'TBA' && item.parsedDate >= today)
+          .sort((a, b) => a.parsedDate - b.parsedDate)
+          .slice(0, 4);
+
+        if (events.length === 0) return;
+
+        gridContainer.innerHTML = '';
+        events.forEach(item => {
+          const pType = (item.providerType || '').toLowerCase().trim();
+          const pName = (item.provider || '').toLowerCase().trim();
+
+          let badgeClass = 'badge-hn';
+          let resolvedType = 'hn';
+
+          if (pType.includes('pabs') || pName.includes('pabs')) {
+            badgeClass = 'badge-pabs';
+            resolvedType = 'pabs';
+          } else if (pType.includes('ram') || pName.includes('ram') || pName.includes('ancient ram')) {
+            badgeClass = 'badge-ram';
+            resolvedType = 'ram';
+          }
+
+          let providerCellHTML = `
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <img src="${item.image}" alt="${item.provider}" style="width: 24px; height: 24px; object-fit: cover; border-radius: 4px; flex-shrink: 0;" onerror="this.onerror=null; this.src='images/library/Pabsmo.jpg';">
+              <span class="badge ${badgeClass}">${item.provider}</span>
+            </div>
+          `;
+
+          const card = document.createElement('div');
+          card.style.cssText = "background: rgba(0,0,0,0.25); border: 1px solid var(--border, #334155); border-radius: 8px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;";
+          
+          const sanitizedName = item.name.replace(/'/g, "\\'");
+
+          card.innerHTML = `
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <h3 style="margin: 0; font-size: 1.1rem; font-weight: bold; color: #fff;">${item.name}</h3>
+                <span style="font-size: 0.85rem; color: var(--accent, #a855f7); font-family: 'Eczar', serif; white-space: nowrap;">${item.dateStr}</span>
+              </div>
+              <div style="margin-bottom: 0.75rem;">${providerCellHTML}</div>
+              <div style="font-size: 0.85rem; color: #9ca3af; line-height: 1.4;">
+                <div><strong>Venue:</strong> ${item.venue}</div>
+                <div><strong>Location:</strong> ${item.location}</div>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem; margin-top: 0.25rem;">
+              <span style="font-weight: 600; color: #34d399; font-size: 0.95rem;">${item.price}</span>
+              <button class="btn" style="padding: 0.35rem 0.85rem; font-size: 0.85rem;" onclick="handleWidgetInquiry('${resolvedType}', '${sanitizedName}', '${item.dateStr}')">Inquire</button>
+            </div>
+          `;
+          gridContainer.appendChild(card);
+        });
+
+      } catch (err) {
+        console.error('Widget hydration skipped:', err);
+      }
+    }
+
+    loadLatestInvestigations();
+    loadWidgetEvents();
+  </script>
+
+</body></html>
