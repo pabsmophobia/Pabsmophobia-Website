@@ -1,11 +1,31 @@
 [
   {
     "Date": "16th October 2026",
+    "Event Name": "Wincham Hall Ghost Hunt Northwich Cheshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Wincham Hall Ghost Hunt Northwich Cheshire",
+    "Location": "Cheshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "16th October 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "17th October 2026",
+    "Event Name": "Monks Manor Farm Ghost Hunt Cwmbran Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Monks Manor Farm Ghost Hunt Cwmbran Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Sold Out"
   },
@@ -38,6 +58,76 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "24th October 2026",
+    "Event Name": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 03:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "24th October 2026",
+    "Event Name": "Ripon Workhouse Ghost Hunts North Yorkshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Ripon Workhouse Ghost Hunts North Yorkshire",
+    "Location": "Yorkshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Last Few Places Halloween At The Workhouse Last 6 Places"
+  },
+  {
+    "Date": "24th October 2026",
+    "Event Name": "The Old Prison Ghost Hunts Northleach Gloucestershire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Old Prison Ghost Hunts Northleach Gloucestershire",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "24th October 2026",
+    "Event Name": "Wisbech Castle and Vaults Ghost Hunt Wisbech Cambridgeshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Wisbech Castle and Vaults Ghost Hunt Wisbech Cambridgeshire",
+    "Location": "Cambridgeshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "24th October 2026",
+    "Event Name": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Location": "Rotherham",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "24th October 2026",
+    "Event Name": "Guys Cliffe House Ghost Hunts Warwick",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Guys Cliffe House Ghost Hunts Warwick",
+    "Location": "UK Wide",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "24th October 2026",
+    "Event Name": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
+    "Location": "Manchester",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Last Few Places Halloween At Murder Mansion Last 6 Places"
   },
   {
     "Date": "24th October 2026",
@@ -91,11 +181,81 @@
   },
   {
     "Date": "30th October 2026",
+    "Event Name": "Clifton Hall Ghost Hunt Birkenhead Merseyside",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Clifton Hall Ghost Hunt Birkenhead Merseyside",
+    "Location": "Birkenhead",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Last Few Places Halloween At The Temple Of Terror Last 6 Places"
+  },
+  {
+    "Date": "30th October 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
     "Location": "Gloucestershire",
     "Event Type": "Overnight Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "31st October 2026",
+    "Event Name": "The Thorne Workhouse Ghost Hunt Doncaster South Yorkshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Thorne Workhouse Ghost Hunt Doncaster South Yorkshire",
+    "Location": "Doncaster",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "31st October 2026",
+    "Event Name": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
+    "Location": "Manchester",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "31st October 2026",
+    "Event Name": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 02:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "31st October 2026",
+    "Event Name": "The Red Lion Hotel Ghost Hunt Colchester Essex",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Red Lion Hotel Ghost Hunt Colchester Essex",
+    "Location": "Essex",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "31st October 2026",
+    "Event Name": "Bron Y Garth Abandoned Hospital Sleepover Ghost Hunt Gwynedd Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Bron Y Garth Abandoned Hospital Sleepover Ghost Hunt Gwynedd Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "31st October 2026",
+    "Event Name": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Location": "Rotherham",
+    "Event Type": "Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Sold Out"
   },
@@ -151,6 +311,66 @@
   },
   {
     "Date": "13th November 2026",
+    "Event Name": "Hell Fire Caves Ghost Hunts West Wycombe",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Hell Fire Caves Ghost Hunts West Wycombe",
+    "Location": "West Wycombe",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "13th November 2026",
+    "Event Name": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Location": "Rotherham",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "13th November 2026",
+    "Event Name": "Mains Castle Ghost Hunts Dundee Scotland",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Mains Castle Ghost Hunts Dundee Scotland",
+    "Location": "Scotland",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 02:00",
+    "Price / Availability": "Last Few Places"
+  },
+  {
+    "Date": "13th November 2026",
+    "Event Name": "The Red Lion Hotel Ghost Hunt Colchester Essex",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Red Lion Hotel Ghost Hunt Colchester Essex",
+    "Location": "Essex",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Last Few Places"
+  },
+  {
+    "Date": "13th November 2026",
+    "Event Name": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 02:00",
+    "Price / Availability": "Last Few Places"
+  },
+  {
+    "Date": "13th November 2026",
+    "Event Name": "Woodchester Mansion Ghost Hunts Gloucestershire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Woodchester Mansion Ghost Hunts Gloucestershire",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "13th November 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -158,6 +378,16 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Sold Out"
+  },
+  {
+    "Date": "14th November 2026",
+    "Event Name": "Closeburn Castle Ghost Hunt Dumfries Scotland",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Closeburn Castle Ghost Hunt Dumfries Scotland",
+    "Location": "Scotland",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:30 - 02:30",
+    "Price / Availability": "Last Few Places The Castle With An Ancient Curse Last 4 Places"
   },
   {
     "Date": "14th November 2026",
@@ -191,6 +421,46 @@
   },
   {
     "Date": "21st November 2026",
+    "Event Name": "True Crime Museum Ghost Hunt Hastings East Sussex",
+    "Provider": "Haunting Nights",
+    "Event Venue": "True Crime Museum Ghost Hunt Hastings East Sussex",
+    "Location": "Sussex",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 01:00",
+    "Price / Availability": "Last Few Places Hastings hidden gem of paranormal activity Last 6 Places"
+  },
+  {
+    "Date": "21st November 2026",
+    "Event Name": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 03:00",
+    "Price / Availability": "Last Few Places Ghost Hunt Supper Inc Last 6 Places"
+  },
+  {
+    "Date": "21st November 2026",
+    "Event Name": "Bodmin Jail Ghost Hunts Bodmin Cornwall",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Bodmin Jail Ghost Hunts Bodmin Cornwall",
+    "Location": "Cornwall",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "21st November 2026",
+    "Event Name": "Colchester Town Hall Ghost Hunt Colchester",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Colchester Town Hall Ghost Hunt Colchester",
+    "Location": "Colchester",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Selling Fast"
+  },
+  {
+    "Date": "21st November 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -198,6 +468,16 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "27th November 2026",
+    "Event Name": "Galleries of Justice Ghost Hunts Nottingham",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Galleries of Justice Ghost Hunts Nottingham",
+    "Location": "Nottingham",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 04:00",
+    "Price / Availability": "Places Available"
   },
   {
     "Date": "27th November 2026",
@@ -211,6 +491,36 @@
   },
   {
     "Date": "28th November 2026",
+    "Event Name": "Fulford Manor Ghost Hunt Exeter Devon",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Fulford Manor Ghost Hunt Exeter Devon",
+    "Location": "Devon",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Last Few Places"
+  },
+  {
+    "Date": "28th November 2026",
+    "Event Name": "The Four Crosses Ghost Hunts Cannock Staffordshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Four Crosses Ghost Hunts Cannock Staffordshire",
+    "Location": "Staffordshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Last Few Places Optional Sleepover Inc Last 4 Places"
+  },
+  {
+    "Date": "28th November 2026",
+    "Event Name": "Warmley Clock Tower Ghost Hunts Bristol",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Warmley Clock Tower Ghost Hunts Bristol",
+    "Location": "Bristol",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "28th November 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -221,6 +531,16 @@
   },
   {
     "Date": "4th December 2026",
+    "Event Name": "Woodchester Mansion Ghost Hunts Gloucestershire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Woodchester Mansion Ghost Hunts Gloucestershire",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Last Few Places"
+  },
+  {
+    "Date": "4th December 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -228,6 +548,36 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "5th December 2026",
+    "Event Name": "Wisbech Castle and Vaults Ghost Hunt Wisbech Cambridgeshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Wisbech Castle and Vaults Ghost Hunt Wisbech Cambridgeshire",
+    "Location": "Cambridgeshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "5th December 2026",
+    "Event Name": "Bron Y Garth Abandoned Hospital Sleepover Ghost Hunt Gwynedd Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Bron Y Garth Abandoned Hospital Sleepover Ghost Hunt Gwynedd Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Last Few Places Sleepover optional and inc 6 Places"
+  },
+  {
+    "Date": "5th December 2026",
+    "Event Name": "The Thorne Workhouse Ghost Hunt Doncaster South Yorkshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Thorne Workhouse Ghost Hunt Doncaster South Yorkshire",
+    "Location": "Doncaster",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Last Few Places Hauntings Of The Thorne Last 6 Places"
   },
   {
     "Date": "5th December 2026",
@@ -251,6 +601,16 @@
   },
   {
     "Date": "11th December 2026",
+    "Event Name": "Monks Manor Farm Ghost Hunt Cwmbran Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Monks Manor Farm Ghost Hunt Cwmbran Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "11th December 2026",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -268,6 +628,26 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "13th December 2026",
+    "Event Name": "Skirrid Inn Mini Ghost Hunts, Spooky Sunday, Abergavenny, Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Skirrid Inn Mini Ghost Hunts, Spooky Sunday, Abergavenny, Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "19:30 - 23:30",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "18th December 2026",
+    "Event Name": "Derby Gaol and Vernon Prison Ghost Hunt Derby",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Derby Gaol and Vernon Prison Ghost Hunt Derby",
+    "Location": "Derby",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Places Available"
   },
   {
     "Date": "18th December 2026",
@@ -311,6 +691,16 @@
   },
   {
     "Date": "8th January 2027",
+    "Event Name": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:30 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "8th January 2027",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -318,6 +708,26 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "9th January 2027",
+    "Event Name": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Location": "Rotherham",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "9th January 2027",
+    "Event Name": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
+    "Location": "Manchester",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
   },
   {
     "Date": "9th January 2027",
@@ -331,6 +741,16 @@
   },
   {
     "Date": "15th January 2027",
+    "Event Name": "Hell Fire Caves Ghost Hunts West Wycombe",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Hell Fire Caves Ghost Hunts West Wycombe",
+    "Location": "West Wycombe",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Selling Fast"
+  },
+  {
+    "Date": "15th January 2027",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -338,6 +758,26 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "16th January 2027",
+    "Event Name": "Warmley Clock Tower Ghost Hunts Bristol",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Warmley Clock Tower Ghost Hunts Bristol",
+    "Location": "Bristol",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "16th January 2027",
+    "Event Name": "Colchester Town Hall Ghost Hunt Colchester",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Colchester Town Hall Ghost Hunt Colchester",
+    "Location": "Colchester",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
   },
   {
     "Date": "16th January 2027",
@@ -361,6 +801,26 @@
   },
   {
     "Date": "23rd January 2027",
+    "Event Name": "Wincham Hall Ghost Hunt Northwich Cheshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Wincham Hall Ghost Hunt Northwich Cheshire",
+    "Location": "Cheshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "23rd January 2027",
+    "Event Name": "The Four Crosses Ghost Hunts Cannock Staffordshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Four Crosses Ghost Hunts Cannock Staffordshire",
+    "Location": "Staffordshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "23rd January 2027",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -378,6 +838,26 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "30th January 2027",
+    "Event Name": "Ripon Workhouse Ghost Hunts North Yorkshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Ripon Workhouse Ghost Hunts North Yorkshire",
+    "Location": "Yorkshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "30th January 2027",
+    "Event Name": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 02:00",
+    "Price / Availability": "Places Available"
   },
   {
     "Date": "30th January 2027",
@@ -411,6 +891,26 @@
   },
   {
     "Date": "6th February 2027",
+    "Event Name": "Woodchester Mansion Ghost Hunts Gloucestershire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Woodchester Mansion Ghost Hunts Gloucestershire",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "6th February 2027",
+    "Event Name": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Location": "Rotherham",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "6th February 2027",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -428,6 +928,26 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "13th February 2027",
+    "Event Name": "Strelley Hall Ghost Hunt Nottingham",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Strelley Hall Ghost Hunt Nottingham",
+    "Location": "Nottingham",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "13th February 2027",
+    "Event Name": "Matthew Hopkins The Witch Finder General Ghost Hunt Essex",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Matthew Hopkins The Witch Finder General Ghost Hunt Essex",
+    "Location": "Essex",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 02:00",
+    "Price / Availability": "Places Available"
   },
   {
     "Date": "13th February 2027",
@@ -451,6 +971,26 @@
   },
   {
     "Date": "20th February 2027",
+    "Event Name": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
+    "Location": "Manchester",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "20th February 2027",
+    "Event Name": "Bron Y Garth Abandoned Hospital Sleepover Ghost Hunt Gwynedd Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Bron Y Garth Abandoned Hospital Sleepover Ghost Hunt Gwynedd Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "20th February 2027",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -461,6 +1001,16 @@
   },
   {
     "Date": "26th February 2027",
+    "Event Name": "Hell Fire Caves Ghost Hunts West Wycombe",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Hell Fire Caves Ghost Hunts West Wycombe",
+    "Location": "West Wycombe",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "26th February 2027",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -468,6 +1018,36 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "27th February 2027",
+    "Event Name": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Skirrid Inn Ghost Hunts, Abergavenny, Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "27th February 2027",
+    "Event Name": "Guys Cliffe House Ghost Hunts Warwick",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Guys Cliffe House Ghost Hunts Warwick",
+    "Location": "UK Wide",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "27th February 2027",
+    "Event Name": "Niddry Street Vaults Ghost Hunts Edinburgh Scotland",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Niddry Street Vaults Ghost Hunts Edinburgh Scotland",
+    "Location": "Scotland",
+    "Event Type": "Ghost Hunt",
+    "Time": "23:45 - 06:00",
+    "Price / Availability": "Selling Fast"
   },
   {
     "Date": "27th February 2027",
@@ -491,6 +1071,16 @@
   },
   {
     "Date": "5th March 2027",
+    "Event Name": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Provider": "Haunting Nights",
+    "Event Venue": "The Poltergeist House Haunted Museum Ghost Hunts Rotherham",
+    "Location": "Rotherham",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "5th March 2027",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -498,6 +1088,26 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "6th March 2027",
+    "Event Name": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Willsbridge Mill Ghost Hunt Bristol Gloucestershire",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 02:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "6th March 2027",
+    "Event Name": "Closeburn Castle Ghost Hunt Dumfries Scotland",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Closeburn Castle Ghost Hunt Dumfries Scotland",
+    "Location": "Scotland",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:30 - 02:30",
+    "Price / Availability": "Places Available"
   },
   {
     "Date": "6th March 2027",
@@ -521,6 +1131,16 @@
   },
   {
     "Date": "13th March 2027",
+    "Event Name": "Wisbech Castle and Vaults Ghost Hunt Wisbech Cambridgeshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Wisbech Castle and Vaults Ghost Hunt Wisbech Cambridgeshire",
+    "Location": "Cambridgeshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "13th March 2027",
     "Event Name": "The Ancient Ram Inn – Overnight Ghost Hunts",
     "Provider": "The Ancient Ram Inn",
     "Event Venue": "The Ancient Ram Inn",
@@ -538,6 +1158,16 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "20th March 2027",
+    "Event Name": "Barnton Bunker Ghost Hunt Edinburgh Scotland",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Barnton Bunker Ghost Hunt Edinburgh Scotland",
+    "Location": "Scotland",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
   },
   {
     "Date": "20th March 2027",
@@ -578,5 +1208,95 @@
     "Event Type": "Overnight Ghost Hunt",
     "Time": "21:00 - 03:00",
     "Price / Availability": "Check Site"
+  },
+  {
+    "Date": "28th March 2027",
+    "Event Name": "Skirrid Inn Mini Ghost Hunts, Spooky Sunday, Abergavenny, Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Skirrid Inn Mini Ghost Hunts, Spooky Sunday, Abergavenny, Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "19:00 - 11:55",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "2nd April 2027",
+    "Event Name": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Antwerp Mansion Ghost Hunts Rusholme Manchester",
+    "Location": "Manchester",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "9th April 2027",
+    "Event Name": "Woodchester Mansion Ghost Hunts Gloucestershire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Woodchester Mansion Ghost Hunts Gloucestershire",
+    "Location": "Gloucestershire",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "10th April 2027",
+    "Event Name": "Beer Caves Ghost Hunt Seaton Devon",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Beer Caves Ghost Hunt Seaton Devon",
+    "Location": "Devon",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "17th April 2027",
+    "Event Name": "Strelley Hall Ghost Hunt Nottingham",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Strelley Hall Ghost Hunt Nottingham",
+    "Location": "Nottingham",
+    "Event Type": "Ghost Hunt",
+    "Time": "21:00 - 03:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "17th April 2027",
+    "Event Name": "Niddry Street Vaults Ghost Hunts Edinburgh Scotland",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Niddry Street Vaults Ghost Hunts Edinburgh Scotland",
+    "Location": "Scotland",
+    "Event Type": "Ghost Hunt",
+    "Time": "23:45 - 06:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "24th April 2027",
+    "Event Name": "Wisbech Castle and Vaults Ghost Hunt Wisbech Cambridgeshire",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Wisbech Castle and Vaults Ghost Hunt Wisbech Cambridgeshire",
+    "Location": "Cambridgeshire",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "2nd May 2027",
+    "Event Name": "Skirrid Inn Mini Ghost Hunts, Spooky Sunday, Abergavenny, Wales",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Skirrid Inn Mini Ghost Hunts, Spooky Sunday, Abergavenny, Wales",
+    "Location": "Wales",
+    "Event Type": "Ghost Hunt",
+    "Time": "19:00 - 11:55",
+    "Price / Availability": "Places Available"
+  },
+  {
+    "Date": "7th May 2027",
+    "Event Name": "Clifton Hall Ghost Hunt Birkenhead Merseyside",
+    "Provider": "Haunting Nights",
+    "Event Venue": "Clifton Hall Ghost Hunt Birkenhead Merseyside",
+    "Location": "Birkenhead",
+    "Event Type": "Ghost Hunt",
+    "Time": "20:00 - 02:00",
+    "Price / Availability": "Places Available"
   }
 ]
