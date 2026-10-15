@@ -8,14 +8,15 @@ from bs4 import BeautifulSoup
 from PIL import Image, ImageDraw, ImageFont
 
 # Brand Color Palette
-BG_COLOR = "#0f021a"
-CARD_BG = "#1d0533"
+BG_COLOR = "#0b0114"
+CARD_BG = "#18032c"
 CARD_BORDER = "#a855f7"
 TEXT_TITLE = "#ffffff"
 TEXT_BODY = "#f3e8ff"
 ACCENT_GREEN = "#39ff14"
+ACCENT_RED = "#ff3333"
 
-def get_latest_newsletter_file(target_dir):
+def get_latest_blog_file(target_dir):
     try:
         git_cmd = ['git', 'log', '-n', '1', '--name-only', '--pretty=format:', '--', f'{target_dir}/*.md']
         output = subprocess.check_output(git_cmd).decode('utf-8').strip()
@@ -35,12 +36,7 @@ def parse_markdown(file_path):
         text = f.read()
     
     title_match = re.search(r'title:\s*["\']?(.*?)["\']?\s*$', text, re.MULTILINE)
-    if title_match:
-        title = title_match.group(1).strip()
-    else:
-        clean_text = re.sub(r'^---[\s\S]*?---\s*', '', text).strip()
-        lines = [l.strip() for l in clean_text.split('\n') if l.strip()]
-        title = lines[0].replace('#', '').strip() if lines else "New Pabsmophobia Update"
+    title = title_match.group(1).strip() if title_match else "Pabsmophobia Update"
     
     clean_text = re.sub(r'^---[\s\S]*?---\s*', '', text).strip()
     html = markdown.markdown(clean_text, extensions=['tables'])
@@ -48,132 +44,116 @@ def parse_markdown(file_path):
     
     content_items = []
     
-    # Process tables cleanly so columns read as structured labels
+    # Process tables cleanly if present (e.g. equipment or comparative matrices)
     tables = soup.find_all('table')
     for table in tables:
         rows = table.find_all('tr')
         for row in rows:
             cols = row.find_all(['th', 'td'])
             cols_text = [c.text.strip() for c in cols if c.text.strip()]
-            # Skip pure alignment or empty rows
             if cols_text and not any(':---' in c for c in cols_text):
-                content_items.append(" • ".join(cols_text))
+                content_items.append(" | ".join(cols_text))
 
-    # Pull standard paragraphs and list items, stripping out HTML table markup noise
-    raw_nodes = soup.find_all(['li', 'p'])
+    # Pull standard paragraphs, lists, and headings for universal compatibility
+    raw_nodes = soup.find_all(['h3', 'h4', 'li', 'p'])
     for node in raw_nodes:
         txt = node.text.strip()
-        if not txt or len(txt) < 10 or ':---' in txt:
+        if not txt or len(txt) < 10 or ':---' in txt or txt.startswith('>'):
             continue
         txt = re.sub(r'\s+', ' ', txt)
+        # Keep item length readable for mobile cards
+        if len(txt) > 130:
+            txt = txt[:127] + "..."
         if txt not in content_items:
             content_items.append(txt)
         
     if not content_items:
-        content_items = ["Read the latest field log live on our website at pabsmophobia.com."]
+        content_items = ["Explore full investigation logs and insights live at pabsmophobia.com."]
         
     return title, content_items
 
-def create_slide(header_text, body_items, output_path, is_cover=False):
+def create_hook_slide(title_text, output_path):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    img = Image.new('RGB', (1080, 1920), color=BG_COLOR)
+    draw = ImageDraw.Draw(img)
     
+    font_path_bold = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+    font_title = ImageFont.truetype(font_path_bold, 58) if os.path.exists(font_path_bold) else ImageFont.load_default()
+    font_brand = ImageFont.truetype(font_path_bold, 30) if os.path.exists(font_path_bold) else ImageFont.load_default()
+
+    # Outer Container Card
+    draw.rectangle([40, 40, 1040, 1880], fill=CARD_BG, outline=CARD_BORDER, width=6)
+    
+    # Top Tag
+    draw.rounded_rectangle([90, 120, 500, 190], radius=8, fill="#2e0854", outline=ACCENT_GREEN, width=3)
+    draw.text((120, 137), "PABSMOPHOBIA INSIGHTS", fill=ACCENT_GREEN, font=font_brand)
+
+    # Giant Hook Headline
+    y_offset = 380
+    wrapped_title = textwrap.wrap(title_text.upper(), width=16)
+    for line in wrapped_title:
+        draw.text((90, y_offset), line, fill=TEXT_TITLE, font=font_title)
+        y_offset += 75
+
+    y_offset += 30
+    draw.line([90, y_offset, 990, y_offset], fill=ACCENT_GREEN, width=4)
+    y_offset += 50
+
+    draw.text((90, y_offset), ">> SWIPE FOR KEY TAKEAWAYS", fill=ACCENT_GREEN, font=font_brand)
+    draw.text((90, 1780), "PABSMOPHOBIA.COM", fill=TEXT_BODY, font=font_brand)
+    
+    img.save(output_path)
+
+def create_content_slide(header_text, body_items, output_path, slide_num):
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     img = Image.new('RGB', (1080, 1920), color=BG_COLOR)
     draw = ImageDraw.Draw(img)
     
     font_path_bold = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
     font_path_reg = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
     
-    try:
-        font_header = ImageFont.truetype(font_path_bold, 36 if is_cover else 32)
-        font_body = ImageFont.truetype(font_path_reg, 24)
-        font_brand = ImageFont.truetype(font_path_bold, 26)
-    except Exception:
-        font_header = ImageFont.load_default()
-        font_body = ImageFont.load_default()
-        font_brand = ImageFont.load_default()
+    font_header = ImageFont.truetype(font_path_bold, 40) if os.path.exists(font_path_bold) else ImageFont.load_default()
+    font_body = ImageFont.truetype(font_path_reg, 26) if os.path.exists(font_path_reg) else ImageFont.load_default()
+    font_brand = ImageFont.truetype(font_path_bold, 30) if os.path.exists(font_path_bold) else ImageFont.load_default()
 
-    # Container Card Bounds
-    draw.rectangle([50, 60, 1030, 1860], fill=CARD_BG, outline=CARD_BORDER, width=4)
+    draw.rectangle([40, 40, 1040, 1880], fill=CARD_BG, outline=CARD_BORDER, width=6)
+    draw.rectangle([90, 100, 990, 106], fill=ACCENT_GREEN)
 
-    # Top Accent Line
-    draw.rectangle([90, 110, 990, 116], fill=ACCENT_GREEN)
-    
-    # Prominent Logo Watermark Loader (110x110)
-    workspace_root = os.getcwd()
-    logo_paths = [
-        os.path.join(workspace_root, "images/library/Pabsmo.jpg"),
-        os.path.join(workspace_root, "Pabsmophobia-Website/images/library/Pabsmo.jpg"),
-        "images/library/Pabsmo.jpg",
-        "Pabsmophobia-Website/images/library/Pabsmo.jpg"
-    ]
-    
-    logo_pasted = False
-    for l_path in logo_paths:
-        if os.path.exists(l_path):
-            try:
-                logo = Image.open(l_path).convert("RGBA")
-                logo = logo.resize((110, 110), Image.Resampling.LANCZOS)
-                img.paste(logo, (880, 125))
-                logo_pasted = True
-                break
-            except Exception:
-                pass
-                
-    if not logo_pasted:
-        draw.rounded_rectangle([850, 125, 990, 215], radius=6, fill="#0f021a", outline=ACCENT_GREEN, width=2)
-        font_fallback = ImageFont.truetype(font_path_bold, 18) if os.path.exists(font_path_bold) else font_brand
-        draw.text((875, 160), "PABSMO", fill=ACCENT_GREEN, font=font_fallback)
+    draw.text((90, 140), header_text.upper(), fill=ACCENT_GREEN, font=font_header)
+    draw.line([90, 210, 990, 210], fill="#4c1d95", width=3)
 
-    # Header Text Block (Width restricted so it never clips the larger logo)
-    y_offset = 140
-    header_lines = textwrap.wrap(header_text, width=22)
-    for line in header_lines:
-        draw.text((90, y_offset), line, fill=TEXT_TITLE if is_cover else ACCENT_GREEN, font=font_header)
-        y_offset += 40
-
-    y_offset += 15
-    draw.line([90, y_offset, 990, y_offset], fill="#4c1d95", width=2)
-    y_offset += 20
-
-    # Body Items / Structured Data Blocks
-    for item in body_items[:4]:
-        wrapped_item = textwrap.wrap(item, width=46)
+    y_offset = 260
+    # Limit to 3 items per slide for optimal readability on mobile screens
+    for item in body_items[:3]:
+        wrapped_item = textwrap.wrap(item, width=40)
         if wrapped_item:
-            draw.ellipse([90, y_offset + 4, 100, y_offset + 14], fill=ACCENT_GREEN)
+            draw.ellipse([90, y_offset + 6, 104, y_offset + 20], fill=ACCENT_GREEN)
             for line in wrapped_item:
-                draw.text((120, y_offset), line, fill=TEXT_BODY, font=font_body)
-                y_offset += 30
-            y_offset += 12
+                draw.text((130, y_offset), line, fill=TEXT_BODY, font=font_body)
+                y_offset += 36
+            y_offset += 24
 
-    # Footer Branding & Domain
-    draw.line([90, 1760, 990, 1760], fill=CARD_BORDER, width=2)
-    draw.text((90, 1790), "PABSMOPHOBIA", fill=ACCENT_GREEN, font=font_brand)
-    draw.text((580, 1790), "pabsmophobia.com", fill=TEXT_TITLE, font=font_brand)
+    draw.text((90, 1720), f"SLIDE {slide_num} / 3", fill=ACCENT_RED, font=font_brand)
+    draw.text((580, 1780), "pabsmophobia.com", fill=TEXT_TITLE, font=font_brand)
     
     img.save(output_path)
 
 if __name__ == "__main__":
-    target_dir = "newsletter"
-    latest_file = get_latest_newsletter_file(target_dir)
+    target_dir = "_posts"  # Adjust directory path to your markdown files (e.g., "newsletter" or "_posts")
+    latest_file = get_latest_blog_file(target_dir)
     
     if not latest_file:
-        title = "Pabsmophobia Field Log"
-        content = ["New investigation telemetry and updates live now at pabsmophobia.com."]
+        title = "Pabsmophobia Investigation Log"
+        content = ["Read full investigative reports and insights live at pabsmophobia.com."]
     else:
         title, content = parse_markdown(latest_file)
 
-    total_items = len(content)
-    if total_items <= 1:
-        slide_1 = content
-        slide_2 = ["Read the full breakdown and field logs at pabsmophobia.com."]
-    else:
-        mid = (total_items + 1) // 2
-        slide_1 = content[:mid]
-        slide_2 = content[mid:]
-        if not slide_2:
-            slide_2 = ["Check out full investigation findings on our site."]
+    mid = (len(content) + 1) // 2 if len(content) > 1 else 1
+    slide_1_items = content[:mid]
+    slide_2_items = content[mid:] if len(content) > 1 else ["Explore the full article and field findings on our site."]
 
-    create_slide(title.upper(), slide_1, "images/tiktok/slide_1.png", is_cover=True)
-    create_slide("KEY FINDINGS", slide_2, "images/tiktok/slide_2.png", is_cover=False)
+    create_hook_slide(title, "images/tiktok/slide_1.png")
+    create_content_slide("FIELD INSIGHTS", slide_1_items, "images/tiktok/slide_2.png", 2)
+    create_content_slide("KEY TAKEAWAYS", slide_2_items, "images/tiktok/slide_3.png", 3)
     
-    print("TikTok slides generated with clean table parsing and prominent logo!")
+    print("TikTok slides generated successfully with universal Option 2 headings!")
